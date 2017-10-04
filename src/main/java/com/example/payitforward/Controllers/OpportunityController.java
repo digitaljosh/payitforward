@@ -2,8 +2,6 @@ package com.example.payitforward.Controllers;
 
 import com.example.payitforward.Models.Data.OpportunityDao;
 import com.example.payitforward.Models.Data.UserDao;
-import com.example.payitforward.Models.Forms.EditUserForm;
-import com.example.payitforward.Models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,7 +12,7 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("profile")
-public class ProfileController {
+public class OpportunityController {
 
     @Autowired
     private UserDao userDao;
@@ -26,17 +24,17 @@ public class ProfileController {
     @RequestMapping(value = "")
     public String index(Model model) {
 
-        model.addAttribute("profiles", userDao.findAll());
-        model.addAttribute("title", "My Profile");
+        model.addAttribute("opportunities", opportunityDao.findAll());
+        model.addAttribute("title", "Opportunities");
 
         return "profile/index";
     }
-}
-    /*@RequestMapping(value = "edit", method = RequestMethod.GET)
-    public String displayEditForm(Model model, @PathVariable int userId) {
 
-        User user = userDao.findOne(userId);
-        EditUserForm form = new EditUserForm(userDao.findAll(), user);
+    @RequestMapping(value = "add", method = RequestMethod.GET)
+    public String displayAddForm(Model model, @PathVariable int userId) {
+
+        User user = opportunityDao.findOne(userId);
+        AddOpportunityForm form = new AddOpportunityForm(userDao.findAll(), user);
 
         model.addAttribute("form", form);
         model.addAttribute("title", "Edit Profile");
@@ -47,7 +45,7 @@ public class ProfileController {
 
     @RequestMapping(value = "edit", method = RequestMethod.POST)
     public String processEditForm(@ModelAttribute @Valid User newUser,
-                                           Errors errors, @RequestParam int userId, Model model) {
+                                  Errors errors, @RequestParam int userId, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Edit Profile");
@@ -61,4 +59,3 @@ public class ProfileController {
         return "redirect:";
     }
 }
-*/

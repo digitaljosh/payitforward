@@ -4,13 +4,13 @@
 
 <body class="container">
 
-    <title th:text="${title}">Title</title>
+    <h1 th:text="${title}">Title</h1>
     <nav th:replace="fragments :: navigation"></nav>
 
-    <ul>
-        <li th:text="${user.name}"></li>
-        <li th:text="${user.bio}"></li>
-    </ul>
+    <li>
+        <ul th:text="${profile.name}"></ul>
+        <p th:text="${profile.bio}"></p>
+    </li>
 
 </body>
 </html>

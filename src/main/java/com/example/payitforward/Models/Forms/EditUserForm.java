@@ -1,8 +1,8 @@
-package com.example.payitforward.Models;
+package com.example.payitforward.Models.Forms;
 
 import javax.validation.constraints.NotNull;
 
-public class editUserForm {
+public class EditUserForm {
 
     @NotNull
     private int userId;
@@ -13,9 +13,9 @@ public class editUserForm {
     @NotNull
     private String bio;
 
-    public editUserForm() { }
+    public EditUserForm() { }
 
-    public editUserForm(String name, String bio) {
+    public EditUserForm(String name, String bio) {
         this.name = name;
         this.bio = bio;
     }

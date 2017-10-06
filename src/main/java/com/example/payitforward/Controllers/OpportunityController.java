@@ -30,6 +30,8 @@ public class OpportunityController {
         return "profile/index";
     }
 
+
+    //Things below this comment reportedly not functional
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddForm(Model model, @PathVariable int userId) {
 

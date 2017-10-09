@@ -7,8 +7,8 @@
     <h1 th:text="${title}">Title</h1>
     <nav th:replace="fragments :: navigation"></nav>
 
-    <li>
-        <ul th:text="${profile.name}"></ul>
+    <li th:each="profile : ${profiles}">
+        <h3 th:text="${profile.userName}"></h3>
         <p th:text="${profile.bio}"></p>
     </li>
 

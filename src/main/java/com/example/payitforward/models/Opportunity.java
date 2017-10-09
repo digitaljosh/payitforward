@@ -1,10 +1,8 @@
-package com.example.payitforward.Models;
+package com.example.payitforward.models;
+
+import javax.persistence.Entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 public class Opportunity {
@@ -13,16 +11,20 @@ public class Opportunity {
     @GeneratedValue
     private int id;
 
-    @NotNull
-    @Size(min=3, max=15)
     private String name;
 
-    @NotNull
-    @Size(min=0, max=140)
     private String description;
 
     @ManyToOne
     private User user;
+
+    private String location;
+
+    private Boolean claimed = false;
+
+    private Boolean completed = false;
+
+    private Boolean usersOnly = false;
 
     public Opportunity(String name, String description) {
         this.name = name;
@@ -46,4 +48,20 @@ public class Opportunity {
     public User getUser() { return user; }
 
     public void setUser(User user) { this.user = user; }
+
+    public String getLocation() { return location; }
+
+    public void setLocation(String location) { this.location = location; }
+
+    public Boolean getClaimed() { return claimed; }
+
+    public void setClaimed(Boolean claimed) { this.claimed = claimed; }
+
+    public Boolean getCompleted() { return completed; }
+
+    public void setCompleted(Boolean completed) { this.completed = completed; }
+
+    public Boolean getUsersOnly() { return usersOnly; }
+
+    public void setUsersOnly(Boolean usersOnly) { this.usersOnly = usersOnly; }
 }

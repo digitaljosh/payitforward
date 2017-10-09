@@ -24,6 +24,11 @@ public class Opportunity {
     @ManyToOne
     private User user;
 
+    @NotNull
+    @Size(min=3, max=15)
+    private String location;
+
+
     public Opportunity(String name, String description) {
         this.name = name;
         this.description = description;

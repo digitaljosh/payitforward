@@ -7,10 +7,10 @@
     <h1 th:text="${title}">Title</h1>
     <nav th:replace="fragments :: navigation"></nav>
 
-    <li th:each="profile : ${profiles}">
-        <h3 th:text="${profile.userName}"></h3>
-        <p th:text="${profile.bio}"></p>
-    </li>
+    <div th:each="profile : ${profiles}" class="panel panel-default">
+        <div th:text="${profile.userName}" class="panel-heading">Panel Heading</div>
+        <div th:text="${profile.bio}" class="panel-body">Panel content</div>
+    </div>
 
 </body>
 </html>

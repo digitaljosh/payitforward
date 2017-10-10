@@ -39,11 +39,11 @@ public class OpportunityController {
     public String displayAddForm(Model model, @PathVariable int userId) {
 
         //User user = opportunityDao.findOne(userId);
-        AddOpportunityForm form = new AddOpportunityForm(userDao.findAll(), user);
+       // AddOpportunityForm form = new AddOpportunityForm(userDao.findAll(), user);
 
         model.addAttribute("title", "Add Opportunity");
         model.addAttribute(new Opportunity());
-        model.addAttribute("opportunities",form);
+        //model.addAttribute("opportunities",form);
 
 
         return "profile/edit";
@@ -51,46 +51,62 @@ public class OpportunityController {
 
 //
     @RequestMapping(value = "edit", method = RequestMethod.POST)
-    public String processEditForm(@ModelAttribute @Valid User newUser,
+    public String processAddForm(@ModelAttribute @Valid Opportunity opportunity,
                                   Errors errors, @RequestParam int userId, Model model) {
 
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Edit Profile");
+            model.addAttribute("title", "Add Opportunity");
           //  model.addAttribute("user", userDao.findAll());
-            return "profile/edit";
+            return "profile/add";
         }
 
-        User user = userDao.findOne(userId);
-        newProfile.setUser(user);
-        userDao.save(newProfile);
+
+        opportunityDao.save(opportunity);
         return "redirect:";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveOpportunityForm(Model model) {
         model.addAttribute("opportunities", opportunityDao.findAll());
-        model.addAttribute("title", "Opportunity");
+        model.addAttribute("title", "Remove Opportunity");
         return "profile/remove";
+    }
+
+    @RequestMapping(value = "remove", method = RequestMethod.POST)
+    public String processRemoveOpportunityForm(@RequestParam int[] OpportunityIds) {
+
+        // When removing a cheese from list,
+        // find all menus that the cheese is in and
+        // remove the cheese in each
+        // Them, remove the cheese from the list
+
+
+        for (int  opportunityId :  OpportunityIds) {
+            opportunityDao.delete(opportunityId);
+        }
+
+        return "redirect:/opportunity";
     }
 
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.GET)
     public String displayEditForm(Model model, @PathVariable int opportunityId) {
 
-        Opportunity opportunityToEdit = OpportunityDao.findOne(opportunityId);
+        Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
         model.addAttribute("opportunity", opportunityToEdit);
-        return "cheese/edit";
+        return "opportunity/edit";
 
     }
 
     @RequestMapping(value = "edit", method=RequestMethod.POST)
-    public String processEditOpportunityForm(@RequestParam String name, @RequestParam String description,
+    public String processEditOpportunityForm(@RequestParam String name, @RequestParam String description, @RequestParam String location,
                                         @RequestParam int userId) {
-        Opportunity opportunityToEdit = opportunityDao.findOne(userid);
+        Opportunity opportunityToEdit = opportunityDao.findOne(userId);
 
 
         opportunityToEdit.setName(name);
         opportunityToEdit.setDescription(description);
+        opportunityToEdit.setLocation(location);
 
         opportunityDao.save(opportunityToEdit);
 

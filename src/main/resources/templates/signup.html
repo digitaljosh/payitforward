@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form method='POST'>
+
+    <div class="form-group">
+        <label th:for="name">Username</label>
+            <input class="form-control" name="username" />
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>Password
+            <input name="password" type="password" value='{{password}}' />
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>Email
+            <input name="email" type="text" value='{{email}}' />
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>Password
+            <input name="password" type="password" value='{{password}}' />
+        </label>
+    </div>
+
+    <div class="form-group">
+        <label>Verify Password
+            <input type="password" name="verify_password" value='{{verify_password}}' />
+        </label>
+    </div>
+
+
+    <input type="submit" value="Submit">
+
+</form>
+
+
+</body>
+</html>

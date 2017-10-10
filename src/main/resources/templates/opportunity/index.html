@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title></title>
+</head>
+<body>
+
+<p th:unless="${opportunities} and ${opportunities.size()}">no opportunities :(</p>
+<li>
+    <tr th:each="opportunity : ${opportunities}">
+        <td th:text="${opportunity.name}"></td>
+        <td th:text="${opportunity.description}"></td>
+        <td th:text="${opportunity.location}"></td>
+        <td th:text="${opportunity.user}"></td>
+    </tr>
+
+
+</li>
+</body>
+</html>

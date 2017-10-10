@@ -14,7 +14,7 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@RequestMapping("profile")
+@RequestMapping("opportunity")
 public class OpportunityController {
 
     @Autowired
@@ -30,7 +30,7 @@ public class OpportunityController {
         model.addAttribute("opportunities", opportunityDao.findAll());
         model.addAttribute("title", "Opportunities");
 
-        return "profile/index";
+        return "opportunity/index";
     }
 
 
@@ -46,18 +46,18 @@ public class OpportunityController {
         //model.addAttribute("opportunities",form);
 
 
-        return "profile/edit";
+        return "opportunity/edit";
     }
 
 //
-    @RequestMapping(value = "edit", method = RequestMethod.POST)
+    @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddForm(@ModelAttribute @Valid Opportunity opportunity,
                                   Errors errors, @RequestParam int userId, Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Opportunity");
           //  model.addAttribute("user", userDao.findAll());
-            return "profile/add";
+            return "opportunity/add";
         }
 
 
@@ -69,7 +69,7 @@ public class OpportunityController {
     public String displayRemoveOpportunityForm(Model model) {
         model.addAttribute("opportunities", opportunityDao.findAll());
         model.addAttribute("title", "Remove Opportunity");
-        return "profile/remove";
+        return "opportunity/remove";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)

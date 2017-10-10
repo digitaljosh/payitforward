@@ -36,13 +36,7 @@ public class Opportunity {
 
     public Opportunity() { }
 
-    public String getLocation() {
-        return location;
-    }
 
-    public void setLocation(String location) {
-        this.location = location;
-    }
 
     public int getId() { return id; }
 
@@ -59,4 +53,8 @@ public class Opportunity {
     public User getUser() { return user; }
 
     public void setUser(User user) { this.user = user; }
+
+    public String getLocation() { return location; }
+
+    public void setLocation(String location) { this.location = location; }
 }

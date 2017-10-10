@@ -24,3 +24,6 @@ User Stories:
 *View profile: As an existing user, I want to be able to view my profile page.
 
 *Edit profile: As an existing user, I want to be able to edit my profile page.
+
+![payitforward-wireframe](https://user-images.githubusercontent.com/25624304/31366647-0823ea7c-ad27-11e7-8896-4022a72bb451.jpg)
+

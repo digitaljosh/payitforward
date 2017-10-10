@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+<body class="container">
+
+<h1 th:text="${title}">Title</h1>
+<nav th:replace="fragments :: navigation"></nav>
+
+<!--  IMAGE NOT WORKING (check thymeleaf)
+<img src="static/image/payitforward.jpg">
+-->
+
+<div th:each="profile : ${profiles}" class="panel panel-default">
+    <div th:text="${profile.userName}" class="panel-heading">Panel Heading</div>
+    <div th:text="${profile.bio}" class="panel-body">Panel content</div>
+</div>
+
+</body>
+</html>

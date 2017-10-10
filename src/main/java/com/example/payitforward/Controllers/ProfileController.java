@@ -26,4 +26,12 @@ public class ProfileController {
 
         return "profile/index";
     }
+
+    @RequestMapping(value = "create")
+    public String create(Model model) {
+
+        model.addAttribute("title", "New Profile");
+
+        return "profile/create";
+    }
 }

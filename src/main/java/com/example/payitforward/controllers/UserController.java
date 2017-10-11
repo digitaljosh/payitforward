@@ -1,40 +1,66 @@
 package com.example.payitforward.controllers;
 
+import com.example.payitforward.models.User;
+import com.example.payitforward.models.data.UserDao;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
+import javax.validation.Valid;
 
 @Controller
 public class UserController {
 
+    @Autowired
+    UserDao userDao;
+
+
     @RequestMapping(value = "signup", method = RequestMethod.GET)
     public String displaySignupForm(Model model){
 
-        return "/signup";
+        model.addAttribute(new User());
+        model.addAttribute("title", "Sign Up");
+
+        return "signup";
 
     }
 
     @RequestMapping(value = "signup", method = RequestMethod.POST)
-    public String processSignupForm(Model model){
+    public String processSignupForm(Model model, @ModelAttribute @Valid User user, Errors errors){
 
+        if (errors.hasErrors()){
+            model.addAttribute("title", "Sign Up");
+            return "signup";
+        }
 
+        userDao.save(user);
+        return "redirect:/";
     }
-
 
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String displayLoginForm(Model model){
 
-        return "/login";
+        model.addAttribute("title", "Log In");
+
+        return "login";
 
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String processLoginForm(Model model){
+    public String processLoginForm(Model model, @ModelAttribute @Valid User user, Errors errors){
+
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Log In");
+            return "login";
+        }
+
+        return "redirect:/";
 
     }
-
-
 
 }

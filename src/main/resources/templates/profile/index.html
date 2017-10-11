@@ -4,8 +4,8 @@
 
 <body class="container">
 
-    <h1 th:text="${title}">Title</h1>
     <nav th:replace="fragments :: navigation"></nav>
+    <h1 th:text="${title}">Title</h1>
 
     <div th:each="profile : ${profiles}" class="panel panel-default">
         <div th:text="${profile.userName}" class="panel-heading">Panel Heading</div>

@@ -75,4 +75,12 @@ public class ProfileController {
         return "redirect:/profile/view" + user.getId();
     }
 
+
+    @RequestMapping(value = "create")
+    public String create(Model model) {
+
+        model.addAttribute("title", "New Profile");
+
+        return "profile/create";
+    }
 }

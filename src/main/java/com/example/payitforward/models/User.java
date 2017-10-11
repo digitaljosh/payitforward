@@ -24,8 +24,6 @@ public class User {
 
     // TODO: add profile picture
 
-
-
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Opportunity> opportunities = new ArrayList<>();
@@ -36,6 +34,8 @@ public class User {
         this.password = password;
         this.bio = bio;
     }
+
+    public User(String name) { this.userName = name; }
 
     public User() { }
 

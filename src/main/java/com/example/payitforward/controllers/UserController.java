@@ -23,28 +23,29 @@ public class UserController {
     public String displaySignupForm(Model model){
 
         model.addAttribute(new User());
-        model.addAttribute("title", "Sign Up");
+        model.addAttribute("title", "Create an Account");
 
         return "signup";
 
     }
 
     @RequestMapping(value = "signup", method = RequestMethod.POST)
-    public String processSignupForm(Model model, @ModelAttribute @Valid User user, Errors errors){
+    public String processSignupForm(Model model, @ModelAttribute @Valid User newUser, Errors errors){
 
         if (errors.hasErrors()){
-            model.addAttribute("title", "Sign Up");
+            model.addAttribute("title", "Create an Account");
             return "signup";
         }
 
-        userDao.save(user);
-        return "redirect:/";
+        userDao.save(newUser);
+        return "redirect:";
     }
 
 
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String displayLoginForm(Model model){
 
+        model.addAttribute(new User());
         model.addAttribute("title", "Log In");
 
         return "login";
@@ -52,14 +53,14 @@ public class UserController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String processLoginForm(Model model, @ModelAttribute @Valid User user, Errors errors){
+    public String processLoginForm(Model model, @ModelAttribute @Valid User returningUser, Errors errors){
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Log In");
             return "login";
         }
 
-        return "redirect:/";
+        return "redirect:";
 
     }
 

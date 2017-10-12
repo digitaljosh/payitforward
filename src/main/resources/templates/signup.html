@@ -4,18 +4,12 @@
 <body class="container">
 <h1 th:text="${title}">Default Title</h1>
 
-<form method="post" th:object="${user}">
+<form method="post" style="max-width:600px;" th:object="${user}">
 
     <div class="form-group">
-        <label th:for="name">Username</label>
+        <label th:for="username">Username</label>
         <input class="form-control" th:field="*{username}" />
         <span th:errors="*{username}" class="error"></span>
-    </div>
-
-    <div class="form-group">
-        <label th:for="email">Email</label>
-        <input class="form-control" th:field="*{email}" />
-        <span th:errors="*{email}" class="error"></span>
     </div>
 
     <div class="form-group">
@@ -24,11 +18,11 @@
         <span th:errors="*{password}" class="error"></span>
     </div>
 
-    <div class="form-group">
-        <label th:for="verifyPassword">Verify Password</label>
-        <input class="form-control" th:field="*{verifyPassword}" />
-        <span th:errors="*{verifyPassword}" class="error"></span>
-    </div>
+    <!--<div class="form-group">-->
+        <!--<label th:for="verifyPassword">Verify Password</label>-->
+        <!--<input class="form-control" th:field="*{verifyPassword}" />-->
+        <!--<span th:errors="*{verifyPassword}" class="error"></span>-->
+    <!--</div>-->
 
 
     <input type="submit" value="Submit" />

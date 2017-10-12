@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 public class UserController {
@@ -60,7 +61,19 @@ public class UserController {
             return "login";
         }
 
-        return "redirect:";
+        Iterable<User> users = userDao.findAll();
+
+        for (User user : users) {
+            if (user.getUsername().equals(returningUser.getUsername())) {
+                if (user.getPassword().equals(returningUser.getPassword())) {
+                    return "redirect:/signup";
+                    //return some kind of welcome message
+                }
+            }
+        }
+
+        //return error that username or password or both weren't correct
+        return "login";
 
     }
 

@@ -5,12 +5,12 @@
 <body class="container">
 
     <nav th:replace="fragments :: navigation"></nav>
-    <h1 th:text="${title}">Title</h1>
 
-    <div th:each="profile : ${profiles}" class="panel panel-default">
-        <div th:text="${profile.userName}" class="panel-heading">Panel Heading</div>
-        <div th:text="${profile.bio}" class="panel-body">Panel content</div>
+    <div class="jumbotron">
+        <h1 th:text="${profile.userName}" class="panel-heading">User Name</h1>
     </div>
+    <p th:text="${profile.bio}" class="panel-body">Panel content</p>
+
 
 </body>
 </html>

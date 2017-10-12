@@ -21,7 +21,7 @@ public class ProfileController {
     @RequestMapping(value = "")
     public String index(Model model) {
 
-        model.addAttribute("profiles", userDao.findAll());
+        model.addAttribute("profile", userDao.findOne(1));
         model.addAttribute("title", "My Profile");
 
         return "profile/index";
@@ -30,7 +30,7 @@ public class ProfileController {
     @RequestMapping(value = "create")
     public String create(Model model) {
 
-        model.addAttribute("title", "New Profile");
+        model.addAttribute("title", "Introduce Yourself");
 
         return "profile/create";
     }

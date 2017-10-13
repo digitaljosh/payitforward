@@ -36,7 +36,7 @@ public class OpportunityController {
 
     //Things below this comment reportedly not functional
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String displayAddForm(Model model, @PathVariable int userId) {
+    public String displayAddForm(Model model) {
 
         //User user = opportunityDao.findOne(userId);
        // AddOpportunityForm form = new AddOpportunityForm(userDao.findAll(), user);
@@ -46,13 +46,13 @@ public class OpportunityController {
         //model.addAttribute("opportunities",form);
 
 
-        return "opportunity/edit";
+        return "opportunity/add";
     }
 
 //
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddForm(@ModelAttribute @Valid Opportunity opportunity,
-                                  Errors errors, @RequestParam int userId, Model model) {
+                                  Errors errors , Model model) {
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Opportunity");

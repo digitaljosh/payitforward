@@ -26,7 +26,7 @@ public class User {
     private String password;
 
 //    @NotNull
-    private String verifyPassword;
+//    private String verifyPassword;
 
     // TODO: add email field
 
@@ -74,13 +74,13 @@ public class User {
         this.password = password;
     }
 
-    @Transient
-    public String getVerifyPassword() {
-        return verifyPassword;
-    }
-
-    public void setVerifyPassword(String verifyPassword) {
-        this.verifyPassword = verifyPassword;
-    }
+//    @Transient
+//    public String getVerifyPassword() {
+//        return verifyPassword;
+//    }
+//
+//    public void setVerifyPassword(String verifyPassword) {
+//        this.verifyPassword = verifyPassword;
+//    }
 }
 

@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 public class UserController {
@@ -31,15 +30,24 @@ public class UserController {
     }
 
     @RequestMapping(value = "signup", method = RequestMethod.POST)
-    public String processSignupForm(Model model, @ModelAttribute @Valid User newUser, Errors errors){
+    public String processSignupForm(@ModelAttribute @Valid User newUser, Errors errors, Model model){
 
         if (errors.hasErrors()){
             model.addAttribute("title", "Create an Account");
             return "signup";
         }
 
+        Iterable<User> users = userDao.findAll();
+
+        for (User user : users) {
+            if (user.getUsername().equals(newUser.getUsername())) {
+                return "signup";
+                //if username already exists in db, give error message and directions to login page
+            }
+        }
         userDao.save(newUser);
-        return "redirect:";
+
+        return "redirect:/login";
     }
 
 
@@ -54,7 +62,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String processLoginForm(Model model, @ModelAttribute @Valid User returningUser, Errors errors){
+    public String processLoginForm(@ModelAttribute @Valid User returningUser, Errors errors, Model model){
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Log In");

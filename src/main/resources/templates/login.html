@@ -9,14 +9,12 @@
     <div class="form-group">
         <label th:for="username">Username</label>
         <input class="form-control" th:field="*{username}" />
-        <!--<span th:errors="*{username}" class="error"></span>-->
         <span th:text="${usernameMessage}"></span>
     </div>
 
     <div class="form-group">
         <label th:for="password">Password</label>
-        <input class="form-control" th:field="*{password}" />
-        <!--<span th:errors="*{password}" class="error"></span>-->
+        <input type="password" class="form-control" th:field="*{password}" />
         <span th:text="${passwordMessage}"></span>
     </div>
 

@@ -18,7 +18,7 @@ public class UserController {
     @Autowired
     UserDao userDao;
 
-
+    //renders signup form
     @RequestMapping(value = "signup", method = RequestMethod.GET)
     public String displaySignupForm(Model model){
 
@@ -29,6 +29,7 @@ public class UserController {
 
     }
 
+    //Allows user to sign up and saves their credentials to the database
     @RequestMapping(value = "signup", method = RequestMethod.POST)
     public String processSignupForm(@ModelAttribute @Valid User newUser, Errors errors, Model model){
 
@@ -41,8 +42,9 @@ public class UserController {
 
         for (User user : users) {
             if (user.getUsername().equals(newUser.getUsername())) {
+                model.addAttribute("title", "Create an Account");
+                model.addAttribute("message", "That username is already in use. Please choose another or go to the login page.");
                 return "signup";
-                //if username already exists in db, give error message and directions to login page
             }
         }
         userDao.save(newUser);
@@ -50,7 +52,7 @@ public class UserController {
         return "redirect:/login";
     }
 
-
+    //renders login form
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String displayLoginForm(Model model){
 
@@ -64,10 +66,10 @@ public class UserController {
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String processLoginForm(@ModelAttribute @Valid User returningUser, Errors errors, Model model){
 
-        if (errors.hasErrors()) {
-            model.addAttribute("title", "Log In");
-            return "login";
-        }
+//        if (errors.hasErrors()) {
+//            model.addAttribute("title", "Log In");
+//            return "login";
+//        }
 
         Iterable<User> users = userDao.findAll();
 
@@ -75,12 +77,20 @@ public class UserController {
             if (user.getUsername().equals(returningUser.getUsername())) {
                 if (user.getPassword().equals(returningUser.getPassword())) {
                     return "redirect:/signup";
-                    //return some kind of welcome message
+                    //TODO: return some kind of welcome message
+                } else {
+                    //return login page with password error
+                    model.addAttribute("title", "Log In");
+                    model.addAttribute("passwordMessage", "Password is incorrect. Please try again.");
+                    return "login";
                 }
             }
         }
+        //return login page with username error
+        model.addAttribute("title", "Log In");
+        model.addAttribute("usernameMessage", "There is no account with that username. Please try again or sign up for an account.");
 
-        //return error that username or password or both weren't correct
+
         return "login";
 
     }

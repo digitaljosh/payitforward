@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <title th:text="${title}">Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+
+    <style>
+        div {
+            background-color: white;
+        }
+    </style>
+
+</head>
+<body>
+
+<nav class="header">
+    <a href="" class="logo">payitforward</a>
+    <input class="menu-btn" type="checkbox" id="menu-btn" />
+    <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+    <ul class="menu">
+        <li><a href="#work">About</a></li>
+        <li><a href="#about">Signup</a></li>
+        <li><a href="#careers">Login</a></li>
+        <li><a href="#contact">Opportunities</a></li>
+    </ul>
+</nav>
+
+<div style="height: 22%;"></div>
+
+
+
+<img th:src="@{/image/pif-logo-1.svg}" class="img-responsive" width="100%" alt="Image"/>
+
+
+
+</body>
+</html>

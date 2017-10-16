@@ -15,13 +15,19 @@ public class Opportunity {
     @GeneratedValue
     private int id;
 
+    @NotNull
+    @Size(min = 3, max = 15)
     private String name;
 
+    @NotNull
+    @Size(min = 8, max = 700)
     private String description;
 
     @ManyToOne
     private User user;
 
+    @NotNull
+    @Size(min = 3, max = 20)
     private String location;
 
     private Boolean claimed = false;

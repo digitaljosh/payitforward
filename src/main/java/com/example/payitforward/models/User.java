@@ -1,8 +1,8 @@
 package com.example.payitforward.models;
 
-import com.sun.xml.internal.bind.v2.TODO;
-
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +13,20 @@ public class User {
     @GeneratedValue
     private int id;
 
+    @NotNull
+    @Size(min=3, max=15)
     private String username;
 
     private String displayname;
 
     // TODO: password hash
+
+    @NotNull
+    @Size(min=3, max=15)
     private String password;
+
+//    @NotNull
+//    private String verifyPassword;
 
     // TODO: add email field
 
@@ -61,5 +69,18 @@ public class User {
     public String getPassword() {
         return password;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+//    @Transient
+//    public String getVerifyPassword() {
+//        return verifyPassword;
+//    }
+//
+//    public void setVerifyPassword(String verifyPassword) {
+//        this.verifyPassword = verifyPassword;
+//    }
 }
 

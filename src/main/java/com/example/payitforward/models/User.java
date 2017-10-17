@@ -1,6 +1,8 @@
 package com.example.payitforward.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,12 +13,20 @@ public class User {
     @GeneratedValue
     private int id;
 
-    private String userName;
+    @NotNull
+    @Size(min=3, max=15)
+    private String username;
 
-    private String displayName;
+    private String displayname;
 
     // TODO: password hash
+
+    @NotNull
+    @Size(min=3, max=15)
     private String password;
+
+//    @NotNull
+//    private String verifyPassword;
 
     // TODO: add email field
 
@@ -24,18 +34,13 @@ public class User {
 
     // TODO: add profile picture
 
+
+
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Opportunity> opportunities = new ArrayList<>();
 
-    public User(String userName, String displayName, String password, String bio) {
-        this.userName = userName;
-        this.displayName = displayName;
-        this.password = password;
-        this.bio = bio;
-    }
-
-    public User(String name) { this.userName = name; }
+    public User(String name) { this.username = name; }
 
     public User() { }
 
@@ -43,13 +48,17 @@ public class User {
 
     public void setId(int id) { this.id = id; }
 
-    public String getUserName() { return userName; }
+    public String getUsername() { return username; }
 
-    public void setUserName(String userName) { this.userName = userName; }
+    public void setUsername(String name) { this.username = name; }
 
-    public String getDisplayName() { return displayName; }
+    public String getDisplayname() {
+        return displayname;
+    }
 
-    public void setDisplayName(String displayName) { this.displayName = displayName; }
+    public void setDisplayname(String displayname) {
+        this.displayname = displayname;
+    }
 
     public String getBio() { return bio; }
 
@@ -57,5 +66,20 @@ public class User {
 
     public List<Opportunity> getOpportunities() { return opportunities; }
 
-    public String getPassword() { return password; }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+//    @Transient
+//    public String getVerifyPassword() {
+//        return verifyPassword;
+//    }
+//
+//    public void setVerifyPassword(String verifyPassword) {
+//        this.verifyPassword = verifyPassword;
+//    }
 }

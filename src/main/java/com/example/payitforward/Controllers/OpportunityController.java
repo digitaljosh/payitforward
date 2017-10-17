@@ -98,10 +98,10 @@ public class OpportunityController {
 
     }
 
-    @RequestMapping(value = "edit", method=RequestMethod.POST)
+    @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.POST)
     public String processEditOpportunityForm(@RequestParam String name, @RequestParam String description, @RequestParam String location,
-                                        @RequestParam int userId) {
-        Opportunity opportunityToEdit = opportunityDao.findOne(userId);
+                                             @PathVariable int opportunityId) {
+        Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
 
         opportunityToEdit.setName(name);
@@ -116,3 +116,8 @@ public class OpportunityController {
 
 
 }
+//Since last time, I have finished the opportunity templates except the edit opportunity form.
+//
+//By Thursday, I will investigate how to link each created opportunity to a specific user account, and create user login and sign up
+//templates if nobody has done it yet. If someone else will do that, then I will add to the opportunity controller by adding a
+//"volunteer for this opportunity" for a user thats interested in a certain volunteer.

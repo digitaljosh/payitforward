@@ -48,8 +48,7 @@ public class ProfileController {
 
     //TODO: figure out how to use session or similar to make sure user can only edit own profile
     @RequestMapping(value="edit/{userId}", method = RequestMethod.GET)
-    public String viewEditProfile(Model model,
-                                  @PathVariable int userId){
+    public String viewEditProfile(Model model, @PathVariable int userId){
 
         User user = userDao.findOne(userId);
 
@@ -59,9 +58,7 @@ public class ProfileController {
     }
 
     @RequestMapping(value="edit", method = RequestMethod.POST)
-    public String submitEditProfile(Model model,
-                              @ModelAttribute @Valid User user,
-                              Errors errors){
+    public String submitEditProfile(Model model, @ModelAttribute @Valid User user, Errors errors){
 
         if (errors.hasErrors()) {
             model.addAttribute("user", user);

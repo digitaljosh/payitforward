@@ -23,7 +23,7 @@ public class HomeController {
         model.addAttribute("opportunities", opportunityDao.findAll());
         model.addAttribute("title", "Current Opportunities");
 
-        return "navbarTest";
+        return "index";
     }
 
 }

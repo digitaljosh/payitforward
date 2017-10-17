@@ -1,30 +1,39 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:replace="fragments :: head">
-    <!--
+<head th:fragment="head">
+    <meta charset="UTF-8"/>
+    <title th:text="${title}">Title</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous"/>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
     <link th:href="@{/css/styles.css}" rel="stylesheet" />
-    -->
+
+    <style>
+        div {
+            background-color: white;
+        }
+    </style>
+
 </head>
+<body>
 
-<body class="container">
+<nav class="header">
+    <a href="" class="logo">payitforward</a>
+    <input class="menu-btn" type="checkbox" id="menu-btn" />
+    <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+    <ul class="menu">
+        <li><a href="/about">About</a></li>
+        <li><a href="/signup">Signup</a></li>
+        <li><a href="/login">Login</a></li>
+        <li><a href="/opportunities">Opportunities</a></li>
+    </ul>
+</nav>
 
-<nav th:replace="fragments :: nav"></nav>
+<div style="height: 22%;"></div>
 
 
 
 <img th:src="@{/image/pif-logo-1.svg}" class="img-responsive" width="100%" alt="Image"/>
-
-
-
-
-<h1 th:text="${title}">Title</h1>
-
-<div th:each="opportunity : ${opportunities}" class="panel panel-default">
-    <div th:text="${opportunity.name}" class="panel-heading">Panel Heading</div>
-    <div th:text="${opportunity.description}" class="panel-body">Panel content</div>
-    <div th:text="${opportunity.user}" class="panel-body">Panel content</div>
-    <div th:text="${opportunity.location}" class="panel-body">Panel content</div>
-</div>
 
 <div class="jumbotron">
     <div class="container">

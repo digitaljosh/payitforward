@@ -18,7 +18,6 @@ public class User {
     private String displayname;
 
     // TODO: password hash
-
     private String password;
 
     // TODO: add email field
@@ -28,32 +27,22 @@ public class User {
     // TODO: add profile picture
 
 
+
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Opportunity> opportunities = new ArrayList<>();
 
-    public User(String name) {
-        this.username = name;
-    }
+    public User(String name) { this.username = name; }
 
-    public User() {
-    }
+    public User() { }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    public void setId(int id) { this.id = id; }
 
-    public String getUsername() {
-        return username;
-    }
+    public String getUsername() { return username; }
 
-    public void setUsername(String name) {
-        this.username = name;
-    }
+    public void setUsername(String name) { this.username = name; }
 
     public String getDisplayname() {
         return displayname;
@@ -63,23 +52,13 @@ public class User {
         this.displayname = displayname;
     }
 
-    public String getBio() {
-        return bio;
-    }
+    public String getBio() { return bio; }
 
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
+    public void setBio(String bio) { this.bio = bio; }
 
-    public List<Opportunity> getOpportunities() {
-        return opportunities;
-    }
+    public List<Opportunity> getOpportunities() { return opportunities; }
 
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 @Controller
@@ -64,7 +65,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String processLoginForm(@ModelAttribute @Valid User returningUser, Errors errors, Model model){
+    public String processLoginForm(@ModelAttribute @Valid User returningUser, Errors errors, Model model, HttpSession session){
 
 //        if (errors.hasErrors()) {
 //            model.addAttribute("title", "Log In");
@@ -76,6 +77,7 @@ public class UserController {
         for (User user : users) {
             if (user.getUsername().equals(returningUser.getUsername())) {
                 if (user.getPassword().equals(returningUser.getPassword())) {
+                    session.setAttribute("loggedInUser", user);
                     return "redirect:/signup";
                     //TODO: return some kind of welcome message
                 } else {
@@ -93,6 +95,12 @@ public class UserController {
 
         return "login";
 
+    }
+
+    @RequestMapping(value = "logout", method = RequestMethod.GET)
+    public String logout(HttpSession session) {
+        session.removeAttribute("loggedInUser");
+        return "login";
     }
 
 }

@@ -6,11 +6,16 @@
 
     <nav th:replace="fragments :: navigation"></nav>
 
-    <div class="jumbotron">
-        <h1 th:text="${profile.userName}" class="panel-heading">User Name</h1>
+    <div th:each="profile : ${profiles}" class="list-group">
+        <a href="#" class="list-group-item">
+            <h2 th:text="${profile.displayname}" class="list-group-item-heading">User Display Name</h2>
+            <p th:text="${profile.bio}" class="list-group-item-text"></p>
+            <div th:each="opportunity : ${profile.opportunities}">
+                <h4 th:text="${opportunity.name}">Opportunity Name</h4>
+                <p th:text="${opportunity.description}">Opportunity Description</p>
+            </div>
+        </a>
     </div>
-    <p th:text="${profile.bio}" class="panel-body">Panel content</p>
-
 
 </body>
 </html>

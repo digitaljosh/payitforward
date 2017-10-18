@@ -24,7 +24,7 @@ public class ProfileController {
     @RequestMapping(value = "")
     public String index(Model model) {
 
-        model.addAttribute("profile", userDao.findOne(1));
+        model.addAttribute("profiles", userDao.findAll());
         model.addAttribute("title", "My Profile");
 
         return "profile/index";
@@ -70,15 +70,6 @@ public class ProfileController {
 
         //redirect to the view of the user's profile so they can see changes
         return "redirect:/profile/view" + user.getId();
-    }
-
-
-    @RequestMapping(value = "create")
-    public String create(Model model) {
-
-        model.addAttribute("title", "Introduce Yourself");
-
-        return "profile/create";
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.GET)

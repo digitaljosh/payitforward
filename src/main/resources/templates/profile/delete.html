@@ -7,20 +7,9 @@
     <h1 th:text="${title}">Title</h1>
 
     <div class="form-group">
-        <label class="col-lg-2 control-label">Are you sure you want to delete your account?</label>
-        <div class="col-lg-10">
-            <div class="radio">
-                <label>
-                    <input name="optionsRadios" id="optionsRadios1" value="option1" type="radio"/>
-                    Yes
-                </label>
-            </div>
-            <div class="radio">
-                <label>
-                    <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio"/>
-                    No
-                </label>
-            </div>
+        <div class="col-lg-10 col-lg-offset-2">
+            <button type="reset" class="btn btn-default" value="No">Cancel</button>
+            <button type="submit" class="btn btn-primary" id="submit" value="Yes">Delete</button>
         </div>
     </div>
 

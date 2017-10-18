@@ -52,8 +52,11 @@ public class ProfileController {
         return "profile/edit";
     }
 
-    @RequestMapping(value="edit", method = RequestMethod.POST)
-    public String submitEditProfile(Model model, @ModelAttribute @Valid User user, Errors errors){
+    @RequestMapping(value="edit/{userId}", method = RequestMethod.POST)
+    public String submitEditProfile(@ModelAttribute @Valid User user,
+                                    Errors errors,
+                                    @PathVariable int userId,
+                                    Model model){
 
         if (errors.hasErrors()) {
             model.addAttribute("user", user);
@@ -64,7 +67,7 @@ public class ProfileController {
         userDao.save(user);
 
         //redirect to the view of the user's profile so they can see changes
-        return "redirect:/profile/view" + user.getId();
+        return "redirect:/profile/view/" + user.getId();
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.GET)

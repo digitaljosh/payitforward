@@ -25,7 +25,7 @@ public class ProfileController {
     public String index(Model model) {
 
         model.addAttribute("profiles", userDao.findAll());
-        model.addAttribute("title", "My Profile");
+        model.addAttribute("title", "Users");
 
         return "profile/index";
     }
@@ -37,11 +37,6 @@ public class ProfileController {
         User user = userDao.findOne(userId);
 
         model.addAttribute("user", user);
-
-        //TODO: add user picture
-        //TODO: add list of opportunities on offer
-        //TODO: add list of claimed opportunities
-        //TODO: add list of completed opportunities
 
         return "profile/view";
     }

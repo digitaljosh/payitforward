@@ -1,4 +1,4 @@
-package com.example.payitforward.models.data;
+package com.example.payitforward.models.Data;
 
 import com.example.payitforward.models.User;
 import org.springframework.data.repository.CrudRepository;
@@ -10,3 +10,4 @@ import javax.transaction.Transactional;
 @Transactional
 public interface UserDao extends CrudRepository<User, Integer> {
 }
+

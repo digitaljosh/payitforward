@@ -50,7 +50,7 @@ public class UserController {
         }
         userDao.save(newUser);
 
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     //renders login form
@@ -78,7 +78,7 @@ public class UserController {
             if (user.getUsername().equals(returningUser.getUsername())) {
                 if (user.getPassword().equals(returningUser.getPassword())) {
                     session.setAttribute("loggedInUser", user);
-                    return "redirect:/signup";
+                    return "redirect:/";
                     //TODO: return some kind of welcome message
                 } else {
                     //return login page with password error

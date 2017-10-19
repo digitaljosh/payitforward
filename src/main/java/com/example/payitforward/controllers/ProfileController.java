@@ -1,15 +1,12 @@
-package com.example.payitforward.Controllers;
+package com.example.payitforward.controllers;
 
-import com.example.payitforward.models.Data.OpportunityDao;
-import com.example.payitforward.models.Data.UserDao;
+import com.example.payitforward.models.data.OpportunityDao;
+import com.example.payitforward.models.data.UserDao;
 import com.example.payitforward.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
 
 @Controller
 @RequestMapping("profile")

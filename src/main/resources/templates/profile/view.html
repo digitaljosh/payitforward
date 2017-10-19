@@ -9,10 +9,32 @@
 <div th:object="${user}" class="list-group">
         <h2 th:text="${user.displayname}" class="list-group-item-heading">User Display Name</h2>
         <p th:text="${user.bio}" class="list-group-item-text"></p>
-        <div th:each="opportunity : ${user.opportunities}">
-            <h4 th:text="${opportunity.name}">Opportunity Name</h4>
-            <p th:text="${opportunity.description}">Opportunity Description</p>
-        </div>
+        <table class="table table-striped table-hover">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Location</th>
+            </tr>
+            </thead>
+            <div th:each="opportunity : ${user.opportunities}">
+                <tr th:if="${opportunity.claimed} and not ${opportunity.completed}" class="info">
+                    <td th:text="${opportunity.name}"></td>
+                    <td th:text="${opportunity.description}"></td>
+                    <td th:text="${opportunity.location}"></td>
+                </tr>
+                <tr th:if="${opportunity.claimed} and ${opportunity.completed}" class="success">
+                    <td th:text="${opportunity.name}"></td>
+                    <td th:text="${opportunity.description}"></td>
+                    <td th:text="${opportunity.location}"></td>
+                </tr>
+                <tr th:if="not ${opportunity.claimed} and not ${opportunity.completed}">
+                    <td th:text="${opportunity.name}"></td>
+                    <td th:text="${opportunity.description}"></td>
+                    <td th:text="${opportunity.location}"></td>
+                </tr>
+            </div>
+        </table>
 </div>
 
 </body>

@@ -58,18 +58,26 @@ public class ProfileController {
     }
 
     @RequestMapping(value="edit", method = RequestMethod.POST)
-    public String submitEditProfile(Model model, @ModelAttribute @Valid User user, Errors errors){
+    public String submitEditProfile(String username, String displayname, String bio,
+                                    @PathVariable int userId){
 
-        if (errors.hasErrors()) {
+        /*if (errors.hasErrors()) {
             model.addAttribute("user", user);
             return "profile/edit";
-        }
+        }*/
+
+        //create a new user object corresponding to the user ID
+        User updatedUser = userDao.findOne(userId);
+
+        updatedUser.setUsername(username);
+        updatedUser.setDisplayname(displayname);
+        updatedUser.setBio(bio);
 
         //update the user object in the DB -- Hibernate checks ID to see if user should be updated or inserted
-        userDao.save(user);
+        userDao.save(updatedUser);
 
         //redirect to the view of the user's profile so they can see changes
-        return "redirect:/profile/view" + user.getId();
+        return "redirect:/profile/view" + updatedUser.getId();
     }
 
     @RequestMapping(value = "delete", method = RequestMethod.GET)

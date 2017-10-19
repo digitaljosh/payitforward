@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
+
+<nav th:replace="fragments :: navigation"></nav>
+
 <body class="container">
 <h1 th:text="${title}">Default Title</h1>
 
@@ -20,6 +23,12 @@
     </div>
 
     <input type="submit" value="Submit" />
+
+    <br/><br/><br/><br/>
+
+    <div>
+        <p>Already have an account? Log in <a href="/login">here</a></p>
+    </div>
 
 </form>
 </body>

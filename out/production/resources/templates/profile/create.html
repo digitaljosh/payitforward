@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+
+    <body class="container">
+        <nav th:replace="fragments :: navigation"></nav>
+        <h1 th:text="${title}">Title</h1>
+
+        <form class="form-horizontal">
+            <fieldset>
+                <div class="form-group" id="nameGroup">
+                    <label for="nameField" class="col-lg-2 control-label">Name</label>
+                    <div class="col-lg-10">
+                        <input class="form-control" id="nameField" placeholder="Name" type="text"/>
+                    </div>
+                </div>
+                <div class="form-group" id="emailGroup">
+                    <label for="emailField" class="col-lg-2 control-label">Email</label>
+                    <div class="col-lg-10">
+                        <input class="form-control" id="emailField" placeholder="Email" type="text"/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="textArea" class="col-lg-2 control-label">About You</label>
+                    <div class="col-lg-10">
+                        <textarea class="form-control" rows="3" placeholder="So what makes you, you?" id="textArea"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label"></label>
+                    <div class="col-lg-10">
+                        <div class="radio">
+                            <label>
+                                <input name="optionsRadios" id="optionsRadios1" value="option1" type="radio"/>
+                                Individual
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input name="optionsRadios" id="optionsRadios2" value="option2" type="radio"/>
+                                Organization
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                        <button type="reset" class="btn btn-default">Cancel</button>
+                        <button type="submit" class="btn btn-primary" id="submit">Submit</button>
+                    </div>
+                </div>
+            </fieldset>
+        </form>
+    </body>
+    <script type="text/javascript" th:src="@{/js/form.js}" />
+</html>

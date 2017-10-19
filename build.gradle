@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '1.5.7.RELEASE'
+		springBootVersion = '1.5.2.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -14,8 +14,11 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
-group = 'com.example'
-version = '0.0.1-SNAPSHOT'
+jar {
+	baseName = 'cheese-mvc'
+	version = '0.0.1-SNAPSHOT'
+}
+
 sourceCompatibility = 1.8
 
 repositories {

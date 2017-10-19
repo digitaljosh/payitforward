@@ -12,6 +12,4 @@ import java.util.List;
 public interface UserDao extends CrudRepository<User, Integer> {
 
     List<User> findByUsernameLike (String username);
-
-    }
-
+}

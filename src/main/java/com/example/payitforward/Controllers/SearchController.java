@@ -2,11 +2,11 @@ package com.example.payitforward.Controllers;
 
 import com.example.payitforward.models.Data.OpportunityDao;
 import com.example.payitforward.models.Data.UserDao;
+import com.example.payitforward.models.Opportunity;
 import com.example.payitforward.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,14 +25,18 @@ public class SearchController {
     OpportunityDao opportunityDao;
 
     @RequestMapping(value="", method = RequestMethod.GET)
-    public String searchResults(@RequestParam String username, Model model){
+    public String searchResults(@RequestParam String search, Model model){
 
-        List<User> users = userDao.findByUsernameLike(username);
+        List<User> users = userDao.findByUsernameLike(search);
 
+
+        List<Opportunity> opportunities = opportunityDao.findByNameLike(search);
+
+        model.addAttribute("opportunities", opportunities);
         model.addAttribute("profiles", users);
         model.addAttribute("title", "Search Results");
 
-        return "search/index";
+        return "search";
     }
 }
 

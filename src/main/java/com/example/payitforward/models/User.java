@@ -83,4 +83,3 @@ public class User {
 //        this.verifyPassword = verifyPassword;
 //    }
 }
-

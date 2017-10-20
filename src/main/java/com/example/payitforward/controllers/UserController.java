@@ -1,4 +1,4 @@
-package com.example.payitforward.Controllers;
+package com.example.payitforward.controllers;
 
 import com.example.payitforward.models.User;
 import com.example.payitforward.models.data.UserDao;

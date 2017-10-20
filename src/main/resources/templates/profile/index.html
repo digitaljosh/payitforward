@@ -4,18 +4,20 @@
 
 <body class="container">
 
-    <nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: navigation"></nav>
 
-    <div th:each="profile : ${profiles}" class="list-group">
+<div th:each="profile : ${profiles}" class="list-group">
+    <a th:href="@{profile/view/{id}(id=${profile.id})}" class="list-group-item">
+        <h2 th:text="${profile.displayname}" class="list-group-item-heading">User Display Name</h2>
+        <p th:text="${profile.bio}" class="list-group-item-text">Bio</p>
+    </a>
+    <div th:each="opportunity : ${profile.opportunities}">
         <a href="#" class="list-group-item">
-            <h2 th:text="${profile.displayname}" class="list-group-item-heading">User Display Name</h2>
-            <p th:text="${profile.bio}" class="list-group-item-text"></p>
-            <div th:each="opportunity : ${profile.opportunities}">
-                <h4 th:text="${opportunity.name}">Opportunity Name</h4>
-                <p th:text="${opportunity.description}">Opportunity Description</p>
-            </div>
+            <h4 th:text="${opportunity.name}">Opportunity Name</h4>
+            <p th:text="${opportunity.description}">Opportunity Description</p>
         </a>
     </div>
+</div>
 
 </body>
 </html>

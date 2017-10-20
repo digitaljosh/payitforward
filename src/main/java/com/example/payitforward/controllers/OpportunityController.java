@@ -1,9 +1,8 @@
-package com.example.payitforward.Controllers;
+package com.example.payitforward.controllers;
 
-import com.example.payitforward.models.Data.OpportunityDao;
-import com.example.payitforward.models.Data.UserDao;
+import com.example.payitforward.models.data.OpportunityDao;
+import com.example.payitforward.models.data.UserDao;
 import com.example.payitforward.models.Opportunity;
-import com.example.payitforward.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,7 +10,6 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @Controller
 @RequestMapping("opportunity")
@@ -33,20 +31,19 @@ public class OpportunityController {
         return "opportunity/index";
     }
 
-//    @RequestMapping(value = "{opportunityId}")
-//    public String displayOpportunity(Model model, @RequestParam Boolean completed, @RequestParam Boolean claimed,
-//                                     @RequestParam String name, @RequestParam String description, @RequestParam String location,
-//                                     @PathVariable int opportunityId) {
-//
-//
-//        Opportunity opportunityToSee = opportunityDao.findOne(opportunityId);
-//
-//        model.addAttribute("opportunity", opportunityToSee);
-//        return "opportunity/edit";
-//
-//
-//        return "opportunity/opportunityPage";
-//    }
+    @RequestMapping(value = "{opportunityId}",method=RequestMethod.GET)
+    public String displayOpportunity(Model model,
+                                     @PathVariable int opportunityId) {
+
+
+        Opportunity opportunityToSee = opportunityDao.findOne(opportunityId);
+
+        model.addAttribute("opportunity", opportunityToSee);
+
+
+
+        return "opportunity/opportunityPage";
+    }
 
 
     //Things below this comment reportedly not functional

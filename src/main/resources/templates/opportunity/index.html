@@ -1,22 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title></title>
-</head>
+<head th:replace="fragments :: head"></head>
 <body>
-
+<nav th:replace="fragments :: navigation"></nav>
 <p th:unless="${opportunities} and ${opportunities.size()}">no opportunities :(</p>
-<li>
-    <tr th:each="opportunity : ${opportunities}">
-        <ul th:text="${opportunity.name}">Name:</ul>
-        <ul th:text="${opportunity.description}"></ul>
-        <ul th:text="${opportunity.location}"></ul>
-        <ul th:text="${opportunity.user}"></ul>
-
-    </tr>
-
-
-</li>
+<div th:each="opportunity : ${opportunities}" class="list-group">
+    <a href="#" class="list-group-item">
+        <h2 th:text="${opportunity.name}" class="list-group-item-heading">User Display Name</h2>
+        <p th:text="${opportunity.description}" class="list-group-item-text"></p>
+        <p th:text="${opportunity.location}" class="list-group-item-text"></p>
+    </a>
+</div>
 </body>
 </html>

@@ -1,6 +1,6 @@
-package com.example.payitforward.Models;
+package com.example.payitforward.models;
 
-import com.example.payitforward.Models.User;
+import com.example.payitforward.models.User;
 
 import javax.persistence.Entity;
 

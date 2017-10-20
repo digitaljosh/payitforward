@@ -33,6 +33,21 @@ public class OpportunityController {
         return "opportunity/index";
     }
 
+//    @RequestMapping(value = "{opportunityId}")
+//    public String displayOpportunity(Model model, @RequestParam Boolean completed, @RequestParam Boolean claimed,
+//                                     @RequestParam String name, @RequestParam String description, @RequestParam String location,
+//                                     @PathVariable int opportunityId) {
+//
+//
+//        Opportunity opportunityToSee = opportunityDao.findOne(opportunityId);
+//
+//        model.addAttribute("opportunity", opportunityToSee);
+//        return "opportunity/edit";
+//
+//
+//        return "opportunity/opportunityPage";
+//    }
+
 
     //Things below this comment reportedly not functional
     @RequestMapping(value = "add", method = RequestMethod.GET)
@@ -100,7 +115,7 @@ public class OpportunityController {
 
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.POST)
     public String processEditOpportunityForm(@RequestParam String name, @RequestParam String description, @RequestParam String location,
-                                             @PathVariable int opportunityId) {
+                                              @PathVariable int opportunityId) {
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
 
@@ -113,7 +128,7 @@ public class OpportunityController {
         return "redirect:/opportunity";
 
     }
-
+    //TODO: Create "CLAIM" action for opportunity
 
 }
 //Since last time, I have finished the opportunity templates except the edit opportunity form.

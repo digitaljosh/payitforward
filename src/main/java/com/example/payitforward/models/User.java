@@ -1,4 +1,4 @@
-package com.example.payitforward.models;
+package com.example.payitforward.Models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

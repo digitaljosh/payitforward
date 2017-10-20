@@ -9,10 +9,11 @@
 <p th:unless="${opportunities} and ${opportunities.size()}">no opportunities :(</p>
 <li>
     <tr th:each="opportunity : ${opportunities}">
-        <td th:text="${opportunity.name}"></td>
-        <td th:text="${opportunity.description}"></td>
-        <td th:text="${opportunity.location}"></td>
-        <td th:text="${opportunity.user}"></td>
+        <ul th:text="${opportunity.name}">Name:</ul>
+        <ul th:text="${opportunity.description}"></ul>
+        <ul th:text="${opportunity.location}"></ul>
+        <ul th:text="${opportunity.user}"></ul>
+
     </tr>
 
 

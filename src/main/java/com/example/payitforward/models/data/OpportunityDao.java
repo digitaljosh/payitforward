@@ -1,4 +1,4 @@
-package com.example.payitforward.models.data;
+package com.example.payitforward.models.Data;
 
 import com.example.payitforward.models.Opportunity;
 import org.springframework.data.repository.CrudRepository;

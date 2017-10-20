@@ -10,5 +10,5 @@ import java.util.List;
 @Repository
 @Transactional
 public interface OpportunityDao extends CrudRepository<Opportunity, Integer> {
-    List<Opportunity> findByNameLike (String name);
+    List<Opportunity> findByNameContains (String name);
 }

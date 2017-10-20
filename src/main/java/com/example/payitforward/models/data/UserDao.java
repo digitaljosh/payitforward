@@ -10,6 +10,6 @@ import java.util.List;
 @Repository
 @Transactional
 public interface UserDao extends CrudRepository<User, Integer> {
-    List<User> findByUsernameLike (String username);
+    List<User> findByUsernameContains (String username);
 }
 

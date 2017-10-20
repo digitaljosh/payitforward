@@ -18,20 +18,20 @@
         </tr>
         </thead>
         <div th:each="opportunity : ${user.opportunities}">
-            <tr th:if="${opportunity.claimed} and not ${opportunity.completed}" class="info">
+            <tr>
                 <td th:text="${opportunity.name}"></td>
                 <td th:text="${opportunity.description}"></td>
                 <td th:text="${opportunity.location}"></td>
             </tr>
             <tr th:if="${opportunity.claimed} and ${opportunity.completed}" class="success">
-                <td th:text="${opportunity.name}"></td>
-                <td th:text="${opportunity.description}"></td>
-                <td th:text="${opportunity.location}"></td>
+                <td>Completed</td>
+                <td></td>
+                <td></td>
             </tr>
-            <tr th:if="not ${opportunity.claimed} and not ${opportunity.completed}">
-                <td th:text="${opportunity.name}"></td>
-                <td th:text="${opportunity.description}"></td>
-                <td th:text="${opportunity.location}"></td>
+            <tr th:if="${opportunity.claimed} and not ${opportunity.completed}" class="info">
+                <td>Claimed</td>
+                <td></td>
+                <td></td>
             </tr>
         </div>
     </table>

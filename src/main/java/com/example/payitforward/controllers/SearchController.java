@@ -27,10 +27,10 @@ public class SearchController {
     @RequestMapping(value="", method = RequestMethod.GET)
     public String searchResults(@RequestParam String search, Model model){
 
-        List<User> users = userDao.findByUsernameLike(search);
-
-
-        List<Opportunity> opportunities = opportunityDao.findByNameLike(search);
+        //Searches database for user entries containing the search query
+        List<User> users = userDao.findByUsernameContains(search);
+        //Searches database for opportunity entries containing the search query
+        List<Opportunity> opportunities = opportunityDao.findByNameContains(search);
 
         model.addAttribute("opportunities", opportunities);
         model.addAttribute("profiles", users);

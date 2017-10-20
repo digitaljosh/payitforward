@@ -72,20 +72,19 @@ public class ProfileController {
         return "redirect:/profile/view/" + updatedUser.getId();
     }
 
-    //@RequestMapping(value = "delete", method = RequestMethod.GET)
-    //public String displayDeleteUserAccount(Model model){
-        //
-        //model.addAttribute("title", "Delete account");
+    @RequestMapping(value = "delete", method = RequestMethod.GET)
+    public String displayDeleteUserAccount(Model model){
 
-        //return "profile/delete";
-    //}
+        model.addAttribute("title", "Delete account");
 
-    //@RequestMapping(value="delete", method=RequestMethod.POST)
-    //public String processDeleteUserAccount(@RequestParam int userId){
+        return "profile/delete";
+    }
 
-        //delete the user from the userDao
-        //userDao.delete(userId);
+    @RequestMapping(value="delete", method=RequestMethod.POST)
+    public String processDeleteUserAccount(@RequestParam int userId){
 
-        //return "redirect:";
-    //}
+        userDao.delete(userId);
+
+        return "redirect:";
+    }
 }

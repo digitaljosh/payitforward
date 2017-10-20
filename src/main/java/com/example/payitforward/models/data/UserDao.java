@@ -1,6 +1,6 @@
-package com.example.payitforward.models.data;
+package com.example.payitforward.Models.Data;
 
-import com.example.payitforward.models.User;
+import com.example.payitforward.Models.User;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

@@ -1,7 +1,7 @@
-package com.example.payitforward.controllers;
+package com.example.payitforward.Controllers;
 
-import com.example.payitforward.models.User;
-import com.example.payitforward.models.data.UserDao;
+import com.example.payitforward.Models.User;
+import com.example.payitforward.Models.Data.UserDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

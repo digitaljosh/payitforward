@@ -30,9 +30,9 @@ public class UserController {
 
     }
 
-    //Allows user to sign up and saves their credentials to the database
+    //Allows user to sign up, saves their credentials to the database, and initiate a session
     @RequestMapping(value = "signup", method = RequestMethod.POST)
-    public String processSignupForm(@ModelAttribute @Valid User newUser, Errors errors, Model model){
+    public String processSignupForm(@ModelAttribute @Valid User newUser, Errors errors, Model model, HttpSession session){
 
         if (errors.hasErrors()){
             model.addAttribute("title", "Create an Account");
@@ -48,7 +48,9 @@ public class UserController {
                 return "signup";
             }
         }
+
         userDao.save(newUser);
+        session.setAttribute("loggedInUser", newUser);
 
         return "redirect:/";
     }
@@ -98,8 +100,9 @@ public class UserController {
     }
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
-    public String logout(HttpSession session) {
+    public String logout(Model model, HttpSession session) {
         session.removeAttribute("loggedInUser");
+        model.addAttribute("title", "Log In");
         return "login";
     }
 

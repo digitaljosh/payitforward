@@ -21,6 +21,8 @@ public class User {
 
     // TODO: password hash
 
+    private Long salt;
+
     @NotNull
     @Size(min=3, max=15)
     private String password;
@@ -74,7 +76,15 @@ public class User {
         this.password = password;
     }
 
-//    @Transient
+    public Long getSalt() {
+        return salt;
+    }
+
+    public void setSalt(Long salt) {
+        this.salt = salt;
+    }
+
+    //    @Transient
 //    public String getVerifyPassword() {
 //        return verifyPassword;
 //    }

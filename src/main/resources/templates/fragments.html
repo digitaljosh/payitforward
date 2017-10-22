@@ -13,11 +13,17 @@
 
 <nav th:fragment="navigation" class="header">
     <em><a href="/" style="font-family: franklin-gothic-medium" class="logo">payitforward</a></em>
+    <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+            <input class="form-control" placeholder="Search" type="text"/>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
     <input class="menu-btn" type="checkbox" id="menu-btn" />
     <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
     <ul class="menu">
         <li><a href="/about">About</a></li>
-        <li><a href="opportunity/index">Opportunity</a></li>
+        <li><a href="/opportunity">Opportunity</a></li>
         <li><a href="/signup">Signup</a></li>
         <li><a href="/login">Login</a></li>
     </ul>

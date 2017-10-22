@@ -12,16 +12,21 @@ function handleName() {
 function handleEmail() {
     let value = this.value;
     if (isValidEmail(value)) {
-    displayValidField("emailGroup");
-    } else {
-    displayInvalidField("emailGroup");
+        displayValidField("emailGroup");
+        } else {
+        displayInvalidField("emailGroup");
+        }
     }
-}
 
-function handleSubmit() {
-    let
-
-}
+//validation for displayName field
+function handleDisplayName() {
+    let value = this.value;
+    if (value.length > 1) {
+        displayValidField("displayNameGroup");
+        } else {
+        displayInvalidField("displayNameGroup");
+        }
+    }
 
 //changes field to green if correct
 function displayValidField(id) {
@@ -58,6 +63,9 @@ function isValidEmail(str){
 
     e = document.getElementById("emailField");
     e.addEventListener("change", handleEmail, false);
+
+    e = document.getElementById("displayNameField");
+    e.addEventListener("change", handleDisplayName, false);
 
     e.document,getElementById("submit");
     e.addEventListener("submit", handleSubmit, false);

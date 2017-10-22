@@ -1,12 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
-<head th:fragment="head">
-    <meta charset="UTF-8"/>
-    <title th:text="${title}">Title</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous"/>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<head th:replace="fragments :: head">
 
-    <link th:href="@{/css/styles.css}" rel="stylesheet" />
 
     <style>
         div {
@@ -17,19 +12,10 @@
 </head>
 <body>
 
-<nav class="header">
-    <a href="" class="logo">payitforward</a>
-    <input class="menu-btn" type="checkbox" id="menu-btn" />
-    <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
-    <ul class="menu">
-        <li><a href="/about">About</a></li>
-        <li><a href="/signup">Signup</a></li>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/opportunities">Opportunities</a></li>
-    </ul>
-</nav>
+<nav th:replace="fragments :: navigation"></nav>
 
-<div style="height: 22%;"></div>
+
+<div style="height: 110px;"></div>
 
 
 

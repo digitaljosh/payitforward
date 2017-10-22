@@ -27,7 +27,6 @@ public class UserController {
         model.addAttribute("title", "Create an Account");
 
         return "signup";
-
     }
 
     //Allows user to sign up, saves their credentials to the database, and initiate a session
@@ -63,16 +62,10 @@ public class UserController {
         model.addAttribute("title", "Log In");
 
         return "login";
-
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String processLoginForm(@ModelAttribute @Valid User returningUser, Errors errors, Model model, HttpSession session){
-
-//        if (errors.hasErrors()) {
-//            model.addAttribute("title", "Log In");
-//            return "login";
-//        }
 
         Iterable<User> users = userDao.findAll();
 
@@ -94,16 +87,13 @@ public class UserController {
         model.addAttribute("title", "Log In");
         model.addAttribute("usernameMessage", "There is no account with that username. Please try again or sign up for an account.");
 
-
         return "login";
-
     }
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
     public String logout(Model model, HttpSession session) {
         session.removeAttribute("loggedInUser");
-        model.addAttribute("title", "Log In");
-        return "login";
+        model.addAttribute("title", "Log Out");
+        return "logout";
     }
-
 }

@@ -1,5 +1,6 @@
 package com.example.payitforward.controllers;
 
+import com.example.payitforward.models.User;
 import com.example.payitforward.models.data.OpportunityDao;
 import com.example.payitforward.models.data.UserDao;
 import com.example.payitforward.models.Opportunity;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpSession;
 
 import javax.validation.Valid;
 
@@ -49,10 +51,11 @@ public class OpportunityController {
 
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.POST)
     public String processClaimAndCompletion(
-                               @PathVariable int opportunityId){
+                               @PathVariable int opportunityId, HttpSession session){
 
 
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
+
         if (opportunityToEdit.getClaimed()==false) {
             opportunityToEdit.setClaimed(true);
             opportunityDao.save(opportunityToEdit);
@@ -61,7 +64,8 @@ public class OpportunityController {
             opportunityToEdit.setCompleted(true);
             opportunityDao.save(opportunityToEdit);
         }
-
+        TODO:
+        //redirect to same page using opportunityId
         return "redirect:";
 
 

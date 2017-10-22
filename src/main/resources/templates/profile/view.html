@@ -6,36 +6,73 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<div th:object="${user}" class="list-group">
-    <h2 th:text="${user.displayname}" class="list-group-item-heading">User Display Name</h2>
-    <p th:text="${user.bio}" class="list-group-item-text"></p>
-    <table class="table table-striped table-hover">
-        <thead>
-        <tr>
-            <th>Name</th>
-            <th>Description</th>
-            <th>Location</th>
-        </tr>
-        </thead>
-        <div th:each="opportunity : ${user.opportunities}">
-            <tr>
-                <td th:text="${opportunity.name}"></td>
-                <td th:text="${opportunity.description}"></td>
-                <td th:text="${opportunity.location}"></td>
-            </tr>
-            <tr th:if="${opportunity.claimed} and ${opportunity.completed}" class="success">
-                <td>Completed</td>
-                <td></td>
-                <td></td>
-            </tr>
-            <tr th:if="${opportunity.claimed} and not ${opportunity.completed}" class="info">
-                <td>Claimed</td>
-                <td></td>
-                <td></td>
-            </tr>
-        </div>
-    </table>
+<div th:object="${user}" class="jumbotron">
+    <h1 th:text="${user.username}" class="panel-title">Username</h1>
+    <p th:text="${user.bio}">bio</p>
 </div>
 
+<div th:each="opportunity : ${user.opportunities}">
+    <div th:unless="${opportunity.claimed} or ${opportunity.completed}" class="panel panel-primary">
+        <div class="panel-heading">
+            <h1 th:text="${opportunity.name}" class="panel-title">Panel primary</h1>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Location</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td th:text="${opportunity.description}"></td>
+                    <td th:text="${opportunity.location}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div th:if="${opportunity.claimed} and not ${opportunity.completed}" class="panel panel-info">
+        <div class="panel-heading">
+            <span class="pull-right">Claimed</span>
+            <h1 th:text="${opportunity.name}" class="panel-title">Panel primary</h1>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Location</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td th:text="${opportunity.description}"></td>
+                    <td th:text="${opportunity.location}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div th:if="${opportunity.claimed} and  ${opportunity.completed}" class="panel panel-success">
+        <div class="panel-heading">
+            <span class="pull-right">Completed</span>
+            <h1 th:text="${opportunity.name}" class="panel-title">Panel primary</h1>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <thead>
+                <tr>
+                    <th>Description</th>
+                    <th>Location</th>
+                </tr>
+                </thead>
+                <tr>
+                    <td th:text="${opportunity.description}"></td>
+                    <td th:text="${opportunity.location}"></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>

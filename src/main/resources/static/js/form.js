@@ -1,7 +1,7 @@
 //validation for name field
 function handleName() {
     let value = this.value;
-    if (value.length > 1) {
+    if (value.length > 2 && value.length < 16) {
         displayValidField("nameGroup");
         } else {
         displayInvalidField("nameGroup");
@@ -18,7 +18,7 @@ function handleEmail() {
         }
     }
 
-//validation for displayName field
+/*//validation for displayName field
 function handleDisplayName() {
     let value = this.value;
     if (value.length > 1) {
@@ -26,7 +26,7 @@ function handleDisplayName() {
         } else {
         displayInvalidField("displayNameGroup");
         }
-    }
+    }*/
 
 //changes field to green if correct
 function displayValidField(id) {

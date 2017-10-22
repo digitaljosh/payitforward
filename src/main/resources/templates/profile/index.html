@@ -7,16 +7,18 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 <div th:each="profile,iterStat : ${profiles}">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <a th:href="@{profile/view/{id}(id=${profile.id})}">
-                <h2 th:text="${profile.displayname}">User Display Name</h2>
-            </a>
+    <a th:href="@{profile/view/{id}(id=${profile.id})}">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h2 th:text="${profile.username}">User Display Name</h2>
+            </div>
+            <div class="panel-body">
+                <p th:text="${profile.bio}">Bio</p>
+            </div>
         </div>
-        <div th:text="${profile.bio}" class="panel-body">Bio</div>
-    </div>
+    </a>
     <div class="panel-group">
-        <div class="panel panel-default">
+        <div class="panel panel-info">
             <div class="panel-heading">
                 <h4 class="panel-title">
                     <a data-toggle="collapse" th:href="|#collapse${iterStat.index}|">
@@ -28,6 +30,9 @@
                     <a th:href="@{opportunity/{id}(id=${opportunity.id})}">
                         <li th:text="${opportunity.name}" class="list-group-item">One</li>
                     </a>
+                </ul>
+                <ul th:if="${profile.opportunities.size() == 0}">
+                    <h5>No Posted Opportunities</h5>
                 </ul>
             </div>
         </div>

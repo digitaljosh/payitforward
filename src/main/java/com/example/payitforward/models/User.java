@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class User {
@@ -21,21 +22,30 @@ public class User {
 
     // TODO: password hash
 
-    private Long salt;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(password);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(password, user.password);
+    }
 
     @NotNull
     @Size(min=3, max=15)
     private String password;
 
-//    @NotNull
-//    private String verifyPassword;
 
     // TODO: add email field
 
     private String bio;
 
     // TODO: add profile picture
-
 
 
     @OneToMany
@@ -76,20 +86,4 @@ public class User {
         this.password = password;
     }
 
-    public Long getSalt() {
-        return salt;
-    }
-
-    public void setSalt(Long salt) {
-        this.salt = salt;
-    }
-
-    //    @Transient
-//    public String getVerifyPassword() {
-//        return verifyPassword;
-//    }
-//
-//    public void setVerifyPassword(String verifyPassword) {
-//        this.verifyPassword = verifyPassword;
-//    }
 }

@@ -14,9 +14,9 @@
 
 <nav th:fragment="navigation" class="header">
     <em><a href="/" class="logo"><img th:src="@{/image/pif-nav-logo.png}" style="height: 33%; width: 33%;"/></a></em>
-    <form class="navbar-form navbar-left" role="search">
+    <form action="/search" class="navbar-form navbar-left" role="search">
         <div class="form-group">
-            <input class="form-control" placeholder="Search" type="text"/>
+            <input class="form-control" name="search" placeholder="Search" type="text"/>
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>

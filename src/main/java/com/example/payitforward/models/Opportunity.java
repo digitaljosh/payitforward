@@ -26,7 +26,7 @@ public class Opportunity {
 
     private String location;
 
-    private Boolean claimed = false;
+    private Boolean claimed;
 
     private Boolean completed = false;
 

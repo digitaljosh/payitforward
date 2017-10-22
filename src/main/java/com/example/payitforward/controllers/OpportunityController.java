@@ -31,6 +31,8 @@ public class OpportunityController {
         return "opportunity/index";
     }
 
+
+
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.GET)
     public String displayOpportunity(Model model,
                                      @PathVariable int opportunityId) {
@@ -45,8 +47,20 @@ public class OpportunityController {
         return "opportunity/opportunityPage";
     }
 
+    @RequestMapping(value = "{opportunityId}",method=RequestMethod.POST)
+    public String processClaim(
+                               @PathVariable int opportunityId){
 
-    //Things below this comment reportedly not functional
+        Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
+        opportunityToEdit.setClaimed(true);
+        opportunityDao.save(opportunityToEdit);
+
+
+        return "redirect:";
+
+
+    }
+
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddForm(Model model) {
 

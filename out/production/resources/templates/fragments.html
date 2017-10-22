@@ -11,8 +11,9 @@
 <body>
 
 
+
 <nav th:fragment="navigation" class="header">
-    <em><a href="/" style="font-family: franklin-gothic-medium" class="logo">payitforward</a></em>
+    <em><a href="/" class="logo"><img th:src="@{/image/pif-nav-logo.png}" style="height: 33%; width: 33%;"/></a></em>
     <form class="navbar-form navbar-left" role="search">
         <div class="form-group">
             <input class="form-control" placeholder="Search" type="text"/>
@@ -24,6 +25,7 @@
     <ul class="menu">
         <li><a href="/about">About</a></li>
         <li><a href="/opportunity">Opportunity</a></li>
+        <li><a href="/profile/myprofile">My Profile</a></li>
         <li><a href="/signup">Signup</a></li>
         <li><a href="/login">Login</a></li>
     </ul>

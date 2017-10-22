@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 
-<body class="container">
+<body>
     <nav th:replace="fragments :: navigation"></nav>
     <h1 th:text="${title}">Title</h1>
 
@@ -18,6 +18,12 @@
                 <label for="displayNameField" class="col-lg-2 control-label">Display Name</label>
                 <div class="col-lg-10">
                     <input th:field="*{displayname}" class="form-control" id="displayNameField" placeholder="Display Name" type="text"/>
+                </div>
+            </div>
+            <div class="form-group" id="emailGroup">
+                <label for="emailField" class="col-lg-2 control-label">Email</label>
+                <div class="col-lg-10">
+                    <input class="form-control" id="emailField" placeholder="Email" type="text"/>
                 </div>
             </div>
             <div class="form-group">

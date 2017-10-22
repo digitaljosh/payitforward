@@ -48,13 +48,19 @@ public class OpportunityController {
     }
 
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.POST)
-    public String processClaim(
+    public String processClaimAndCompletion(
                                @PathVariable int opportunityId){
 
-        Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
-        opportunityToEdit.setClaimed(true);
-        opportunityDao.save(opportunityToEdit);
 
+        Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
+        if (opportunityToEdit.getClaimed()==false) {
+            opportunityToEdit.setClaimed(true);
+            opportunityDao.save(opportunityToEdit);
+        }
+        else {
+            opportunityToEdit.setCompleted(true);
+            opportunityDao.save(opportunityToEdit);
+        }
 
         return "redirect:";
 

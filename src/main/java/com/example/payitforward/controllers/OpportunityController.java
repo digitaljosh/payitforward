@@ -139,7 +139,7 @@ public class OpportunityController {
         return "redirect:/opportunity";
 
     }
-    //TODO: Create "CLAIM" action for opportunity
+
 
 }
 //Since last time, I have finished the opportunity templates except the edit opportunity form.

@@ -3,10 +3,16 @@ package com.example.payitforward.controllers;
 import com.example.payitforward.models.data.OpportunityDao;
 import com.example.payitforward.models.data.UserDao;
 import com.example.payitforward.models.User;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("profile")
@@ -30,20 +36,20 @@ public class ProfileController {
     @RequestMapping(value="view/{userId}", method = RequestMethod.GET)
     public String viewProfile(Model model, @PathVariable int userId){
 
-        //create a user object based on the user ID
         User user = userDao.findOne(userId);
-
         model.addAttribute("user", user);
 
         return "profile/view";
     }
 
-    //TODO: figure out how to use session or similar to make sure user can only edit own profile
     @RequestMapping(value="edit/{userId}", method = RequestMethod.GET)
-    public String viewEditProfile(Model model, @PathVariable int userId){
+    public String viewEditProfile(Model model, @PathVariable int userId, HttpSession session){
+
+        //if user is not in session, redirect to login
+
+        //User currentUser = session.getAttribute("loggedInUser");
 
         User user = userDao.findOne(userId);
-
         model.addAttribute("user", user);
 
         return "profile/edit";

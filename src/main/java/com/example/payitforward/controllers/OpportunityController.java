@@ -1,5 +1,6 @@
 package com.example.payitforward.controllers;
 
+import com.example.payitforward.models.User;
 import com.example.payitforward.models.data.OpportunityDao;
 import com.example.payitforward.models.data.UserDao;
 import com.example.payitforward.models.Opportunity;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import javax.servlet.http.HttpSession;
 
 import javax.validation.Valid;
 
@@ -31,6 +33,8 @@ public class OpportunityController {
         return "opportunity/index";
     }
 
+
+
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.GET)
     public String displayOpportunity(Model model,
                                      @PathVariable int opportunityId) {
@@ -45,8 +49,28 @@ public class OpportunityController {
         return "opportunity/opportunityPage";
     }
 
+    @RequestMapping(value = "{opportunityId}",method=RequestMethod.POST)
+    public String processClaimAndCompletion(
+                               @PathVariable int opportunityId, HttpSession session){
 
-    //Things below this comment reportedly not functional
+
+        Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
+
+        if (opportunityToEdit.getClaimed()==false) {
+            opportunityToEdit.setClaimed(true);
+            opportunityDao.save(opportunityToEdit);
+        }
+        else {
+            opportunityToEdit.setCompleted(true);
+            opportunityDao.save(opportunityToEdit);
+        }
+        TODO:
+        //redirect to same page using opportunityId
+        return "redirect:";
+
+
+    }
+
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddForm(Model model) {
 
@@ -125,7 +149,7 @@ public class OpportunityController {
         return "redirect:/opportunity";
 
     }
-    //TODO: Create "CLAIM" action for opportunity
+
 
 }
 //Since last time, I have finished the opportunity templates except the edit opportunity form.

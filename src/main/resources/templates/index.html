@@ -23,9 +23,11 @@
     <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
     <ul class="menu">
         <li><a href="/about">About</a></li>
-        <li><a href="/signup">Signup</a></li>
-        <li><a href="/login">Login</a></li>
-        <li><a href="/opportunities">Opportunities</a></li>
+        <li th:if="${session == null}"><a href="/signup">Signup</a></li>
+        <li th:if="${session == null}"><a href="/login">Login</a></li>
+        <li><a href="/opportunity">Opportunities</a></li>
+        <li th:if="${session}"><a href="/logout">Logout</a></li>
+        <li th:if="${session}"><a href="/profile/view">My Profile</a></li>
     </ul>
 </nav>
 

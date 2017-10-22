@@ -23,8 +23,6 @@ function displayValidField(id) {
 
      let e = document.getElementById(id);
      e.className = "has-success";
-     let g = document.getElementById("error")
-     g.removeChild(e.childNodes[0])
     }
 
 //changes field to red if incorrect

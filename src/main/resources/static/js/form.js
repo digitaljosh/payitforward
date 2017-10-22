@@ -18,16 +18,6 @@ function handleEmail() {
         }
     }
 
-/*//validation for displayName field
-function handleDisplayName() {
-    let value = this.value;
-    if (value.length > 1) {
-        displayValidField("displayNameGroup");
-        } else {
-        displayInvalidField("displayNameGroup");
-        }
-    }*/
-
 //changes field to green if correct
 function displayValidField(id) {
 
@@ -40,13 +30,6 @@ function displayInvalidField(id) {
 
     let e = document.getElementById(id);
     e.className = "has-error";
-
-    /*let elt = document.createElement("div");
-    elt.className = "alert alert-danger";
-    let text = document.createTextNode("Something went wrong!");
-    elt.appendChild(text);
-    e.appendChild(elt);*/
-
 }
 
 //validates email

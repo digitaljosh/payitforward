@@ -46,13 +46,25 @@ public class ProfileController {
     public String viewEditProfile(Model model, @PathVariable int userId, HttpSession session){
 
         //if user is not in session, redirect to login
+        if (session.getAttribute("loggedInUser") == null){
+            return "redirect:/login";
+        }
 
-        //User currentUser = session.getAttribute("loggedInUser");
+        //if the user in the session does not match the user ID in the route, redirect to login
+        User currentUser = (User) session.getAttribute("loggedInUser");
+        int currentId = currentUser.getId();
+
+        System.out.println(currentId);
+
+        if (currentId != userId){
+            return "redirect:/login";
+        }
 
         User user = userDao.findOne(userId);
         model.addAttribute("user", user);
 
         return "profile/edit";
+
     }
 
     @RequestMapping(value="edit/{userId}", method = RequestMethod.POST)

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -50,6 +51,8 @@ public class UserController {
                 return "signup";
             }
         }
+
+
         userDao.save(newUser);
 
         return "redirect:/login";
@@ -67,7 +70,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String processLoginForm(@ModelAttribute @Valid User returningUser, Errors errors, Model model, HttpSession session){
+    public String processLoginForm(@ModelAttribute @Valid User returningUser, Errors errors,
+                                   Model model, HttpServletRequest request){
 
 //        if (errors.hasErrors()) {
 //            model.addAttribute("title", "Log In");
@@ -79,7 +83,9 @@ public class UserController {
         for (User user : users) {
             if (user.getUsername().equals(returningUser.getUsername())) {
                 if (user.getPassword().equals(returningUser.getPassword())) {
+                    HttpSession session = request.getSession();
                     session.setAttribute("loggedInUser", user);
+                    System.out.println(returningUser);
                     return "redirect:/signup";
                     //TODO: return some kind of welcome message
                 } else {

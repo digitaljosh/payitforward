@@ -36,8 +36,7 @@ public class OpportunityController {
 
 
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.GET)
-    public String displayOpportunity(Model model,
-                                     @PathVariable int opportunityId) {
+    public String displayOpportunity(Model model, @PathVariable int opportunityId) {
 
 
         Opportunity opportunityToSee = opportunityDao.findOne(opportunityId);
@@ -51,7 +50,7 @@ public class OpportunityController {
 
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.POST)
     public String processClaimAndCompletion(
-                               @PathVariable int opportunityId, HttpSession session){
+                               @PathVariable int opportunityId){
 
 
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);

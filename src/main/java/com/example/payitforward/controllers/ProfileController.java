@@ -9,6 +9,7 @@ import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import sun.misc.Request;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -42,6 +43,23 @@ public class ProfileController {
         return "profile/view";
     }
 
+    @RequestMapping(value="myprofile", method = RequestMethod.GET)
+    public String viewMyProfile(Model model, HttpSession session){
+
+        //if there's no user in the session, redirect to login page
+        if (session.getAttribute("loggedInUser") == null){
+            return "redirect:/login";
+        }
+        //get the user from session
+        User currentUser = (User) session.getAttribute("loggedInUser");
+
+        //add user object to model
+        model.addAttribute("user", currentUser);
+
+        return "profile/myprofile";
+    }
+
+
     @RequestMapping(value="edit/{userId}", method = RequestMethod.GET)
     public String viewEditProfile(Model model, @PathVariable int userId, HttpSession session){
 
@@ -53,8 +71,6 @@ public class ProfileController {
         //if the user in the session does not match the user ID in the route, redirect to login
         User currentUser = (User) session.getAttribute("loggedInUser");
         int currentId = currentUser.getId();
-
-        System.out.println(currentId);
 
         if (currentId != userId){
             return "redirect:/login";

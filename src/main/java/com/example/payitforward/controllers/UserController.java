@@ -52,7 +52,7 @@ public class UserController {
             }
         }
 
-
+        //TODO: add user to session
         userDao.save(newUser);
 
         return "redirect:/login";
@@ -85,7 +85,6 @@ public class UserController {
                 if (user.getPassword().equals(returningUser.getPassword())) {
                     HttpSession session = request.getSession();
                     session.setAttribute("loggedInUser", user);
-                    System.out.println(returningUser);
                     return "redirect:/signup";
                     //TODO: return some kind of welcome message
                 } else {

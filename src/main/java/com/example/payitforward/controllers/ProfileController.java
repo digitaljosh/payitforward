@@ -103,7 +103,7 @@ public class ProfileController {
         userDao.save(updatedUser);
 
         //redirect to the view of the user's profile so they can see changes
-        return "redirect:/profile/view/" + updatedUser.getId();
+        return "redirect:/profile/myprofile";
     }
 
     //@RequestMapping(value = "delete", method = RequestMethod.GET)

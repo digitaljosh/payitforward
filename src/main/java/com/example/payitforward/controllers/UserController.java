@@ -35,7 +35,8 @@ public class UserController {
 
     //Allows user to sign up and saves their credentials to the database
     @RequestMapping(value = "signup", method = RequestMethod.POST)
-    public String processSignupForm(@ModelAttribute @Valid User newUser, Errors errors, Model model){
+    public String processSignupForm(@ModelAttribute @Valid User newUser, Errors errors,
+                                    Model model, HttpServletRequest request){
 
         if (errors.hasErrors()){
             model.addAttribute("title", "Create an Account");
@@ -52,10 +53,12 @@ public class UserController {
             }
         }
 
-        //TODO: add user to session
+        //save user and add user to session
         userDao.save(newUser);
+        HttpSession session = request.getSession();
+        session.setAttribute("loggedInUser", newUser);
 
-        return "redirect:/login";
+        return "redirect:/profile/myprofile";
     }
 
     //renders login form
@@ -85,7 +88,7 @@ public class UserController {
                 if (user.getPassword().equals(returningUser.getPassword())) {
                     HttpSession session = request.getSession();
                     session.setAttribute("loggedInUser", user);
-                    return "redirect:/signup";
+                    return "redirect:";
                     //TODO: return some kind of welcome message
                 } else {
                     //return login page with password error

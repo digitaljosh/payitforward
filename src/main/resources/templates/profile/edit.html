@@ -4,6 +4,10 @@
 
 <body>
     <nav th:replace="fragments :: navigation"></nav>
+
+    <div style="height: 110px;"></div>
+
+
     <h1 th:text="${title}">Title</h1>
 
     <form method="post" th:object="${user}" class="form-horizontal">
@@ -40,6 +44,7 @@
             </div>
         </fieldset>
     </form>
+
 </body>
 <script type="text/javascript" th:src="@{/js/form.js}" />
 </html>

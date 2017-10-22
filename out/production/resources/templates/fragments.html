@@ -6,28 +6,27 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css" rel="stylesheet" integrity="sha384-+ENW/yibaokMnme+vBLnHMphUYxHs34h9lpdbSLuAwGkOKFRl4C34WkjazBtb7eT" crossorigin="anonymous"/>
     <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
 </head>
 <body>
-<nav th:fragment="navigation" class="navbar navbar-default">
-    <div class="container-fluid">
-        <div class="navbar-header">
-            <a class="navbar-brand" href="/">PayItForward</a>
+
+
+<nav th:fragment="navigation" class="header">
+    <em><a href="/" style="font-family: franklin-gothic-medium" class="logo">payitforward</a></em>
+    <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+            <input class="form-control" placeholder="Search" type="text"/>
         </div>
-        <ul class="nav navbar-nav">
-            <li><a href="/profile">Profile</a></li>
-            <li><a href="/opportunity">Opportunities</a></li>
-        </ul>
-        <form action="/search" class="navbar-form navbar-left" role="search">
-            <div class="form-group">
-                <input class="form-control" name="search" placeholder="Search" type="text"/>
-            </div>
-            <button type="submit" class="btn btn-default">Submit</button>
-        </form>
-        <ul class="nav navbar-nav navbar-right">
-            <li><a href="/login">Sign In</a></li>
-            <li><a href="#">Log Out</a></li>
-        </ul>
-    </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+    <input class="menu-btn" type="checkbox" id="menu-btn" />
+    <label class="menu-icon" for="menu-btn"><span class="navicon"></span></label>
+    <ul class="menu">
+        <li><a href="/about">About</a></li>
+        <li><a href="/opportunity">Opportunity</a></li>
+        <li><a href="/signup">Signup</a></li>
+        <li><a href="/login">Login</a></li>
+    </ul>
 </nav>
 
 </body>

@@ -9,9 +9,12 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
 
 @Controller
 public class UserController {
@@ -32,7 +35,8 @@ public class UserController {
 
     //Allows user to sign up and saves their credentials to the database
     @RequestMapping(value = "signup", method = RequestMethod.POST)
-    public String processSignupForm(@ModelAttribute @Valid User newUser, Errors errors, Model model){
+    public String processSignupForm(@ModelAttribute @Valid User newUser, Errors errors,
+                                    Model model, HttpServletRequest request){
 
         if (errors.hasErrors()){
             model.addAttribute("title", "Create an Account");
@@ -48,9 +52,13 @@ public class UserController {
                 return "signup";
             }
         }
-        userDao.save(newUser);
 
-        return "redirect:/login";
+        //save user and add user to session
+        userDao.save(newUser);
+        HttpSession session = request.getSession();
+        session.setAttribute("loggedInUser", newUser);
+
+        return "redirect:/profile/myprofile";
     }
 
     //renders login form
@@ -65,7 +73,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
-    public String processLoginForm(@ModelAttribute @Valid User returningUser, Errors errors, Model model, HttpSession session){
+    public String processLoginForm(@ModelAttribute @Valid User returningUser, Errors errors,
+                                   Model model, HttpServletRequest request){
 
 //        if (errors.hasErrors()) {
 //            model.addAttribute("title", "Log In");
@@ -77,8 +86,9 @@ public class UserController {
         for (User user : users) {
             if (user.getUsername().equals(returningUser.getUsername())) {
                 if (user.getPassword().equals(returningUser.getPassword())) {
+                    HttpSession session = request.getSession();
                     session.setAttribute("loggedInUser", user);
-                    return "redirect:/signup";
+                    return "redirect:";
                     //TODO: return some kind of welcome message
                 } else {
                     //return login page with password error

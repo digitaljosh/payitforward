@@ -87,18 +87,22 @@ public class OpportunityController {
 //
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddForm(@ModelAttribute @Valid Opportunity opportunity,
-                                  Errors errors , Model model) {
+                             Errors errors , Model model, HttpSession session) {
 
-        if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Opportunity");
-          //  model.addAttribute("user", userDao.findAll());
-            return "opportunity/add";
-        }
-
-
-        opportunityDao.save(opportunity);
-        return "redirect:";
+    if (errors.hasErrors()) {
+        model.addAttribute("title", "Add Opportunity");
+        //  model.addAttribute("user", userDao.findAll());
+        return "opportunity/add";
     }
+
+    User currentUser = (User) session.getAttribute("loggedInUser");
+
+
+    opportunity.setUser(currentUser);
+    opportunityDao.save(opportunity);
+
+    return "redirect:";
+}
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveOpportunityForm(Model model) {

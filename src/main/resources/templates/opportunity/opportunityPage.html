@@ -19,6 +19,7 @@
         -->
     </a>
     <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit</a>
+    <a th:href="@{/opportunity/remove}">Remove</a>
 </div>
 <form method="post" style="max-width:600px;" th:object="${opportunity}">
     <div th:if="${opportunity.claimed}==false" class="form-group">

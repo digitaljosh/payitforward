@@ -54,8 +54,12 @@ public class ProfileController {
         //get the user from session
         User currentUser = (User) session.getAttribute("loggedInUser");
 
+        // get updated info from db
+        User user = userDao.findOne(currentUser.getId());
+
+
         //add user object to model
-        model.addAttribute("user", currentUser);
+        model.addAttribute("user", user);
 
         return "profile/myprofile";
     }

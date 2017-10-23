@@ -6,6 +6,8 @@ function handleUsername() {
         } else {
         displayInvalidField("usernameGroup");
         }
+        let g = document.getElementById("errorUsername")
+        g.parentNode.removeChild(g)
     }
 
 //validation for password field
@@ -16,6 +18,8 @@ function handlePassword() {
         } else {
         displayInvalidField("passwordGroup");
         }
+        let g = document.getElementById("errorPassword")
+        g.parentNode.removeChild(g)
     }
 
 //changes field to green if correct

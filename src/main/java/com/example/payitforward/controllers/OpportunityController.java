@@ -71,11 +71,13 @@ public class OpportunityController {
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String displayAddForm(Model model) {
+    public String displayAddForm(Model model, HttpSession session) {
 
         //User user = opportunityDao.findOne(userId);
        // AddOpportunityForm form = new AddOpportunityForm(userDao.findAll(), user);
-
+        if (session.getAttribute("loggedInUser") == null){
+            return "redirect:/opportunity";
+        }
         model.addAttribute("title", "Add Opportunity");
         model.addAttribute(new Opportunity());
         //model.addAttribute("opportunities",form);

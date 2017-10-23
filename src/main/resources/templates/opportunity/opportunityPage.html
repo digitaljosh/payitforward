@@ -6,14 +6,17 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
+<div style="height: 110px;"></div>
+
+<div class="container">
 <div th:object="${opportunity}" class="list-group">
     <a href="#" class="list-group-item">
         <h2 th:text="${opportunity.name}" class="list-group-item-heading">Opportunity Name</h2>
         <p th:text="${opportunity.description}" class="list-group-item-text"></p>
         <p th:text="${opportunity.location}" class="list-group-item-text"></p>
-        <p th:text="${opportunity.claimed}" class="list-group-item-text"></p>
+       <!-- <p th:text="${opportunity.claimed}" class="list-group-item-text"></p>
         <p th:text="${opportunity.completed}" class="list-group-item-text"></p>
-
+        -->
     </a>
 </div>
 <form method="post" style="max-width:600px;" th:object="${opportunity}">
@@ -31,8 +34,8 @@
         <p class="list-group-item-text">This opportunity has been completed.</p>
     </div>
 
-
 </form>
+</div>
 
 </body>
 </html>

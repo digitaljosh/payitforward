@@ -6,6 +6,9 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
+<div style="height: 110px;"></div>
+
+
 <div th:object="${user}" class="jumbotron">
     <h1 th:text="*{displayname}" class="panel-title">Display Name</h1>
     <p th:text="*{bio}">bio</p>

@@ -8,78 +8,79 @@
 
 <div style="height: 110px;"></div>
 
+<div class="container">
+    <div th:object="${user}" class="jumbotron">
+        <h1 th:text="${user.username}" class="panel-title">Username</h1>
+        <p th:text="${user.bio}">bio</p>
+    </div>
 
-<div th:object="${user}" class="jumbotron">
-    <h1 th:text="${user.username}" class="panel-title">Username</h1>
-    <p th:text="${user.bio}">bio</p>
-</div>
-
-<div th:each="opportunity : ${user.opportunities}">
-    <a th:href="@{/opportunity/{id}(id=${opportunity.id})}">
-    <div th:unless="${opportunity.claimed} or ${opportunity.completed}" class="panel panel-primary">
-        <div class="panel-heading">
-            <h1 th:text="${opportunity.name}" class="panel-title">Panel primary</h1>
+    <div th:each="opportunity : ${user.opportunities}">
+        <a th:href="@{/opportunity/{id}(id=${opportunity.id})}">
+        <div th:unless="${opportunity.claimed} or ${opportunity.completed}" class="panel panel-primary">
+            <div class="panel-heading">
+                <h1 th:text="${opportunity.name}" class="panel-title">Panel primary</h1>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Location</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td th:text="${opportunity.description}"></td>
+                        <td th:text="${opportunity.location}"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <div class="panel-body">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Description</th>
-                    <th>Location</th>
-                </tr>
-                </thead>
-                <tr>
-                    <td th:text="${opportunity.description}"></td>
-                    <td th:text="${opportunity.location}"></td>
-                </tr>
-            </table>
+        </a>
+        <a th:href="@{/opportunity/{id}(id=${opportunity.id})}">
+        <div th:if="${opportunity.claimed} and not ${opportunity.completed}" class="panel panel-info">
+            <div class="panel-heading">
+                <span class="pull-right">Claimed</span>
+                <h1 th:text="${opportunity.name}" class="panel-title">Panel primary</h1>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Location</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td th:text="${opportunity.description}"></td>
+                        <td th:text="${opportunity.location}"></td>
+                    </tr>
+                </table>
+            </div>
         </div>
+        </a>
+        <a th:href="@{/opportunity/{id}(id=${opportunity.id})}">
+        <div th:if="${opportunity.claimed} and  ${opportunity.completed}" class="panel panel-success">
+            <div class="panel-heading">
+                <span class="pull-right">Completed</span>
+                <h1 th:text="${opportunity.name}" class="panel-title">Panel primary</h1>
+            </div>
+            <div class="panel-body">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Description</th>
+                        <th>Location</th>
+                    </tr>
+                    </thead>
+                    <tr>
+                        <td th:text="${opportunity.description}"></td>
+                        <td th:text="${opportunity.location}"></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        </a>
     </div>
-    </a>
-    <a th:href="@{/opportunity/{id}(id=${opportunity.id})}">
-    <div th:if="${opportunity.claimed} and not ${opportunity.completed}" class="panel panel-info">
-        <div class="panel-heading">
-            <span class="pull-right">Claimed</span>
-            <h1 th:text="${opportunity.name}" class="panel-title">Panel primary</h1>
-        </div>
-        <div class="panel-body">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Description</th>
-                    <th>Location</th>
-                </tr>
-                </thead>
-                <tr>
-                    <td th:text="${opportunity.description}"></td>
-                    <td th:text="${opportunity.location}"></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    </a>
-    <a th:href="@{/opportunity/{id}(id=${opportunity.id})}">
-    <div th:if="${opportunity.claimed} and  ${opportunity.completed}" class="panel panel-success">
-        <div class="panel-heading">
-            <span class="pull-right">Completed</span>
-            <h1 th:text="${opportunity.name}" class="panel-title">Panel primary</h1>
-        </div>
-        <div class="panel-body">
-            <table class="table">
-                <thead>
-                <tr>
-                    <th>Description</th>
-                    <th>Location</th>
-                </tr>
-                </thead>
-                <tr>
-                    <td th:text="${opportunity.description}"></td>
-                    <td th:text="${opportunity.location}"></td>
-                </tr>
-            </table>
-        </div>
-    </div>
-    </a>
 </div>
 </body>
 </html>

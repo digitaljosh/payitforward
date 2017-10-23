@@ -81,7 +81,7 @@ public class UserController {
                 if (user.getPassword().equals(returningUser.getPassword())) {
                     HttpSession session = request.getSession();
                     session.setAttribute("loggedInUser", user);
-                    return "redirect:";
+                    return "redirect:profile/myprofile";
 
                     //TODO: return some kind of welcome message
                 } else {

@@ -43,6 +43,7 @@ public class ProfileController {
         return "profile/view";
     }
 
+    //Allows you to view your own profile
     @RequestMapping(value="myprofile", method = RequestMethod.GET)
     public String viewMyProfile(Model model, HttpSession session){
 
@@ -60,6 +61,7 @@ public class ProfileController {
     }
 
 
+    //Renders the edit page for logged in user
     @RequestMapping(value="edit/{userId}", method = RequestMethod.GET)
     public String viewEditProfile(Model model, @PathVariable int userId, HttpSession session){
 
@@ -83,6 +85,7 @@ public class ProfileController {
 
     }
 
+    //Posts the edits from edit page
     @RequestMapping(value="edit/{userId}", method = RequestMethod.POST)
     public String submitEditProfile(String username, String displayname, String bio,
                                     @PathVariable int userId){
@@ -106,6 +109,7 @@ public class ProfileController {
         return "redirect:/profile/myprofile";
     }
 
+    //Renders delete account page
     @RequestMapping(value = "delete", method = RequestMethod.GET)
     public String displayDeleteUserAccount(Model model){
 
@@ -114,6 +118,7 @@ public class ProfileController {
         return "profile/delete";
     }
 
+    //Posts delete account page and redirects to home page
     @RequestMapping(value="delete", method=RequestMethod.POST)
     public String processDeleteUserAccount(@RequestParam int userId){
 

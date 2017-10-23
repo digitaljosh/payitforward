@@ -101,7 +101,7 @@ public class OpportunityController {
     opportunity.setUser(currentUser);
     opportunityDao.save(opportunity);
 
-    return "redirect:";
+    return "redirect:/opportunity";
 }
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)

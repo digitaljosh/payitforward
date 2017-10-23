@@ -12,6 +12,7 @@
 <div class="container">
     <div th:object="${user}" class="list-group">
         <a href="#" class="list-group-item">
+            <h1 th:text="${user.username}" class="list-group-item-heading"></h1>
             <h2 th:text="${user.displayname}" class="list-group-item-heading">User Displayname</h2>
             <div>
             <p th:text="${user.bio}" class="list-group-item-text"></p>

@@ -10,11 +10,11 @@
 
 
 <div th:object="${user}" class="jumbotron">
-    <h1 th:text="*{displayname}" class="panel-title">Display Name</h1>
-    <p th:text="*{bio}">bio</p>
+    <h1 th:text="${user.username}" class="panel-title">Username</h1>
+    <p th:text="${user.bio}">bio</p>
 </div>
 
-<div th:each="opportunity : *{opportunities}">
+<div th:each="opportunity : ${user.opportunities}">
     <a th:href="@{/opportunity/{id}(id=${opportunity.id})}">
     <div th:unless="${opportunity.claimed} or ${opportunity.completed}" class="panel panel-primary">
         <div class="panel-heading">

@@ -2,12 +2,12 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 
-<body class="container">
+<body>
     <nav th:replace="fragments :: navigation"></nav>
 
     <div style="height: 110px;"></div>
 
-
+<div class="container">
     <h1 th:text="${title}">Title</h1>
 
     <form method="post" th:object="${user}" class="form-horizontal">
@@ -44,6 +44,7 @@
             </div>
         </fieldset>
     </form>
+</div>
 
 </body>
 <script type="text/javascript" th:src="@{/js/form.js}" />

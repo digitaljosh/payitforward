@@ -100,7 +100,8 @@ public class UserController {
     }
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
-    public String logout(Model model, HttpSession session) {
+    public String logout(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
         session.removeAttribute("loggedInUser");
         model.addAttribute("title", "Log Out");
         return "logout";

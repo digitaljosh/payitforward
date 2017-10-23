@@ -25,9 +25,10 @@
     <ul class="menu">
         <li><a href="/about">About</a></li>
         <li><a href="/opportunity">Opportunity</a></li>
-        <li><a href="/profile/myprofile">My Profile</a></li>
-        <li><a href="/signup">Signup</a></li>
-        <li><a href="/login">Login</a></li>
+        <li th:if="${session}"><a href="/profile/myprofile">My Profile</a></li>
+        <li th:unless="${session}"><a href="/signup">Signup</a></li>
+        <li th:unless="${session}"><a href="/login">Login</a></li>
+        <li th:if="${session}"><a href="/logout">Logout</a></li>
     </ul>
 </nav>
 

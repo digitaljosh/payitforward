@@ -22,20 +22,6 @@ public class User {
 
     // TODO: password hash
 
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(password);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(password, user.password);
-    }
-
     @NotNull
     @Size(min=3, max=15)
     private String password;

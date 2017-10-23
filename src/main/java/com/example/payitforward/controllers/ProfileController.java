@@ -25,7 +25,7 @@ public class ProfileController {
     @Autowired
     OpportunityDao opportunityDao;
 
-    @RequestMapping(value = "")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
 
         model.addAttribute("profiles", userDao.findAll());

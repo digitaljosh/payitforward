@@ -12,7 +12,7 @@
 <p>To add an opportunity, click <a href="/opportunity/add"> here</a></p>
 
 <div th:each="opportunity : ${opportunities}" class="list-group">
-    <a href="#" class="list-group-item">
+    <a th:href="@{'/opportunity/' + ${opportunity.id}}" class="list-group-item">
         <h2 th:text="${opportunity.name}" class="list-group-item-heading">User Display Name</h2>
         <p th:text="${opportunity.description}" class="list-group-item-text"></p>
         <p th:text="${opportunity.location}" class="list-group-item-text"></p>

@@ -6,25 +6,26 @@
 
 <div style="height: 110px;"></div>
 
-<body class="container">
+<body>
 
+<div class="container">
+    <div th:unless="${opportunities.size()} or ${profiles.size()}">
+        <h1>No Results Found</h1>
+    </div>
 
-<div th:unless="${opportunities.size()} or ${profiles.size()}">
-    <h1>No Results Found</h1>
-</div>
+    <div th:each="profile : ${profiles}" class="list-group">
+        <a th:href="@{profile/view/{id}(id=${profile.id})}" class="list-group-item">
+            <h1 th:text="${profile.username}">Username</h1><span class="label label-primary">User</span>
+            <p th:text="${profile.bio}">Bio</p>
+        </a>
+    </div>
 
-<div th:each="profile : ${profiles}" class="list-group">
-    <a th:href="@{profile/view/{id}(id=${profile.id})}" class="list-group-item">
-        <h1 th:text="${profile.username}">Username</h1><span class="label label-primary">User</span>
-        <p th:text="${profile.bio}">Bio</p>
-    </a>
-</div>
-
-<div th:each="opportunity : ${opportunities}" class="list-group">
-    <a th:href="@{opportunity/{id}(id=${opportunity.id})}" class="list-group-item">
-        <h1 th:text="${opportunity.name}">Username</h1><span class="label label-default">Opportunity</span>
-        <p th:text="${opportunity.description}">Bio</p>
-    </a>
+    <div th:each="opportunity : ${opportunities}" class="list-group">
+        <a th:href="@{opportunity/{id}(id=${opportunity.id})}" class="list-group-item">
+            <h1 th:text="${opportunity.name}">Username</h1><span class="label label-default">Opportunity</span>
+            <p th:text="${opportunity.description}">Bio</p>
+        </a>
+    </div>
 </div>
 
 </body>

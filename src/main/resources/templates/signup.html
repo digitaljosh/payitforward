@@ -22,7 +22,14 @@
                 Error message
             </div>
         </div>
-        <span th:text="${message}"></span>
+        <div th:if="${message}" class="panel panel-danger">
+            <div class="panel-heading">
+                <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
+            </div>
+            <div th:text="${message}" class="panel-body">
+                Error message
+            </div>
+        </div>
     </div>
 
     <div class="form-group" id="passwordGroup">

@@ -18,6 +18,7 @@
         <p th:text="${opportunity.completed}" class="list-group-item-text"></p>
         -->
     </a>
+    <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit</a>
 </div>
 <form method="post" style="max-width:600px;" th:object="${opportunity}">
     <div th:if="${opportunity.claimed}==false" class="form-group">

@@ -67,3 +67,29 @@ Wireframes:
 
 ![payitforward-wireframe](https://user-images.githubusercontent.com/25624304/31366647-0823ea7c-ad27-11e7-8896-4022a72bb451.jpg)
 
+
+
+Installation Instructions:
+
+What you'll need: MAMP and IntelliJ IDEA
+
+1. Clone project from our repo to your own machine.
+2. Start MAMP and create a user account with username "payitforward" and password "forward".
+3. Run the application and view it at localhost:8080.
+
+
+
+Test Plan:
+
+1. From landing page, view an "About" page for our app without needing to login.
+2. From landing page, view a list of available opportunities without needing to login.
+3. From list of opportunities, view details of a single opportunity without needing to login.
+4. Create an account and redirect to landing page.*
+5. While logged in, view your account profile, edit it, and redirect to view profile to see your changes.
+6. While logged in, create a new volunteer opportunity and redirect to landing page.
+7. While logged in, edit a volunteer opportunity and redirect to opportunity list.
+8. While logged in, delete one or more volunteer opportunities and redirect to opportunity list.
+9. Log out and redirect to logout page.
+10. Log in with the same credentials and redirect to landing page.*
+* Any errors in input (ie. length requirements weren't met, username is already taken, passwords don't match) will
+result in the page re-rendering and an error message appearing.

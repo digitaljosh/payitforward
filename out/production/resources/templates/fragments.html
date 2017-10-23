@@ -25,6 +25,7 @@
     <ul class="menu">
         <li><a href="/about">About</a></li>
         <li><a href="/opportunity">Opportunity</a></li>
+        <li><a href="/profile">Neighbors</a></li>
         <li th:if="${session.loggedInUser}"><a href="/profile/myprofile">My Profile</a></li>
         <li th:unless="${session.loggedInUser}"><a href="/signup">Signup</a></li>
         <li th:unless="${session.loggedInUser}"><a href="/login">Login</a></li>

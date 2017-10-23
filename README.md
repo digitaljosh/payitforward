@@ -23,11 +23,11 @@ Test Plan:
 
 3. From list of opportunities, view details of a single opportunity without needing to login.
 
-4. Create an account and redirect to landing page.*
+4. Create an account and redirect to myprofile page.
 
 5. While logged in, view your account profile, edit it, and redirect to view profile to see your changes.
 
-6. While logged in, create a new volunteer opportunity and redirect to landing page.
+6. While logged in, create a new volunteer opportunity and redirect to opportunity list.
 
 7. While logged in, edit a volunteer opportunity and redirect to opportunity list.
 

@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import sun.misc.Request;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -57,13 +59,11 @@ public class ProfileController {
         // get updated info from db
         User user = userDao.findOne(currentUser.getId());
 
-
         //add user object to model
         model.addAttribute("user", user);
 
         return "profile/myprofile";
     }
-
 
     //Renders the edit page for logged in user
     @RequestMapping(value="edit/{userId}", method = RequestMethod.GET)
@@ -86,7 +86,6 @@ public class ProfileController {
         model.addAttribute("user", user);
 
         return "profile/edit";
-
     }
 
     //Posts the edits from edit page
@@ -115,8 +114,20 @@ public class ProfileController {
 
     //Renders delete account page
     @RequestMapping(value = "delete", method = RequestMethod.GET)
-    public String displayDeleteUserAccount(Model model){
+    public String displayDeleteUserAccount(Model model, HttpSession session){
 
+        //if user is not in session, redirect to login
+        if (session.getAttribute("loggedInUser") == null){
+            return "redirect:/login";
+        }
+
+        //get the current user's ID
+        User currentUser = (User) session.getAttribute("loggedInUser");
+        int currentId = currentUser.getId();
+
+        User user = userDao.findOne(currentId);
+
+        model.addAttribute("user", user);
         model.addAttribute("title", "Delete account");
 
         return "profile/delete";
@@ -124,7 +135,7 @@ public class ProfileController {
 
     //Posts delete account page and redirects to home page
     @RequestMapping(value="delete", method=RequestMethod.POST)
-    public String processDeleteUserAccount(@RequestParam int userId){
+    public String processDeleteUserAccount(@RequestParam int userId, HttpSession session){
 
         userDao.delete(userId);
 

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("opportunity")
@@ -49,23 +50,24 @@ public class OpportunityController {
     }
 
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.POST)
-    public String processClaimAndCompletion(
+    public String processClaimAndCompletion( HttpSession session,
                                @PathVariable int opportunityId){
 
-
+        User currentUser = (User) session.getAttribute("loggedInUser");
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
-        if (opportunityToEdit.getClaimed()==false) {
-            opportunityToEdit.setClaimed(true);
+        if (opportunityToEdit.getClaimed()> 0 ) {
+            opportunityToEdit.setClaimed(opportunityToEdit.getClaimed() -1);
+            opportunityToEdit.setClaimingUsers(currentUser);
             opportunityDao.save(opportunityToEdit);
         }
-        else {
-            opportunityToEdit.setCompleted(true);
-            opportunityDao.save(opportunityToEdit);
-        }
-        TODO:
+//        else {
+//            opportunityToEdit.setCompleted(true);
+//            opportunityDao.save(opportunityToEdit);
+//        }
+
         //redirect to same page using opportunityId
-        return "redirect:";
+        return "redirect:/opportunity";
 
 
     }
@@ -141,13 +143,15 @@ public class OpportunityController {
 
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.POST)
     public String processEditOpportunityForm(@RequestParam String name, @RequestParam String description, @RequestParam String location,
-                                              @PathVariable int opportunityId) {
+                                 @RequestParam int claimed, @PathVariable int opportunityId) {
+
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
 
         opportunityToEdit.setName(name);
         opportunityToEdit.setDescription(description);
         opportunityToEdit.setLocation(location);
+        opportunityToEdit.setClaimed(claimed);
 
         opportunityDao.save(opportunityToEdit);
 

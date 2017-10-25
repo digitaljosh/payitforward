@@ -16,6 +16,7 @@
                 <label for="displayNameField" class="control-label">Display Name</label>
                 <div>
                     <input th:field="*{displayname}" class="form-control" id="displayNameField" placeholder="Display Name" type="text"/>
+                    <span th:errors="*{displayname}"></span>
                 </div>
             </div>
             <div class="form-group" id="emailGroup">
@@ -28,6 +29,7 @@
                 <label for="textArea" class="control-label">About You</label>
                 <div>
                     <textarea th:field="*{bio}" class="form-control" rows="3" placeholder="So what makes you, you?" id="textArea"></textarea>
+                    <span th:errors="*{bio}"></span>
                 </div>
             </div>
             <div class="form-group">

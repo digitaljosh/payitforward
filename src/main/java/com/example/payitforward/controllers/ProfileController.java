@@ -90,8 +90,13 @@ public class ProfileController {
 
     //Posts the edits from edit page
     @RequestMapping(value="edit/{userId}", method = RequestMethod.POST)
-    public String submitEditProfile(String displayname, String bio,
+    public String submitEditProfile(@ModelAttribute @Valid User user, Errors errors,
+                                    String displayname, String bio,
                                     @PathVariable int userId){
+
+        if(errors.hasErrors()){
+            return "profile/edit";
+        }
 
         //create a new user object corresponding to the user ID
         User updatedUser = userDao.findOne(userId);

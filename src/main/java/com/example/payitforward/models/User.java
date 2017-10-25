@@ -18,6 +18,7 @@ public class User {
     @Size(min=3, max=15)
     private String username;
 
+    @Size(max=30)
     private String displayname;
 
     // TODO: password hash
@@ -29,6 +30,7 @@ public class User {
 
     // TODO: add email field
 
+    @Size(max=500)
     private String bio;
 
     // TODO: add profile picture

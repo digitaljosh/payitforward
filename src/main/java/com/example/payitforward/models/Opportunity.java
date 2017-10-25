@@ -24,16 +24,7 @@ public class Opportunity {
     @ManyToOne
     private User user;
 
-    public User getClaimingUsers() {
-        return claimingUsers;
-    }
 
-    public void setClaimingUsers(User claimingUsers) {
-        this.claimingUsers = claimingUsers;
-    }
-
-    @ManyToOne
-    private User claimingUsers;
 
     private String location;
 

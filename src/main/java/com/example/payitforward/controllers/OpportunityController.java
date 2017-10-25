@@ -58,7 +58,7 @@ public class OpportunityController {
 
         if (opportunityToEdit.getClaimed()> 0 ) {
             opportunityToEdit.setClaimed(opportunityToEdit.getClaimed() -1);
-            opportunityToEdit.setClaimingUsers(currentUser);
+           // opportunityToEdit.setClaimingUsers(currentUser);
             opportunityDao.save(opportunityToEdit);
         }
 //        else {

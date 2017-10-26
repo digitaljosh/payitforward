@@ -90,20 +90,33 @@ public class ProfileController {
 
     //Posts the edits from edit page
     @RequestMapping(value="edit/{userId}", method = RequestMethod.POST)
-    public String submitEditProfile(@ModelAttribute @Valid User user, Errors errors, Model model){
+    public String submitEditProfile(@RequestParam String displayname, String bio, String email,
+                                    @PathVariable int userId, Model model, HttpSession session){
 
-        if(errors.hasErrors()){
-            model.addAttribute("user", user);
+        User currentUser = (User) session.getAttribute("loggedInUser");
+
+        //validate displayname
+        if(displayname.length() > 25){
+            model.addAttribute("error1", "Display name must be less than 25 characters");
+            model.addAttribute("user", currentUser);
             return "profile/edit";
         }
 
-        //TODO: validate email with regex
+        //validate email
 
-        //create a new user object corresponding to the user ID
-        //User updatedUser = userDao.findOne(userId);
+
+        //validate bio
+        if(bio.length() > 500){
+            model.addAttribute("error3", "Bio must be shorter than 500 characters");
+            model.addAttribute("user", currentUser);
+            return "profile/edit";
+        }
+
+        currentUser.setDisplayname(displayname);
+        currentUser.setBio(bio);
 
         //update the user object in the DB -- Hibernate checks ID to see if user should be updated or inserted
-        userDao.save(user);
+        userDao.save(currentUser);
 
         //redirect to the view of the user's profile so they can see changes
         return "redirect:/profile/myprofile";

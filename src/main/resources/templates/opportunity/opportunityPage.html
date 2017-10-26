@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 
-<body>
+<body onload="initialize()">
 
 <nav th:replace="fragments :: navigation"></nav>
 
@@ -13,16 +13,16 @@
         <p th:text="${opportunity.location}" class="list-group-item-text"></p>
         <p th:text="${opportunity.claimed}" class="list-group-item-text"></p>
         <p th:text="${opportunity.completed}" class="list-group-item-text"></p>
-
     </a>
 </div>
+<!--Panel for Google Map-->
 <div class="panel panel-primary">
     <div class="panel-heading">
         <h3 th:text="${opportunity.name}" class="panel-title">Panel primary</h3>
     </div>
     <div class="panel-body">
-        <div>
-            <img th:src="'https://maps.googleapis.com/maps/api/staticmap?zoom=14&amp;size=600x300&amp;maptype=roadmap&amp;markers=color:red%7Clabel:S%7C'+${opportunity.location}+'&amp;scale=2&amp;key=AIzaSyAkMh2pi9tDnqh4BYxNJhAnpQQ6wmJvQSY'" alt="google map" width="300" height="200" />
+        <div id="map">
+            <option th:value="${opportunity.location}" id="address" class="hidden"/>
         </div>
     </div>
     <div th:text="${opportunity.location}" class="panel-footer">
@@ -46,6 +46,8 @@
 
 
 </form>
-
+<!--Script files for Google Maps and display-->
+<script type="text/javascript" th:src="@{/js/map.js}" />
+<script async="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC62aaJK4X6p9ZrYKrkoecZx4uUo2S8DnQ&amp;callback=initMap" />
 </body>
 </html>

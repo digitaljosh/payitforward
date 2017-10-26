@@ -6,15 +6,20 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
+<div style="height: 110px;"></div>
+
+<div class="container">
 <div th:object="${opportunity}" class="list-group">
     <a href="#" class="list-group-item">
         <h2 th:text="${opportunity.name}" class="list-group-item-heading">Opportunity Name</h2>
         <p th:text="${opportunity.description}" class="list-group-item-text"></p>
         <p th:text="${opportunity.location}" class="list-group-item-text"></p>
-        <p th:text="${opportunity.claimed}" class="list-group-item-text"></p>
-        <p th:text="${opportunity.completed}" class="list-group-item-text"></p>
+        <p th:text="${opportunity.claimed}" class="list-group-item-text">spots left!</p>
+        <!--<p th:text="${opportunity.completed}" class="list-group-item-text"></p>-->
 
     </a>
+    <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit</a>
+    <a th:href="@{/opportunity/remove}">Remove</a>
 </div>
 <div class="panel panel-primary">
     <div class="panel-heading">
@@ -30,22 +35,22 @@
     </div>
 </div>
 <form method="post" style="max-width:600px;" th:object="${opportunity}">
-    <div th:if="${opportunity.claimed}==false" class="form-group">
+    <div th:if="${opportunity.claimed} > 0" class="form-group">
         <label th:for="claimed">Claim</label>
         <input type="submit" value="Claim this Opportunity?" class="form-control" th:field="*{claimed}" />
         <span th:errors="*{claimed}" class="error"></span>
     </div>
-    <div th:if="${opportunity.claimed}==true and ${opportunity.completed}==false " class="form-group">
-        <label th:for="complete">Complete</label>
-        <input type="submit" value="Complete this Opportunity?" class="form-control" th:field="*{completed}" />
-        <span th:errors="*{completed}" class="error"></span>
-    </div>
-    <div th:if="${opportunity.completed}" class="form-group">
-        <p class="list-group-item-text">This opportunity has been completed.</p>
-    </div>
-
+    <!--<div th:if="${opportunity.claimed}" class="form-group">-->
+        <!--<label th:for="complete">Complete</label>-->
+        <!--<input type="submit" value="Complete this Opportunity?" class="form-control" th:field="*{completed}" />-->
+        <!--<span th:errors="*{completed}" class="error"></span>-->
+    <!--</div>-->
+    <!--<div th:if="${opportunity.completed}" class="form-group">-->
+        <!--<p class="list-group-item-text">This opportunity has been completed.</p>-->
+    <!--</div>-->
 
 </form>
+</div>
 
 </body>
 </html>

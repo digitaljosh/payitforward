@@ -2,18 +2,28 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
 
-<body class="container">
+<body>
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<div th:object="${user}" class="list-group">
-    <a href="#" class="list-group-item">
-        <h2 th:text="${user.displayname}" class="list-group-item-heading">User Displayname</h2>
-        <a th:href="@{edit/{id}(id=${user.id})}">Edit Profile</a>
-        <p th:text="${user.bio}" class="list-group-item-text"></p>
+<div style="height: 110px;"></div>
 
-    </a>
+
+<div class="container">
+    <div th:object="${user}" class="list-group">
+        <a href="#" class="list-group-item">
+            <h1 th:text="${user.username}" class="list-group-item-heading"></h1>
+            <em><h2 th:text="${user.displayname}" class="list-group-item-heading">User Displayname</h2></em>
+            <div>
+            <p th:text="${user.bio}" class="list-group-item-text"></p>
+            </div>
+            <a th:href="@{edit/{id}(id=${user.id})}">Edit Profile</a>
+            <a href="/opportunity/add">Create Opportunity</a>
+            <a href="/profile/delete">Delete Profile</a>
+        </a>
+    </div>
 </div>
+
 
 </body>
 </html>

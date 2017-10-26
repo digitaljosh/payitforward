@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Controller
 @RequestMapping("opportunity")
@@ -49,33 +50,36 @@ public class OpportunityController {
     }
 
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.POST)
-    public String processClaimAndCompletion(
+    public String processClaimAndCompletion( HttpSession session,
                                @PathVariable int opportunityId){
 
-
+        User currentUser = (User) session.getAttribute("loggedInUser");
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
-        if (opportunityToEdit.getClaimed()==false) {
-            opportunityToEdit.setClaimed(true);
+        if (opportunityToEdit.getClaimed()> 0 ) {
+            opportunityToEdit.setClaimed(opportunityToEdit.getClaimed() -1);
+           // opportunityToEdit.setClaimingUsers(currentUser);
             opportunityDao.save(opportunityToEdit);
         }
-        else {
-            opportunityToEdit.setCompleted(true);
-            opportunityDao.save(opportunityToEdit);
-        }
-        TODO:
+//        else {
+//            opportunityToEdit.setCompleted(true);
+//            opportunityDao.save(opportunityToEdit);
+//        }
+
         //redirect to same page using opportunityId
-        return "redirect:";
+        return "redirect:/opportunity";
 
 
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
-    public String displayAddForm(Model model) {
+    public String displayAddForm(Model model, HttpSession session) {
 
         //User user = opportunityDao.findOne(userId);
        // AddOpportunityForm form = new AddOpportunityForm(userDao.findAll(), user);
-
+        if (session.getAttribute("loggedInUser") == null){
+            return "redirect:/opportunity";
+        }
         model.addAttribute("title", "Add Opportunity");
         model.addAttribute(new Opportunity());
         //model.addAttribute("opportunities",form);
@@ -87,18 +91,22 @@ public class OpportunityController {
 //
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddForm(@ModelAttribute @Valid Opportunity opportunity,
-                                  Errors errors , Model model) {
+                             Errors errors , Model model, HttpSession session) {
 
-        if (errors.hasErrors()) {
-            model.addAttribute("title", "Add Opportunity");
-          //  model.addAttribute("user", userDao.findAll());
-            return "opportunity/add";
-        }
-
-
-        opportunityDao.save(opportunity);
-        return "redirect:";
+    if (errors.hasErrors()) {
+        model.addAttribute("title", "Add Opportunity");
+        //  model.addAttribute("user", userDao.findAll());
+        return "opportunity/add";
     }
+
+    User currentUser = (User) session.getAttribute("loggedInUser");
+
+
+    opportunity.setUser(currentUser);
+    opportunityDao.save(opportunity);
+
+    return "redirect:/opportunity";
+}
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
     public String displayRemoveOpportunityForm(Model model) {
@@ -135,13 +143,15 @@ public class OpportunityController {
 
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.POST)
     public String processEditOpportunityForm(@RequestParam String name, @RequestParam String description, @RequestParam String location,
-                                              @PathVariable int opportunityId) {
+                                 @RequestParam int claimed, @PathVariable int opportunityId) {
+
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
 
         opportunityToEdit.setName(name);
         opportunityToEdit.setDescription(description);
         opportunityToEdit.setLocation(location);
+        opportunityToEdit.setClaimed(claimed);
 
         opportunityDao.save(opportunityToEdit);
 

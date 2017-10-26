@@ -8,11 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import sun.misc.Request;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.security.Principal;
 
 @Controller
@@ -25,7 +27,7 @@ public class ProfileController {
     @Autowired
     OpportunityDao opportunityDao;
 
-    @RequestMapping(value = "")
+    @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
 
         model.addAttribute("profiles", userDao.findAll());
@@ -43,6 +45,7 @@ public class ProfileController {
         return "profile/view";
     }
 
+    //Allows you to view your own profile
     @RequestMapping(value="myprofile", method = RequestMethod.GET)
     public String viewMyProfile(Model model, HttpSession session){
 
@@ -53,13 +56,16 @@ public class ProfileController {
         //get the user from session
         User currentUser = (User) session.getAttribute("loggedInUser");
 
+        // get updated info from db
+        User user = userDao.findOne(currentUser.getId());
+
         //add user object to model
-        model.addAttribute("user", currentUser);
+        model.addAttribute("user", user);
 
         return "profile/myprofile";
     }
 
-
+    //Renders the edit page for logged in user
     @RequestMapping(value="edit/{userId}", method = RequestMethod.GET)
     public String viewEditProfile(Model model, @PathVariable int userId, HttpSession session){
 
@@ -80,9 +86,9 @@ public class ProfileController {
         model.addAttribute("user", user);
 
         return "profile/edit";
-
     }
 
+    //Posts the edits from edit page
     @RequestMapping(value="edit/{userId}", method = RequestMethod.POST)
     public String submitEditProfile(String username, String displayname, String bio,
                                     @PathVariable int userId){
@@ -106,16 +112,30 @@ public class ProfileController {
         return "redirect:/profile/myprofile";
     }
 
+    //Renders delete account page
     @RequestMapping(value = "delete", method = RequestMethod.GET)
-    public String displayDeleteUserAccount(Model model){
+    public String displayDeleteUserAccount(Model model, HttpSession session){
 
+        //if user is not in session, redirect to login
+        if (session.getAttribute("loggedInUser") == null){
+            return "redirect:/login";
+        }
+
+        //get the current user's ID
+        User currentUser = (User) session.getAttribute("loggedInUser");
+        int currentId = currentUser.getId();
+
+        User user = userDao.findOne(currentId);
+
+        model.addAttribute("user", user);
         model.addAttribute("title", "Delete account");
 
         return "profile/delete";
     }
 
+    //Posts delete account page and redirects to home page
     @RequestMapping(value="delete", method=RequestMethod.POST)
-    public String processDeleteUserAccount(@RequestParam int userId){
+    public String processDeleteUserAccount(@RequestParam int userId, HttpSession session){
 
         userDao.delete(userId);
 

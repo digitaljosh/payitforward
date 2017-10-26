@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
 public class User {
@@ -25,8 +26,6 @@ public class User {
     @Size(min=3, max=15)
     private String password;
 
-//    @NotNull
-//    private String verifyPassword;
 
     // TODO: add email field
 
@@ -35,10 +34,11 @@ public class User {
     // TODO: add profile picture
 
 
-
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Opportunity> opportunities = new ArrayList<>();
+
+
 
     public User(String name) { this.username = name; }
 
@@ -74,12 +74,4 @@ public class User {
         this.password = password;
     }
 
-//    @Transient
-//    public String getVerifyPassword() {
-//        return verifyPassword;
-//    }
-//
-//    public void setVerifyPassword(String verifyPassword) {
-//        this.verifyPassword = verifyPassword;
-//    }
 }

@@ -30,10 +30,9 @@ public class UserController {
         model.addAttribute("title", "Create an Account");
 
         return "signup";
-
     }
 
-    //Allows user to sign up and saves their credentials to the database
+    //Allows user to sign up, saves their credentials to the database, and initiate a session
     @RequestMapping(value = "signup", method = RequestMethod.POST)
     public String processSignupForm(@ModelAttribute @Valid User newUser, Errors errors,
                                     Model model, HttpServletRequest request){
@@ -69,17 +68,11 @@ public class UserController {
         model.addAttribute("title", "Log In");
 
         return "login";
-
     }
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String processLoginForm(@ModelAttribute @Valid User returningUser, Errors errors,
                                    Model model, HttpServletRequest request){
-
-//        if (errors.hasErrors()) {
-//            model.addAttribute("title", "Log In");
-//            return "login";
-//        }
 
         Iterable<User> users = userDao.findAll();
 
@@ -88,7 +81,8 @@ public class UserController {
                 if (user.getPassword().equals(returningUser.getPassword())) {
                     HttpSession session = request.getSession();
                     session.setAttribute("loggedInUser", user);
-                    return "redirect:";
+                    return "redirect:profile/myprofile";
+
                     //TODO: return some kind of welcome message
                 } else {
                     //return login page with password error
@@ -102,15 +96,14 @@ public class UserController {
         model.addAttribute("title", "Log In");
         model.addAttribute("usernameMessage", "There is no account with that username. Please try again or sign up for an account.");
 
-
         return "login";
-
     }
 
     @RequestMapping(value = "logout", method = RequestMethod.GET)
-    public String logout(HttpSession session) {
+    public String logout(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
         session.removeAttribute("loggedInUser");
-        return "login";
+        model.addAttribute("title", "Log Out");
+        return "logout";
     }
-
 }

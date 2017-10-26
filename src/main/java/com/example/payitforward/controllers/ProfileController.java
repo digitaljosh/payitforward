@@ -90,20 +90,20 @@ public class ProfileController {
 
     //Posts the edits from edit page
     @RequestMapping(value="edit/{userId}", method = RequestMethod.POST)
-    public String submitEditProfile(@ModelAttribute @Valid User user, Errors errors,
-                                    @PathVariable int userId){
+    public String submitEditProfile(@ModelAttribute @Valid User user, Errors errors, Model model){
 
         if(errors.hasErrors()){
+            model.addAttribute("user", user);
             return "profile/edit";
         }
 
         //TODO: validate email with regex
 
         //create a new user object corresponding to the user ID
-        User updatedUser = userDao.findOne(userId);
+        //User updatedUser = userDao.findOne(userId);
 
         //update the user object in the DB -- Hibernate checks ID to see if user should be updated or inserted
-        userDao.save(updatedUser);
+        userDao.save(user);
 
         //redirect to the view of the user's profile so they can see changes
         return "redirect:/profile/myprofile";

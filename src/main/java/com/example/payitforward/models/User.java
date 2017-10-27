@@ -21,7 +21,7 @@ public class User {
 
     // TODO: password hash
 
-    @NotNull
+//    @NotNull
     @Size(min=3, max=15)
     @Transient
     private String password;

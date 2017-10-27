@@ -37,10 +37,10 @@ public class UserController {
     public String processSignupForm(@ModelAttribute @Valid User newUser, Errors errors,
                                     Model model, HttpServletRequest request) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
-//        if (errors.hasErrors()){
-//            model.addAttribute("title", "Create an Account");
-//            return "signup";
-//        }
+        if (errors.hasErrors()){
+            model.addAttribute("title", "Create an Account");
+            return "signup";
+        }
 
         Iterable<User> users = userDao.findAll();
 
@@ -51,6 +51,14 @@ public class UserController {
                 return "signup";
             }
         }
+
+//        if (newUser.getPassword().isEmpty()) {
+//            model.addAttribute("password", "Password field cannot be empty.");
+//            return "signup";
+//        } else if (newUser.getPassword().length() < 3) {
+//            model.addAttribute("password", "Password must be between 3 and 15 characters.");
+//            return "signup";
+//        }
 
         //save user and add user to session
 

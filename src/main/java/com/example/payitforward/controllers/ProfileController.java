@@ -3,19 +3,13 @@ package com.example.payitforward.controllers;
 import com.example.payitforward.models.data.OpportunityDao;
 import com.example.payitforward.models.data.UserDao;
 import com.example.payitforward.models.User;
-import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import sun.misc.Request;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.validation.Valid;
-import java.security.Principal;
 
 @Controller
 @RequestMapping("profile")
@@ -26,6 +20,8 @@ public class ProfileController {
 
     @Autowired
     OpportunityDao opportunityDao;
+
+    EmailValidator validator = new EmailValidator();
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
@@ -90,23 +86,38 @@ public class ProfileController {
 
     //Posts the edits from edit page
     @RequestMapping(value="edit/{userId}", method = RequestMethod.POST)
-    public String submitEditProfile(String username, String displayname, String bio,
-                                    @PathVariable int userId){
+    public String submitEditProfile(@RequestParam String displayname, String bio, String email,
+                                    @PathVariable int userId, Model model, HttpSession session){
 
-        //if (errors.hasErrors()) {
-            //model.addAttribute("user", user);
-            //return "profile/edit";
-        //}
+        User currentUser = (User) session.getAttribute("loggedInUser");
 
-        //create a new user object corresponding to the user ID
-        User updatedUser = userDao.findOne(userId);
+        //validate displayname
+        if(displayname.length() > 25){
+            model.addAttribute("error1", "Display name must be less than 25 characters");
+            model.addAttribute("user", currentUser);
+            return "profile/edit";
+        }
 
-        updatedUser.setUsername(username);
-        updatedUser.setDisplayname(displayname);
-        updatedUser.setBio(bio);
+        //validate email
+        if(!validator.isValid(email, null)){
+            model.addAttribute("error2", "Please enter a valid email address");
+            model.addAttribute("user", currentUser);
+            return "profile/edit";
+        }
+
+        //validate bio
+        if(bio.length() > 250){
+            model.addAttribute("error3", "Bio must be shorter than 500 characters");
+            model.addAttribute("user", currentUser);
+            return "profile/edit";
+        }
+
+        currentUser.setDisplayname(displayname);
+        currentUser.setEmail(email);
+        currentUser.setBio(bio);
 
         //update the user object in the DB -- Hibernate checks ID to see if user should be updated or inserted
-        userDao.save(updatedUser);
+        userDao.save(currentUser);
 
         //redirect to the view of the user's profile so they can see changes
         return "redirect:/profile/myprofile";

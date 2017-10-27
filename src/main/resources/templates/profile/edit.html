@@ -22,7 +22,7 @@
             <div class="form-group" id="emailGroup">
                 <label for="emailField" class="control-label">Email</label>
                 <div>
-                    <input class="form-control" id="emailField" placeholder="Email" type="text"/>
+                    <input th:field="*{email}" class="form-control" id="emailField" placeholder="Email" type="text"/>
                     <span th:text="${error2}" class="error"></span>
                 </div>
             </div>

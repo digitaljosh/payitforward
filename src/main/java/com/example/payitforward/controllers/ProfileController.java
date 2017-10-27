@@ -4,6 +4,7 @@ import com.example.payitforward.models.data.OpportunityDao;
 import com.example.payitforward.models.data.UserDao;
 import com.example.payitforward.models.User;
 import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
+import org.hibernate.validator.internal.constraintvalidators.hv.EmailValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
@@ -15,7 +16,8 @@ import sun.misc.Request;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.security.Principal;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Controller
 @RequestMapping("profile")
@@ -26,6 +28,8 @@ public class ProfileController {
 
     @Autowired
     OpportunityDao opportunityDao;
+
+    EmailValidator validator = new EmailValidator();
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model) {
@@ -103,16 +107,21 @@ public class ProfileController {
         }
 
         //validate email
-
+        if(!validator.isValid(email, null)){
+            model.addAttribute("error2", "Please enter a valid email address");
+            model.addAttribute("user", currentUser);
+            return "profile/edit";
+        }
 
         //validate bio
-        if(bio.length() > 500){
+        if(bio.length() > 250){
             model.addAttribute("error3", "Bio must be shorter than 500 characters");
             model.addAttribute("user", currentUser);
             return "profile/edit";
         }
 
         currentUser.setDisplayname(displayname);
+        currentUser.setEmail(email);
         currentUser.setBio(bio);
 
         //update the user object in the DB -- Hibernate checks ID to see if user should be updated or inserted

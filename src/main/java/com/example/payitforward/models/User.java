@@ -26,13 +26,11 @@ public class User {
     @Size(min=3, max=15)
     private String password;
 
-
-    // TODO: add email field
+    private String email;
 
     private String bio;
 
     // TODO: add profile picture
-
 
     @OneToMany
     @JoinColumn(name = "user_id")
@@ -41,7 +39,6 @@ public class User {
     @OneToMany
     @JoinColumn(name = "opportunity_id")
     private List<Opportunity> opportunitiesClaimed = new ArrayList<>();
-
 
     public User(String name) { this.username = name; }
 
@@ -77,4 +74,11 @@ public class User {
         this.password = password;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

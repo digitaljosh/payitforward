@@ -34,7 +34,7 @@
 
     <div class="form-group" id="passwordGroup">
         <label th:for="password">Password</label>
-        <input type="password" id="passwordField" class="form-control" th:field="*{password}" />
+        <input type="password" id="passwordField" name="password" class="form-control" th:field="*{password}" />
         <div th:if="${#fields.hasErrors('password')}" class="panel panel-danger" id="errorPassword">
             <div class="panel-heading">
                 <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>

@@ -6,14 +6,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 
 @Controller
@@ -35,12 +35,12 @@ public class UserController {
     //Allows user to sign up, saves their credentials to the database, and initiate a session
     @RequestMapping(value = "signup", method = RequestMethod.POST)
     public String processSignupForm(@ModelAttribute @Valid User newUser, Errors errors,
-                                    Model model, HttpServletRequest request){
+                                    Model model, HttpServletRequest request) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 
-        if (errors.hasErrors()){
-            model.addAttribute("title", "Create an Account");
-            return "signup";
-        }
+//        if (errors.hasErrors()){
+//            model.addAttribute("title", "Create an Account");
+//            return "signup";
+//        }
 
         Iterable<User> users = userDao.findAll();
 
@@ -53,12 +53,18 @@ public class UserController {
         }
 
         //save user and add user to session
+
+        String userPassword = newUser.getPassword();
+        newUser.setPwHash(hashPassword(userPassword));
+
+
         userDao.save(newUser);
         HttpSession session = request.getSession();
         session.setAttribute("loggedInUser", newUser);
 
         return "redirect:/profile/myprofile";
     }
+
 
     //renders login form
     @RequestMapping(value = "login", method = RequestMethod.GET)
@@ -72,13 +78,13 @@ public class UserController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String processLoginForm(@ModelAttribute @Valid User returningUser, Errors errors,
-                                   Model model, HttpServletRequest request){
+                                   Model model, HttpServletRequest request, String password){
 
         Iterable<User> users = userDao.findAll();
 
         for (User user : users) {
             if (user.getUsername().equals(returningUser.getUsername())) {
-                if (user.getPassword().equals(returningUser.getPassword())) {
+                if (user.getPwHash().equals(hashPassword(returningUser.getPassword()))) {
                     HttpSession session = request.getSession();
                     session.setAttribute("loggedInUser", user);
                     return "redirect:profile/myprofile";
@@ -106,4 +112,21 @@ public class UserController {
         model.addAttribute("title", "Log Out");
         return "logout";
     }
+
+    public static String hashPassword(@ModelAttribute String password) {
+        try{
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes("UTF-8"));
+            StringBuffer hexString = new StringBuffer();
+            for (int i = 0; i < hash.length; i++) {
+                String hex = Integer.toHexString(0xff & hash[i]);
+                if(hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch(Exception ex){
+            throw new RuntimeException(ex);
+        }
+    }
+
 }

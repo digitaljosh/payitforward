@@ -5,7 +5,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 public class User {
@@ -24,7 +23,20 @@ public class User {
 
     @NotNull
     @Size(min=3, max=15)
+    @Transient
     private String password;
+
+    public String getPwHash() {
+        return pwHash;
+    }
+
+    public void setPwHash(String pwHash) {
+        this.pwHash = pwHash;
+    }
+
+    @NotNull
+    private String pwHash;
+
 
 
     // TODO: add email field
@@ -73,5 +85,4 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }

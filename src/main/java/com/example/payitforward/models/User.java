@@ -36,9 +36,6 @@ public class User {
     @JoinColumn(name = "user_id")
     private List<Opportunity> opportunities = new ArrayList<>();
 
-    @OneToMany
-    @JoinColumn(name = "opportunity_id")
-    private List<Opportunity> opportunitiesClaimed = new ArrayList<>();
 
     public User(String name) { this.username = name; }
 

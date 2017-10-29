@@ -58,7 +58,10 @@ public class OpportunityController {
 
         if (opportunityToEdit.getClaimed()> 0 ) {
             opportunityToEdit.setClaimed(opportunityToEdit.getClaimed() -1);
-           // opportunityToEdit.setClaimingUsers(currentUser);
+
+            List<User> currentClaimedUsers = opportunityToEdit.getClaimingUsers();
+            currentClaimedUsers.add(currentUser);
+            opportunityToEdit.setClaimingUsers(currentClaimedUsers);
             opportunityDao.save(opportunityToEdit);
         }
 //        else {
@@ -102,7 +105,7 @@ public class OpportunityController {
     User currentUser = (User) session.getAttribute("loggedInUser");
 
 
-    opportunity.setUser(currentUser);
+    opportunity.setOpportunityCreator(currentUser);
     opportunityDao.save(opportunity);
 
     return "redirect:/opportunity";

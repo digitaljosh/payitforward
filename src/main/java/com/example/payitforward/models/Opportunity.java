@@ -21,8 +21,16 @@ public class Opportunity {
 
     private String description;
 
+    public User getOpportunityCreator() {
+        return OpportunityCreator;
+    }
+
+    public void setOpportunityCreator(User opportunityCreator) {
+        OpportunityCreator = opportunityCreator;
+    }
+
     @ManyToOne
-    private User user;
+    private User OpportunityCreator;
 
 
 
@@ -31,7 +39,8 @@ public class Opportunity {
 
     private int claimed;
 
-
+    @ManyToMany
+    private List<User> claimingUsers;
 
 
 
@@ -67,9 +76,7 @@ public class Opportunity {
 
     public void setDescription(String description) { this.description = description; }
 
-    public User getUser() { return user; }
 
-    public void setUser(User user) { this.user = user; }
 
     public String getLocation() {
         return location;
@@ -101,6 +108,14 @@ public class Opportunity {
 
     public void setUsersOnly(Boolean usersOnly) {
         this.usersOnly = usersOnly;
+    }
+
+    public void setClaimingUsers(List<User> claimingUsers) {
+        this.claimingUsers = claimingUsers;
+    }
+
+    public List<User> getClaimingUsers() {
+        return claimingUsers;
     }
 
 

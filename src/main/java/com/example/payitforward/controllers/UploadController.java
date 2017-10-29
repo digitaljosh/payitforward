@@ -34,11 +34,11 @@ public class UploadController {
     public String singleFileUpload(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes, HttpSession session) {
 
-        //TODO: get user ID
+        //get the ID of the current user
         User currentUser = (User) session.getAttribute("loggedInUser");
         String currentId = String.valueOf(currentUser.getId());
 
-        //TODO: create folder based on user ID
+        //create a new folder within upload-dir corresponding to the user's ID to hold their photo
         File dir = new File("upload-dir" + File.separator + currentId);
         boolean successful = dir.mkdir();
         if (successful) {
@@ -49,15 +49,19 @@ public class UploadController {
             System.out.println("failed trying to create the directory");
         }
 
+
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
             return "redirect:/profile/uploadStatus";
         }
+        //TODO: limit file size
+        //TODO: if user already has a picture, delete it before adding new one
 
+        //TODO: change below so not flash
         try {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
-
+            //save the file in the previously created folder
             Path path = Paths.get("upload-dir" + File.separator + currentId + File.separator + file.getOriginalFilename());
             Files.write(path, bytes);
 
@@ -68,9 +72,11 @@ public class UploadController {
             e.printStackTrace();
         }
 
+        //TODO: change so redirects to myprofile or view
         return "redirect:/profile/uploadStatus";
     }
 
+    //TODO: prob don't need this
     @GetMapping("profile/uploadStatus")
     public String uploadStatus() {
         return "profile/uploadStatus";

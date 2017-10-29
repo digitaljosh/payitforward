@@ -35,6 +35,11 @@ public class ProfileController {
     @RequestMapping(value="view/{userId}", method = RequestMethod.GET)
     public String viewProfile(Model model, @PathVariable int userId){
 
+        //TODO: find the directory with the user picture in it
+        //if file exists and has contents, pass contents to model
+        //define path
+        //check if path exists
+
         User user = userDao.findOne(userId);
         model.addAttribute("user", user);
 

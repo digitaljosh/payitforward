@@ -21,8 +21,6 @@ public class UploadController {
     //Save the uploaded file to this folder
     private static String UPLOADED_FOLDER = "C://temp//";
 
-    private final Path rootLocation = Paths.get("upload-dir");
-
     @GetMapping("profile/upload")
     public String index(HttpSession session) {
 
@@ -41,7 +39,15 @@ public class UploadController {
         String currentId = String.valueOf(currentUser.getId());
 
         //TODO: create folder based on user ID
-        File dir = new File(currentId);
+        File dir = new File("upload-dir" + File.separator + currentId);
+        boolean successful = dir.mkdir();
+        if (successful) {
+            // creating the directory succeeded
+            System.out.println("directory was created successfully");
+        } else {
+            // creating the directory failed
+            System.out.println("failed trying to create the directory");
+        }
 
         if (file.isEmpty()) {
             redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
@@ -49,11 +55,10 @@ public class UploadController {
         }
 
         try {
-
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
 
-            Path path = Paths.get(currentId + file.getOriginalFilename());
+            Path path = Paths.get("upload-dir" + File.separator + currentId + File.separator + file.getOriginalFilename());
             Files.write(path, bytes);
 
             redirectAttributes.addFlashAttribute("message",

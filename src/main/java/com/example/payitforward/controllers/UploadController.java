@@ -18,9 +18,6 @@ import java.nio.file.Paths;
 @Controller
 public class UploadController {
 
-    //Save the uploaded file to this folder
-    private static String UPLOADED_FOLDER = "C://temp//";
-
     @GetMapping("profile/upload")
     public String index(HttpSession session) {
 

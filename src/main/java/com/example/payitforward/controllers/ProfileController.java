@@ -45,13 +45,18 @@ public class ProfileController {
 
         //NOTE: might be an issue that path is written slightly differently (NOT with userId) in other controller
         Path path = Paths.get("upload-dir" + File.separator + userId + File.separator);
+        System.out.println(path);
 
         //check if path exists
         if(Files.exists(path)){
+            System.out.println("Path exists");
+            //convert the path to a File object
             File file = path.toFile();
-            String[] userPhotoLoc = file.list();
-            System.out.println(userPhotoLoc);
-            model.addAttribute("userPhoto", userPhotoLoc);
+            //get filename
+            String[] userPhoto = file.list();
+            for(String photo : userPhoto){
+                model.addAttribute("photoName", photo);
+            }
         }
 
         User user = userDao.findOne(userId);

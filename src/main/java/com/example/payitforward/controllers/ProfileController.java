@@ -10,6 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
 @RequestMapping("profile")
@@ -38,7 +42,17 @@ public class ProfileController {
         //TODO: find the directory with the user picture in it
         //if file exists and has contents, pass contents to model
         //define path
+
+        //NOTE: might be an issue that path is written slightly differently (NOT with userId) in other controller
+        Path path = Paths.get("upload-dir" + File.separator + userId + File.separator);
+
         //check if path exists
+        if(Files.exists(path)){
+            File file = path.toFile();
+            String[] userPhotoLoc = file.list();
+            System.out.println(userPhotoLoc);
+            model.addAttribute("userPhoto", userPhotoLoc);
+        }
 
         User user = userDao.findOne(userId);
         model.addAttribute("user", user);

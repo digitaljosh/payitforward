@@ -19,12 +19,10 @@ public class User {
 
     private String displayname;
 
-    // TODO: password hash
-
-//    @NotNull
     @Size(min=3, max=15)
     @Transient
     private String password;
+
 
     public String getPwHash() {
         return pwHash;
@@ -37,19 +35,16 @@ public class User {
     @NotNull
     private String pwHash;
 
+    private String email;
 
-
-    // TODO: add email field
 
     private String bio;
 
     // TODO: add profile picture
 
-
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Opportunity> opportunities = new ArrayList<>();
-
 
 
     public User(String name) { this.username = name; }
@@ -84,5 +79,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

@@ -18,17 +18,17 @@ import java.nio.file.Paths;
 @Controller
 public class UploadController {
 
-    @GetMapping("profile/upload")
-    public String index(HttpSession session) {
+    @GetMapping("upload")
+    public String uploadFile(HttpSession session) {
 
         if (session.getAttribute("loggedInUser") == null){
             return "redirect:/login";
         }
-        return "profile/upload";
+        return "upload";
     }
 
-    @PostMapping("profile/upload")
-    public String singleFileUpload(@RequestParam("file") MultipartFile file,
+    @PostMapping("upload")
+    public String uploadFile(@RequestParam("file") MultipartFile file,
                                    RedirectAttributes redirectAttributes, HttpSession session) {
 
         //get the ID of the current user
@@ -74,19 +74,7 @@ public class UploadController {
             e.printStackTrace();
         }
 
-        //TODO: change so redirects to myprofile or view
-        return "redirect:/profile/uploadStatus";
-    }
-
-    //TODO: prob don't need this
-    @GetMapping("profile/uploadStatus")
-    public String uploadStatus() {
-        return "profile/uploadStatus";
-    }
-
-    @GetMapping("/test")
-    public String test(){
-        return "test";
+        return "redirect:/profile/myprofile";
     }
 
 }

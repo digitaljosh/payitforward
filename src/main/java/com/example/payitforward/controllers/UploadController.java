@@ -39,7 +39,9 @@ public class UploadController {
         String currentId = String.valueOf(currentUser.getId());
 
         //create a new folder within upload-dir corresponding to the user's ID to hold their photo
-        File dir = new File("upload-dir" + File.separator + currentId);
+        File dir = new File("src" + File.separator + "main" + File.separator + "resources"
+                + File.separator + "static" + File.separator
+                + File.separator + "upload-dir" + File.separator + currentId);
         boolean successful = dir.mkdir();
         if (successful) {
             // creating the directory succeeded
@@ -62,7 +64,10 @@ public class UploadController {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             //save the file in the previously created folder
-            Path path = Paths.get("upload-dir" + File.separator + currentId + File.separator + file.getOriginalFilename());
+            Path path = Paths.get("src" + File.separator + "main" + File.separator + "resources" +
+                    File.separator + "static" +
+                    File.separator + "upload-dir" + File.separator + currentId
+                    + File.separator + file.getOriginalFilename());
             Files.write(path, bytes);
 
             redirectAttributes.addFlashAttribute("message",
@@ -80,6 +85,11 @@ public class UploadController {
     @GetMapping("profile/uploadStatus")
     public String uploadStatus() {
         return "profile/uploadStatus";
+    }
+
+    @GetMapping("/test")
+    public String test(){
+        return "test";
     }
 
 }

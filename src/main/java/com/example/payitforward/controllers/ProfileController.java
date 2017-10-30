@@ -43,8 +43,8 @@ public class ProfileController {
         //if file exists and has contents, pass contents to model
         //define path
 
-        //NOTE: might be an issue that path is written slightly differently (NOT with userId) in other controller
-        Path path = Paths.get("upload-dir" + File.separator + userId + File.separator);
+        Path path = Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator +
+                "static" + File.separator + "upload-dir" + File.separator + userId + File.separator);
         System.out.println(path);
 
         //check if path exists

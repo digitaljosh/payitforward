@@ -19,6 +19,7 @@ import java.nio.file.Paths;
 @Controller
 public class UploadController {
 
+    //if user is logged in, allows them to view a template where they can upload a photo
     @GetMapping("upload")
     public String uploadFile(HttpSession session) {
 
@@ -28,6 +29,7 @@ public class UploadController {
         return "upload";
     }
 
+    //processes the user's uploaded image
     @PostMapping("upload")
     public String uploadFile(@RequestParam("file") MultipartFile file, HttpSession session, Model model) {
 
@@ -50,18 +52,18 @@ public class UploadController {
 
         //TODO: limit file size
         //TODO: if user already has a picture, delete it before adding new one
-        //TODO: change below so not flash
         //TODO: add picture to myprofile view
         //TODO: refactor: store reference to photo location in DB
         //TODO: refactor: way path is written
 
+        //if the file the user is trying to upload is empty, return an error message
         if (file.isEmpty()) {
             model.addAttribute("message", "Please select a file to upload");
             return "upload";
         }
 
         try {
-            // Get the file and save it somewhere
+            //get the file
             byte[] bytes = file.getBytes();
             //save the file in the previously created folder
             Path path = Paths.get("src" + File.separator + "main" + File.separator + "resources" +

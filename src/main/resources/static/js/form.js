@@ -8,6 +8,16 @@ function handleName() {
         }
     }
 
+function handleDisplayName() {
+    let value = this.value;
+    if (value.length > 2 && value.length < 16) {
+        displayValidField("displayNameGroup");
+        } else {
+        displayInvalidField("displayNameGroup");
+        }
+    }
+
+
 //validation for email field
 function handleEmail() {
     let value = this.value;

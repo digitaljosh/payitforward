@@ -1,6 +1,8 @@
 package com.example.payitforward.controllers;
 
 import com.example.payitforward.models.User;
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,9 +35,13 @@ public class UploadController {
     @PostMapping("upload")
     public String uploadFile(@RequestParam("file") MultipartFile file, HttpSession session, Model model) {
 
+        //if the file the user is trying to upload is empty, return an error message
+        if (file.isEmpty()) {
+            model.addAttribute("message", "Please select a file to upload");
+            return "upload";
+        }
 
-
-        //get the ID of the current user
+        //get the ID of the current user as a string -- will be used to name the directory
         User currentUser = (User) session.getAttribute("loggedInUser");
         String currentId = String.valueOf(currentUser.getId());
 
@@ -43,6 +49,7 @@ public class UploadController {
         File dir = new File("src" + File.separator + "main" + File.separator + "resources"
                 + File.separator + "static" + File.separator
                 + File.separator + "upload-dir" + File.separator + currentId);
+
         boolean successful = dir.mkdir();
         if (successful) {
             // creating the directory succeeded
@@ -52,32 +59,31 @@ public class UploadController {
             System.out.println("failed trying to create the directory");
         }
 
-        //TODO: limit file size in JS
-        //TODO: if user already has a picture, delete it before adding new one
         //TODO: add picture to myprofile view
         //TODO: refactor: store reference to photo location in DB
         //TODO: refactor: way path is written
-        //TODO: user getImageName to delete image if it exists
 
-        //if the file the user is trying to upload is empty, return an error message
-        if (file.isEmpty()) {
-            model.addAttribute("message", "Please select a file to upload");
-            return "upload";
-        }
+        //before adding a new picture, make sure there are no existing pictures in the folder,
+        //so each user will have only one picture
+        for(File aFile: dir.listFiles())
+            if (!aFile.isDirectory())
+                aFile.delete();
 
         try {
             //get the file
             byte[] bytes = file.getBytes();
+
             //save the file in the previously created folder
             Path path = Paths.get("src" + File.separator + "main" + File.separator + "resources" +
                     File.separator + "static" + File.separator + "upload-dir" + File.separator + currentId
                     + File.separator + file.getOriginalFilename());
             Files.write(path, bytes);
+            currentUser.setImageName(file.getOriginalFilename());
+            System.out.println(currentUser.getImageName());
 
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return "redirect:/profile/myprofile";
     }
 

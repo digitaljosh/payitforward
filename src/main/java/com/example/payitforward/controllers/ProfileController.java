@@ -39,15 +39,13 @@ public class ProfileController {
     @RequestMapping(value="view/{userId}", method = RequestMethod.GET)
     public String viewProfile(Model model, @PathVariable int userId){
 
-        //TODO: find the directory with the user picture in it
-        //if file exists and has contents, pass contents to model
-        //define path
+        //define path where the user images will be stored, if they exist
 
         Path path = Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator +
                 "static" + File.separator + "upload-dir" + File.separator + userId + File.separator);
         System.out.println(path);
 
-        //check if path exists
+        //check if path exists -- if it does, find the contents of the directory and pass to view
         if(Files.exists(path)){
             System.out.println("Path exists");
             //convert the path to a File object

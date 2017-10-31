@@ -39,11 +39,8 @@ public class ProfileController {
     @RequestMapping(value="view/{userId}", method = RequestMethod.GET)
     public String viewProfile(Model model, @PathVariable int userId){
 
-        //define path where the user images will be stored, if they exist
-
-        Path path = Paths.get("src" + File.separator + "main" + File.separator + "resources" + File.separator +
-                "static" + File.separator + "upload-dir" + File.separator + userId + File.separator);
-        System.out.println(path);
+        //defines path where the user images will be stored, if they exist
+        Path path = Paths.get("src/main/resources/static/upload-dir" + File.separator + userId + File.separator);
 
         //check if path exists -- if it does, find the contents of the directory and pass to view
         if(Files.exists(path)){
@@ -73,9 +70,24 @@ public class ProfileController {
         }
         //get the user from session
         User currentUser = (User) session.getAttribute("loggedInUser");
-
-        // get updated info from db
         User user = userDao.findOne(currentUser.getId());
+
+        int currentId = currentUser.getId();
+
+        Path path = Paths.get("src/main/resources/static/upload-dir" + File.separator + currentId +  File.separator);
+
+        //check if path exists -- if it does, find the contents of the directory and pass to view
+        if(Files.exists(path)){
+            System.out.println("Path exists");
+            //convert the path to a File object
+            File file = path.toFile();
+            //get filename
+            String[] userPhoto = file.list();
+            for(String photo : userPhoto){
+                System.out.println(photo);
+                model.addAttribute("photoName", photo);
+            }
+        }
 
         //add user object to model
         model.addAttribute("user", user);

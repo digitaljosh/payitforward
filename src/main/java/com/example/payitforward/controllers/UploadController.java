@@ -46,9 +46,7 @@ public class UploadController {
         String currentId = String.valueOf(currentUser.getId());
 
         //create a new folder within upload-dir corresponding to the user's ID to hold their photo
-        File dir = new File("src" + File.separator + "main" + File.separator + "resources"
-                + File.separator + "static" + File.separator
-                + File.separator + "upload-dir" + File.separator + currentId);
+        File dir = new File("src/main/resources/static/upload-dir" + File.separator + currentId);
 
         boolean successful = dir.mkdir();
         if (successful) {
@@ -59,9 +57,7 @@ public class UploadController {
             System.out.println("failed trying to create the directory");
         }
 
-        //TODO: add picture to myprofile view
         //TODO: refactor: store reference to photo location in DB
-        //TODO: refactor: way path is written
 
         //before adding a new picture, make sure there are no existing pictures in the folder,
         //so each user will have only one picture
@@ -74,9 +70,9 @@ public class UploadController {
             byte[] bytes = file.getBytes();
 
             //save the file in the previously created folder
-            Path path = Paths.get("src" + File.separator + "main" + File.separator + "resources" +
-                    File.separator + "static" + File.separator + "upload-dir" + File.separator + currentId
-                    + File.separator + file.getOriginalFilename());
+            Path path = Paths.get("src/main/resources/static/upload-dir" + File.separator + currentId +
+                    File.separator + file.getOriginalFilename());
+
             Files.write(path, bytes);
             currentUser.setImageName(file.getOriginalFilename());
             System.out.println(currentUser.getImageName());

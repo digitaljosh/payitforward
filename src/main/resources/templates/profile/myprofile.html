@@ -22,6 +22,9 @@
             <a href="/profile/delete">Delete Profile</a>
         </a>
     </div>
+    <div>
+        <img th:src="@{/upload-dir/{id}/{photoName}(id=${user.id}, photoName=${photoName})}" />
+    </div>
 </div>
 
 

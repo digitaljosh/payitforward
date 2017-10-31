@@ -44,49 +44,33 @@ public class OpportunityController {
 
         model.addAttribute("opportunity", opportunityToSee);
 
+
+
         return "opportunity/opportunityPage";
     }
 
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.POST)
-    public String processClaimAndCompletion(Model model, HttpSession session,
+    public String processClaimAndCompletion( HttpSession session,
                                @PathVariable int opportunityId){
 
         User currentUser = (User) session.getAttribute("loggedInUser");
-
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
-        User creator = opportunityToEdit.getOpportunityCreator();
-
-        List<User> currentClaimedUsers = opportunityToEdit.getClaimingUsers();
-
-        Boolean userClaimed = false;
-
-
-
-        for (int i =0; i<currentClaimedUsers.size(); i++){
-            if (currentClaimedUsers.get(i).getId() == currentUser.getId()){
-                userClaimed = true;
-            }
-        }
-
-        if (opportunityToEdit.getClaimed()> 0 && currentUser.getId() != creator.getId() && !userClaimed){
+        if (opportunityToEdit.getClaimed()> 0 ) {
             opportunityToEdit.setClaimed(opportunityToEdit.getClaimed() -1);
 
-
+            List<User> currentClaimedUsers = opportunityToEdit.getClaimingUsers();
             currentClaimedUsers.add(currentUser);
             opportunityToEdit.setClaimingUsers(currentClaimedUsers);
             opportunityDao.save(opportunityToEdit);
         }
-        else {
-//            Boolean claimedError = true;
-//            model.addAttribute("claimedError",claimedError);
-            session.setAttribute("claimedError", true);
-            return "redirect:/opportunity/{opportunityId}";
-
-        }
+//        else {
+//            opportunityToEdit.setCompleted(true);
+//            opportunityDao.save(opportunityToEdit);
+//        }
 
         //redirect to same page using opportunityId
-        return "redirect:/opportunity/{opportunityId}";
+        return "redirect:/opportunity";
 
 
     }
@@ -165,8 +149,6 @@ public class OpportunityController {
                                  @RequestParam int claimed, @PathVariable int opportunityId) {
 
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
-
-
 
 
         opportunityToEdit.setName(name);

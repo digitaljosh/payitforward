@@ -82,7 +82,7 @@ public class OpportunityController {
 //            model.addAttribute("claimedError",claimedError);
             session.setAttribute("claimedError", true);
             return "redirect:/opportunity/{opportunityId}";
-
+//kigiyg
         }
 
         //redirect to same page using opportunityId

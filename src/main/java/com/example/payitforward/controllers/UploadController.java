@@ -1,7 +1,9 @@
 package com.example.payitforward.controllers;
 
 import com.example.payitforward.models.User;
+import com.example.payitforward.models.data.UserDao;
 import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,9 @@ import java.nio.file.Paths;
 
 @Controller
 public class UploadController {
+
+    @Autowired
+    UserDao userDao;
 
     //if user is logged in, allows them to view a template where they can upload a photo
     @GetMapping("upload")
@@ -72,8 +77,11 @@ public class UploadController {
                     File.separator + file.getOriginalFilename());
 
             Files.write(path, bytes);
-            currentUser.setImageName(file.getOriginalFilename());
-            System.out.println(currentUser.getImageName());
+
+            String pathString = path.toString();
+
+            currentUser.setImagePath(pathString);
+            userDao.save(currentUser);
 
         } catch (IOException e) {
             e.printStackTrace();

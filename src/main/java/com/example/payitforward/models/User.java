@@ -5,6 +5,7 @@ import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -32,7 +33,7 @@ public class User {
 
     private String bio;
 
-    private String imageName;
+    private String imagePath;
 
     @OneToMany
     @JoinColumn(name = "user_id")
@@ -81,11 +82,11 @@ public class User {
         this.email = email;
     }
 
-    public String getImageName() {
-        return imageName;
+    public String getImagePath() {
+        return imagePath;
     }
 
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 }

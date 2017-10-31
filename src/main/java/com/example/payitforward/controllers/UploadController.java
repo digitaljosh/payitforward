@@ -2,6 +2,7 @@ package com.example.payitforward.controllers;
 
 import com.example.payitforward.models.User;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -28,8 +29,7 @@ public class UploadController {
     }
 
     @PostMapping("upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file,
-                                   RedirectAttributes redirectAttributes, HttpSession session) {
+    public String uploadFile(@RequestParam("file") MultipartFile file, HttpSession session, Model model) {
 
         //get the ID of the current user
         User currentUser = (User) session.getAttribute("loggedInUser");
@@ -48,27 +48,26 @@ public class UploadController {
             System.out.println("failed trying to create the directory");
         }
 
-
-        if (file.isEmpty()) {
-            redirectAttributes.addFlashAttribute("message", "Please select a file to upload");
-            return "redirect:/profile/uploadStatus";
-        }
         //TODO: limit file size
         //TODO: if user already has a picture, delete it before adding new one
-
         //TODO: change below so not flash
+        //TODO: add picture to myprofile view
+        //TODO: refactor: store reference to photo location in DB
+        //TODO: refactor: way path is written
+
+        if (file.isEmpty()) {
+            model.addAttribute("message", "Please select a file to upload");
+            return "upload";
+        }
+
         try {
             // Get the file and save it somewhere
             byte[] bytes = file.getBytes();
             //save the file in the previously created folder
             Path path = Paths.get("src" + File.separator + "main" + File.separator + "resources" +
-                    File.separator + "static" +
-                    File.separator + "upload-dir" + File.separator + currentId
+                    File.separator + "static" + File.separator + "upload-dir" + File.separator + currentId
                     + File.separator + file.getOriginalFilename());
             Files.write(path, bytes);
-
-            redirectAttributes.addFlashAttribute("message",
-                    "You successfully uploaded '" + file.getOriginalFilename() + "'");
 
         } catch (IOException e) {
             e.printStackTrace();

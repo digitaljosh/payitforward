@@ -33,6 +33,8 @@ public class UploadController {
     @PostMapping("upload")
     public String uploadFile(@RequestParam("file") MultipartFile file, HttpSession session, Model model) {
 
+
+
         //get the ID of the current user
         User currentUser = (User) session.getAttribute("loggedInUser");
         String currentId = String.valueOf(currentUser.getId());
@@ -50,11 +52,12 @@ public class UploadController {
             System.out.println("failed trying to create the directory");
         }
 
-        //TODO: limit file size
+        //TODO: limit file size in JS
         //TODO: if user already has a picture, delete it before adding new one
         //TODO: add picture to myprofile view
         //TODO: refactor: store reference to photo location in DB
         //TODO: refactor: way path is written
+        //TODO: user getImageName to delete image if it exists
 
         //if the file the user is trying to upload is empty, return an error message
         if (file.isEmpty()) {

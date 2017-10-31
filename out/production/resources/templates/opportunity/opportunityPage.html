@@ -33,9 +33,6 @@
     <div th:text="${opportunity.location}" class="panel-footer">
         Panel footer
     </div>
-    <div class="form-group">
-        <p>Created by: <span th:text="${opportunity.getOpportunityCreator() == null ? '' : opportunity.getOpportunityCreator().username}"></span></p>
-    </div>
 </div>
 <form method="post" style="max-width:600px;" th:object="${opportunity}">
     <div th:if="${opportunity.claimed} > 0" class="form-group">

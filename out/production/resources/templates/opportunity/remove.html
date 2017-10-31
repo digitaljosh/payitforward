@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<div style="height: 110px;"></div>
+
+
+<div class="container">
+    <h1 th:text="${title}">Default Title</h1>
+
+
+    <form method="post">
+
+        <div th:each="opportunity : ${opportunities}" class="checkbox">
+            <input type="checkbox" name="OpportunityIds" th:value="${opportunity.id}" th:id="${opportunity.id}"/>
+            <label th:for="${opportunity.id}" th:text="${opportunity.name}"></label>
+            <br />
+        </div>
+
+        <input type="submit" value="Remove Opportunity" />
+    </form>
+</div>
+</body>
+</html>

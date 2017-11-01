@@ -1,7 +1,7 @@
 //validation for username field
 function handleUsername() {
     let value = this.value;
-    if (value.length > 2 && value.length < 16) {
+    if (value.length >= 2 && value.length <= 25) {
         displayValidField("usernameGroup");
         } else {
         displayInvalidField("usernameGroup");
@@ -13,7 +13,7 @@ function handleUsername() {
 //validation for password field
 function handlePassword() {
     let value = this.value;
-    if (value.length > 2 && value.length < 16) {
+    if (value.length >= 2 && value.length <= 16) {
         displayValidField("passwordGroup");
         } else {
         displayInvalidField("passwordGroup");
@@ -40,10 +40,10 @@ function displayInvalidField(id) {
 (function() {
 
     let e = document.getElementById("usernameField");
-    e.addEventListener("change", handleUsername, false);
+    e.addEventListener("keydown", handleUsername, false);
 
     e = document.getElementById("passwordField");
-    e.addEventListener("change", handlePassword, false);
+    e.addEventListener("keydown", handlePassword, false);
 
     e.document,getElementById("submit");
     e.addEventListener("submit", handleSubmit, false);

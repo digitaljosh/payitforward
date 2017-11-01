@@ -1,16 +1,7 @@
-//validation for name field
-function handleName() {
-    let value = this.value;
-    if (value.length > 2 && value.length < 16) {
-        displayValidField("nameGroup");
-        } else {
-        displayInvalidField("nameGroup");
-        }
-    }
-
+//validation for displayName field
 function handleDisplayName() {
     let value = this.value;
-    if (value.length > 2 && value.length < 16) {
+    if (value.length >= 2 && value.length <= 25) {
         displayValidField("displayNameGroup");
         } else {
         displayInvalidField("displayNameGroup");
@@ -51,14 +42,11 @@ function isValidEmail(str){
 //wrapper function that gets called when the javascript file is called
 (function() {
 
-    let e = document.getElementById("nameField");
-    e.addEventListener("change", handleName, false);
-
     e = document.getElementById("emailField");
-    e.addEventListener("change", handleEmail, false);
+    e.addEventListener("keydown", handleEmail, false);
 
     e = document.getElementById("displayNameField");
-    e.addEventListener("change", handleDisplayName, false);
+    e.addEventListener("keydown", handleDisplayName, false);
 
     e.document,getElementById("submit");
     e.addEventListener("submit", handleSubmit, false);

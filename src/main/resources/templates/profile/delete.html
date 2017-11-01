@@ -5,14 +5,16 @@
 <body>
     <nav th:replace="fragments :: navigation"></nav>
     <h1 th:text="${title}">Title</h1>
-
-    <form method="post" th:object="${user}" class="form-group">
+    <div style="height: 110px;"></div>
+<div class="container">
+    <h1 class="text-center">Are you sure?</h1>
+    <form method="post" th:object="${user}" class="form-group text-center">
         <div>
             <button type="reset" class="btn btn-default" name="cancel" value="cancel">Cancel</button>
-            <button type="submit" class="btn btn-primary" name="delete" value="Yes">Delete</button>
+            <button type="submit" class="btn btn-danger" name="delete" value="Yes">Delete</button>
         </div>
         <input type="hidden" name="userId" th:value="*{id}" />
     </form>
-
+</div>
 </body>
 </html>

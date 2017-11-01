@@ -64,13 +64,15 @@ public class OpportunityController {
             opportunityToEdit.setClaimingUsers(currentClaimedUsers);
             opportunityDao.save(opportunityToEdit);
         }
-//        else {
-//            opportunityToEdit.setCompleted(true);
-//            opportunityDao.save(opportunityToEdit);
-//        }
+        else{
+            session.setAttribute("claimedError", true);
+            return "redirect:/opportunity/{opportunityId}"; 
+
+
 
         //redirect to same page using opportunityId
         return "redirect:/opportunity";
+        }
 
 
     }

@@ -39,26 +39,14 @@ public class ProfileController {
     @RequestMapping(value="view/{userId}", method = RequestMethod.GET)
     public String viewProfile(Model model, @PathVariable int userId){
 
-        //defines path where the user images will be stored, if they exist
-        Path path = Paths.get("src/main/resources/static/upload-dir" + File.separator + userId + File.separator);
-
         User userProfile = userDao.findOne(userId);
-        String picture = userProfile.getImagePath();
+        String userPicture = userProfile.getImageName();
 
-        //check if path exists -- if it does, find the contents of the directory and pass to view
-        if(Files.exists(path)){
-            System.out.println("Path exists");
-            //convert the path to a File object
-            File file = path.toFile();
-            //get filename
-            String[] userPhoto = file.list();
-            for(String photo : userPhoto){
-                model.addAttribute("photoName", photo);
-            }
+        if(userPicture != null){
+            model.addAttribute("photoName", userPicture);
         }
 
-        User user = userDao.findOne(userId);
-        model.addAttribute("user", user);
+        model.addAttribute("user", userProfile);
 
         return "profile/view";
     }
@@ -71,25 +59,15 @@ public class ProfileController {
         if (session.getAttribute("loggedInUser") == null){
             return "redirect:/login";
         }
+
         //get the user from session
         User currentUser = (User) session.getAttribute("loggedInUser");
         User user = userDao.findOne(currentUser.getId());
 
-        int currentId = currentUser.getId();
+        String userPicture = user.getImageName();
 
-        Path path = Paths.get("src/main/resources/static/upload-dir" + File.separator + currentId +  File.separator);
-
-        //check if path exists -- if it does, find the contents of the directory and pass to view
-        if(Files.exists(path)){
-            System.out.println("Path exists");
-            //convert the path to a File object
-            File file = path.toFile();
-            //get filename
-            String[] userPhoto = file.list();
-            for(String photo : userPhoto){
-                System.out.println(photo);
-                model.addAttribute("photoName", photo);
-            }
+        if(userPicture != null){
+            model.addAttribute("photoName", userPicture);
         }
 
         //add user object to model

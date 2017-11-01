@@ -44,6 +44,7 @@ public class UploadController {
             return "upload";
         }
 
+        //TODO: what to do if file name is too long
         //get the ID of the current user as a string -- will be used to name the directory
         User currentUser = (User) session.getAttribute("loggedInUser");
         String currentId = String.valueOf(currentUser.getId());
@@ -76,9 +77,7 @@ public class UploadController {
 
             Files.write(path, bytes);
 
-            //put the path in string form for storage in the database
-            String pathString = path.toString();
-            currentUser.setImagePath(pathString);
+            currentUser.setImageName(file.getOriginalFilename());
             userDao.save(currentUser);
 
         } catch (IOException e) {
@@ -86,5 +85,4 @@ public class UploadController {
         }
         return "redirect:/profile/myprofile";
     }
-
 }

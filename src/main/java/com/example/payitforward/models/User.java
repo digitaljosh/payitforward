@@ -33,7 +33,7 @@ public class User {
 
     private String bio;
 
-    private String imagePath;
+    private String imageName;
 
     @OneToMany
     @JoinColumn(name = "user_id")
@@ -82,11 +82,11 @@ public class User {
         this.email = email;
     }
 
-    public String getImagePath() {
-        return imagePath;
+    public String getImageName() {
+        return imageName;
     }
 
-    public void setImagePath(String imagePath) {
-        this.imagePath = imagePath;
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }

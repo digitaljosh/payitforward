@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments :: head"></head>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<div style="height: 110px;"></div>
+
+<body>
+
+<div class="container">
+    <p th:unless="${opportunities} and ${opportunities.size()}">no opportunities :(</p>
+    <p>To add an opportunity, click <a href="/opportunity/add"> here</a></p>
+
+    <div th:each="opportunity : ${opportunities}" class="list-group">
+        <a th:href="@{'/opportunity/' + ${opportunity.id}}" class="list-group-item">
+            <h2 th:text="${opportunity.name}" class="list-group-item-heading">User Display Name</h2>
+            <p th:text="${opportunity.description}" class="list-group-item-text"></p>
+            <p th:text="${opportunity.location}" class="list-group-item-text"></p>
+        </a>
+    </div>
+</div>
+</body>
+</html>

@@ -26,9 +26,6 @@
             <input class="form-control" th:field="*{location}" />
             <span th:errors="*{location}" class="error"></span>
         </div>
-        <div class="form-group">
-            <p>Created by: <span th:text="${opportunity.getOpportunityCreator() == null ? '' : opportunity.getOpportunityCreator().username}"></span></p>
-        </div>
         <input type="hidden" name="opportunityId" th:value="${opportunity.id}" />
         <input type="submit" value="Edit Opportunity" />
     </form>

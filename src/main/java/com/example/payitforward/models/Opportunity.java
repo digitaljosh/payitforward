@@ -21,8 +21,6 @@ public class Opportunity {
 
     private String description;
 
-    private String location;
-
     public User getOpportunityCreator() {
         return OpportunityCreator;
     }
@@ -34,22 +32,15 @@ public class Opportunity {
     @ManyToOne
     private User OpportunityCreator;
 
-    private int claimed;
 
+
+    private String location;
+
+
+    private int claimed;
 
     @ManyToMany
     private List<User> claimingUsers;
-
-    public List<User> getCompletingUsers() {
-        return completingUsers;
-    }
-
-    public void setCompletingUsers(List<User> completingUsers) {
-        this.completingUsers = completingUsers;
-    }
-
-    @ManyToMany
-    private List<User> completingUsers;
 
 
 
@@ -60,10 +51,10 @@ public class Opportunity {
 
 
 
-// //   @OneToMany
-//    private Boolean completed = false;
-//
-//    private Boolean usersOnly = false;
+ //   @OneToMany
+    private Boolean completed = false;
+
+    private Boolean usersOnly = false;
 
     public Opportunity(String name, String description) {
         this.name = name;
@@ -103,21 +94,21 @@ public class Opportunity {
         this.claimed = claimed;
     }
 
-//    public Boolean getCompleted() {
-//        return completed;
-//    }
-//
-//    public void setCompleted(Boolean completed) {
-//        this.completed = completed;
-//    }
+    public Boolean getCompleted() {
+        return completed;
+    }
 
-//    public Boolean getUsersOnly() {
-//        return usersOnly;
-//    }
-//
-//    public void setUsersOnly(Boolean usersOnly) {
-//        this.usersOnly = usersOnly;
-//    }
+    public void setCompleted(Boolean completed) {
+        this.completed = completed;
+    }
+
+    public Boolean getUsersOnly() {
+        return usersOnly;
+    }
+
+    public void setUsersOnly(Boolean usersOnly) {
+        this.usersOnly = usersOnly;
+    }
 
     public void setClaimingUsers(List<User> claimingUsers) {
         this.claimingUsers = claimingUsers;

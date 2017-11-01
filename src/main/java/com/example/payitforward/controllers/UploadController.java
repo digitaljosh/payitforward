@@ -60,8 +60,6 @@ public class UploadController {
             System.out.println("failed trying to create the directory");
         }
 
-        //TODO: refactor: store reference to photo location in DB
-
         //before adding a new picture, make sure there are no existing pictures in the folder,
         //so each user will have only one picture
         for(File aFile: dir.listFiles())
@@ -78,8 +76,8 @@ public class UploadController {
 
             Files.write(path, bytes);
 
+            //put the path in string form for storage in the database
             String pathString = path.toString();
-
             currentUser.setImagePath(pathString);
             userDao.save(currentUser);
 

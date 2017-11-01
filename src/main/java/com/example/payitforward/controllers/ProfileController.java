@@ -42,6 +42,9 @@ public class ProfileController {
         //defines path where the user images will be stored, if they exist
         Path path = Paths.get("src/main/resources/static/upload-dir" + File.separator + userId + File.separator);
 
+        User userProfile = userDao.findOne(userId);
+        String picture = userProfile.getImagePath();
+
         //check if path exists -- if it does, find the contents of the directory and pass to view
         if(Files.exists(path)){
             System.out.println("Path exists");

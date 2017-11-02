@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
-
+//
 import javax.validation.Valid;
 import java.util.List;
 
@@ -60,8 +60,6 @@ public class OpportunityController {
         List<User> currentClaimedUsers = opportunityToEdit.getClaimingUsers();
 
         Boolean userClaimed = false;
-
-
 
         for (int i =0; i<currentClaimedUsers.size(); i++){
             if (currentClaimedUsers.get(i).getId() == currentUser.getId()){
@@ -161,8 +159,7 @@ public class OpportunityController {
     }
 
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.POST)
-    public String processEditOpportunityForm(@RequestParam String name, @RequestParam String description, @RequestParam String location,
-                                 @RequestParam int claimed, @PathVariable int opportunityId) {
+    public String processEditOpportunityForm(@RequestParam String name, @RequestParam String description, @RequestParam String location, @PathVariable int opportunityId) {
 
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
@@ -172,7 +169,7 @@ public class OpportunityController {
         opportunityToEdit.setName(name);
         opportunityToEdit.setDescription(description);
         opportunityToEdit.setLocation(location);
-        opportunityToEdit.setClaimed(claimed);
+        //opportunityToEdit.setClaimed(claimed);
 
         opportunityDao.save(opportunityToEdit);
 

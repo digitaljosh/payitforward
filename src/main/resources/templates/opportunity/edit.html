@@ -26,11 +26,11 @@
             <input class="form-control" th:field="*{location}" />
             <span th:errors="*{location}" class="error"></span>
         </div>
-        <div class="form-group">
-            <label th:for="claimed">Spots</label>
-            <input class="form-control" th:field="*{claimed}" />
-            <span th:errors="*{claimed}" class="error"></span>
-        </div>
+        <!--<div class="form-group">-->
+            <!--<label th:for="claimed">Spots</label>-->
+            <!--<input class="form-control" th:field="*{claimed}" />-->
+            <!--<span th:errors="*{claimed}" class="error"></span>-->
+        <!--</div>-->
         <input type="hidden" name="opportunityId" th:value="${opportunity.id}" />
         <input type="submit" value="Edit Opportunity" />
     </form>

@@ -33,6 +33,7 @@
         <div th:text="${opportunity.location}" class="panel-footer">
             Panel footer
         </div>
+
     </div>
     <form method="post" style="max-width:600px;" th:object="${opportunity}">
         <div th:if="${opportunity.claimed} > 0"  class="form-group">
@@ -55,10 +56,12 @@
         <!--<p class="list-group-item-text">This opportunity has been completed.</p>-->
         <!--</div>-->
 
+
     </form>
     <!--Script files for Google Maps and display-->
     <script type="text/javascript" th:src="@{/js/map.js}" />
     <script async="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC62aaJK4X6p9ZrYKrkoecZx4uUo2S8DnQ&amp;callback=initMap" />
+
 </div>
 </body>
 </html>

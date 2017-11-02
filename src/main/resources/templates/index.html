@@ -2,11 +2,11 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head">
 
-
     <style>
         div {
             background-color: white;
         }
+
     </style>
 
 </head>
@@ -16,10 +16,10 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 
-<div style="height: 80px;"></div>
+<!--<div style="height: 20%;"></div>-->
 
 
-<div class="container">
+<div class="container" style="padding-top: 8em;">
     <div id="myCarousel" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
@@ -33,23 +33,35 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner">
             <div class="item active">
-                <img th:src="@{/image/pif-logo-1.svg}" alt="logo" style="width:100%; height: 550px;"/>
+                <img th:src="@{/image/pif-logo.svg}" alt="logo" style="width:100%; height: 100%;"/>
             </div>
 
             <div class="item">
-                <img th:src="@{/image/pif-carousel-1.jpg}" alt="image" style="width:100%; height: 550px;"/>
+                <img th:src="@{/image/pif-carousel-2.jpg}" alt="image" style="width:100%; height: 100%;"/>
             </div>
 
             <div class="item">
-                <img th:src="@{/image/pif-carousel-2.jpeg}" alt="image" style="width:100%; height: 550px;"/>
+                <img th:src="@{/image/pif-carousel-1.jpeg}" alt="image" style="width:100%; height: 100%;"/>
             </div>
 
             <div class="item">
-                <img th:src="@{/image/pif-carousel-3.jpg}" alt="image" style="width:100%; height: 550px;"/>
+                <img th:src="@{/image/pif-carousel-3.jpg}" alt="image" style="width:100%; height: 100%;"/>
             </div>
 
             <div class="item">
-                <img th:src="@{/image/pif-carousel-4.jpg}" alt="image" style="width:100%; height: 550px;"/>
+            <img th:src="@{/image/pif-carousel-4.jpg}" alt="image" style="width:100%; height: 100%;"/>
+            </div>
+
+            <div class="item">
+                <img th:src="@{/image/pif-carousel-5.jpg}" alt="image" style="width:100%; height: 100%;"/>
+            </div>
+
+            <div class="item">
+                <img th:src="@{/image/pif-carousel-6.png}" alt="image" style="width:100%; height: 100%;"/>
+            </div>
+
+            <div class="item">
+                <img th:src="@{/image/pif-carousel-7.jpg}" alt="image" style="width:100%; height: 100%;"/>
             </div>
 
         </div>
@@ -69,20 +81,62 @@
 <br/>
 <br/>
 <br/>
+<br/>
+<br/>
+<br/>
 
-<div class="jumbotron">
-    <div class="container">
-        <h1>Give More. Love More. Be More.</h1>
-        <p>Want to get involved?
-            Want to help others get involved?
-            Want to know your neighbors? <br/><br/>
-            Join the <em>payitforward</em> community and <em>BE MORE</em> today!
-        </p>
-        <p>
-            <a href="/about" class="btn btn-primary btn-lg">Learn more</a>
-        </p>
+
+
+<div id="divborder1" class="container">
+    <div id="wheredoibegin" class="indextext">
+        <div>Where Do I Begin?</div>
+    </div>
+    <div id="whereanswer" class="indextext">Check out the <a style="color: blue;" href="/opportunity">Opportunity</a>
+        page and see what's happening in your community! Get to know other <em>payitforward</em> members and check out
+        our local heroes!
     </div>
 </div>
+
+<br/>
+<br/>
+<br/>
+
+<div id="divborder2" class="container divborder">
+    <div style="float: right;" id="payquestion" class="indextext">
+        <div>Do I Really Have To Pay?</div>
+    </div>
+    <div style="float: left;" id="payanswer" class="indextext">No. And as the saying goes, your money's no good here. However, we do
+        accept your most valuable asset: YOUR TIME. And since time is all we have (that and pizza) we might as well
+        share it (just like pizza)!
+    </div>
+</div>
+
+
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+<div id="footer">
+    <div id="socmedia">
+        <a class="socicon" href="#"><i class="fa fa-facebook fa-3x"></i></a>
+        <a class="socicon" href="#"><i class="fa fa-twitter fa-3x"></i></a>
+        <a class="socicon" href="#"><i class="fa fa-instagram fa-3x"></i></a>
+        <a class="socicon" href="#"><i class="fa fa-linkedin fa-3x"></i></a>
+        <a class="socicon" href="#"><i class="fa fa-youtube fa-3x"></i></a>
+    </div>
+</div>
+
+
+<br/>
+<br/>
+<br/>
+<br/>
+
 
 </body>
 </html>

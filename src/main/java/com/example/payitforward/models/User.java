@@ -5,7 +5,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 @Entity
 public class User {
@@ -20,24 +19,23 @@ public class User {
 
     private String displayname;
 
-    // TODO: password hash
-
-    @NotNull
     @Size(min=3, max=15)
+    @Transient
     private String password;
 
+    @NotNull
+    private String pwHash;
 
-    // TODO: add email field
+    private String email;
+
 
     private String bio;
 
     // TODO: add profile picture
 
-
     @OneToMany
     @JoinColumn(name = "user_id")
     private List<Opportunity> opportunities = new ArrayList<>();
-
 
 
     public User(String name) { this.username = name; }
@@ -74,4 +72,19 @@ public class User {
         this.password = password;
     }
 
+    public String getPwHash() {
+        return pwHash;
+    }
+
+    public void setPwHash(String pwHash) {
+        this.pwHash = pwHash;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

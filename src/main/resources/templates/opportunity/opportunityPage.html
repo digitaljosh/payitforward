@@ -38,7 +38,7 @@
 
     </div>
     <form method="post" style="max-width:600px;" th:object="${opportunity}">
-        <div th:if="${opportunity.claimed} > 0"  class="form-group">
+        <div th:if="${userClaimed=false}"  class="form-group">
             <label th:for="claimed">Claim</label>
             <input type="submit" value="Claim this Opportunity?" class="form-control" th:field="*{claimed}" />
             <div th:if="${session.claimedError}" class="panel panel-danger" id="errorUsername">
@@ -48,6 +48,20 @@
 
             </div>
         </div>
+        <div th:if="${userClaimed=true}"  class="form-group">
+            <label th:for="claimed">Complete</label>
+            <input type="submit" value="Complete this opportunity?" class="form-control" th:field="*{claimed}" />
+            <div th:if="${session.claimedError}" class="panel panel-danger" id="errorUsername">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><strong>Oh snap!</strong> Only unclaimed users can claim!</h3>
+                </div>
+
+            </div>
+        </div>
+        <!--<div th:if="${userCompleted=true}"  class="form-group">-->
+            <!--<label th:for="claimed">Claim</label>-->
+            <!--<p>This opportunity has been completed!</p>-->
+        <!--</div>-->
 
         <!--<div th:if="${opportunity.claimed}" class="form-group">-->
         <!--<label th:for="complete">Complete</label>-->

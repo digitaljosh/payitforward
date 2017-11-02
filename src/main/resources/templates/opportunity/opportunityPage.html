@@ -14,7 +14,8 @@
             <h2 th:text="${opportunity.name}" class="list-group-item-heading">Opportunity Name</h2>
             <p th:text="${opportunity.description}" class="list-group-item-text"></p>
             <p th:text="${opportunity.location}" class="list-group-item-text"></p>
-            <p th:text="${opportunity.claimed}" class="list-group-item-text">spots left!</p>
+            <p>Spots left: <span th:text="${opportunity.claimed}" class="list-group-item-text"></span></p>
+            <p>Created by: <span th:text="${opportunity.getOpportunityCreator() == null ? '' : opportunity.getOpportunityCreator().username}"></span></p>
             <!--<p th:text="${opportunity.completed}" class="list-group-item-text"></p>-->
         </a>
         <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit</a>
@@ -33,6 +34,7 @@
         <div th:text="${opportunity.location}" class="panel-footer">
             Panel footer
         </div>
+
 
     </div>
     <form method="post" style="max-width:600px;" th:object="${opportunity}">

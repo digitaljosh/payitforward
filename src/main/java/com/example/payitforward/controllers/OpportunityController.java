@@ -164,7 +164,7 @@ public class OpportunityController {
 
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.POST)
     public String processEditOpportunityForm(@RequestParam String name, @RequestParam String description, @RequestParam String location,
-                                 @RequestParam int claimed, @PathVariable int opportunityId) {
+                                  @PathVariable int opportunityId) {
 
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
@@ -172,7 +172,6 @@ public class OpportunityController {
         opportunityToEdit.setName(name);
         opportunityToEdit.setDescription(description);
         opportunityToEdit.setLocation(location);
-        opportunityToEdit.setClaimed(claimed);
 
         opportunityDao.save(opportunityToEdit);
 

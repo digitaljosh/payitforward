@@ -2,6 +2,7 @@ package com.example.payitforward.controllers;
 
 import com.example.payitforward.models.User;
 import com.example.payitforward.models.data.UserDao;
+import org.apache.tomcat.jni.Directory;
 import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,12 +12,15 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+
+import javax.activation.MimetypesFileTypeMap;
+import java.io.File;
 
 @Controller
 public class UploadController {
@@ -40,11 +44,17 @@ public class UploadController {
 
         //if the file the user is trying to upload is empty, return an error message
         if (file.isEmpty()) {
-            model.addAttribute("message", "Please select a file to upload");
+            model.addAttribute("error", "Please select a file to upload");
             return "upload";
         }
 
-        //TODO: what to do if file name is too long
+        //check length of filename
+        if(file.getOriginalFilename().length() > 255){
+            System.out.println(file.getOriginalFilename());
+            model.addAttribute("error", "Please upload a file with a name of less than 255 characters");
+            return "upload";
+        }
+
         //get the ID of the current user as a string -- will be used to name the directory
         User currentUser = (User) session.getAttribute("loggedInUser");
         String currentId = String.valueOf(currentUser.getId());
@@ -62,7 +72,7 @@ public class UploadController {
         }
 
         //before adding a new picture, make sure there are no existing pictures in the folder,
-        //so each user will have only one picture
+        //so each user only has one photo
         for(File aFile: dir.listFiles())
             if (!aFile.isDirectory())
                 aFile.delete();
@@ -71,18 +81,27 @@ public class UploadController {
             //get the file
             byte[] bytes = file.getBytes();
 
+            //check the file type
+            InputStream is = new ByteArrayInputStream(bytes);
+            if(ImageIO.read(is) == null){
+                model.addAttribute("error", "File type not recognized");
+                return "upload";
+            }
+
             //save the file in the previously created folder
             Path path = Paths.get("src/main/resources/static/upload-dir" + File.separator + currentId +
                     File.separator + file.getOriginalFilename());
-
             Files.write(path, bytes);
 
+            //save the filename in the database
             currentUser.setImageName(file.getOriginalFilename());
             userDao.save(currentUser);
 
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
         return "redirect:/profile/myprofile";
     }
 }

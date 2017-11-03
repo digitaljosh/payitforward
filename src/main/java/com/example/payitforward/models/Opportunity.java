@@ -21,46 +21,25 @@ public class Opportunity {
 
     private String description;
 
-    public User getOpportunityCreator() {
-        return OpportunityCreator;
-    }
-
-    public void setOpportunityCreator(User opportunityCreator) {
-        OpportunityCreator = opportunityCreator;
-    }
-
     @ManyToOne
     private User OpportunityCreator;
 
-
-
     private String location;
-
 
     private int claimed;
 
     @ManyToMany
     private List<User> claimingUsers;
 
+    @ManyToMany
+    private List<User> completingUsers;
 
 
-
-//
-//    private List<User> completingUsers;
-
-
-
-
- //   @OneToMany
-    private Boolean completed = false;
-
-    private Boolean usersOnly = false;
 
     public Opportunity(String name, String description) {
         this.name = name;
         this.description = description;
     }
-
 
     public Opportunity() { }
 
@@ -75,8 +54,6 @@ public class Opportunity {
     public String getDescription() { return description; }
 
     public void setDescription(String description) { this.description = description; }
-
-
 
     public String getLocation() {
         return location;
@@ -94,35 +71,17 @@ public class Opportunity {
         this.claimed = claimed;
     }
 
-    public Boolean getCompleted() {
-        return completed;
-    }
+    public void setClaimingUsers(List<User> claimingUsers) { this.claimingUsers = claimingUsers; }
 
-    public void setCompleted(Boolean completed) {
-        this.completed = completed;
-    }
+    public List<User> getClaimingUsers() { return claimingUsers; }
 
-    public Boolean getUsersOnly() {
-        return usersOnly;
-    }
+    public User getOpportunityCreator() { return OpportunityCreator; }
 
-    public void setUsersOnly(Boolean usersOnly) {
-        this.usersOnly = usersOnly;
-    }
+    public void setOpportunityCreator(User opportunityCreator) { OpportunityCreator = opportunityCreator; }
 
-    public void setClaimingUsers(List<User> claimingUsers) {
-        this.claimingUsers = claimingUsers;
-    }
+    public List<User> getCompletingUsers() {return completingUsers; }
 
-    public List<User> getClaimingUsers() {
-        return claimingUsers;
-    }
-
-
-//
-//    public List<User> getCompletingUsers() {return completingUsers; }
-//
-//    public void setCompletingUsers(List<User> completingUsers) { this.completingUsers = completingUsers; }
+    public void setCompletingUsers(List<User> completingUsers) { this.completingUsers = completingUsers; }
 
 
 }

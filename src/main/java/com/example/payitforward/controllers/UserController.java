@@ -9,6 +9,7 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
@@ -34,7 +35,8 @@ public class UserController {
 
     //Allows user to sign up, saves their credentials to the database, and initiate a session
     @RequestMapping(value = "signup", method = RequestMethod.POST)
-    public String processSignupForm(@ModelAttribute @Valid User newUser, Errors errors, Model model, HttpServletRequest request) {
+    public String processSignupForm(@ModelAttribute @Valid User newUser, Errors errors, Model model,
+                                    HttpServletRequest request, HttpServletResponse response) {
 
 //        if (errors.hasErrors()){
 //            model.addAttribute("title", "Create an Account");
@@ -68,6 +70,7 @@ public class UserController {
         userDao.save(newUser);
         HttpSession session = request.getSession();
         session.setAttribute("loggedInUser", newUser);
+        response.encodeRedirectURL("profile/myprofile");
 
         return "redirect:/profile/myprofile";
     }
@@ -85,7 +88,8 @@ public class UserController {
 
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public String processLoginForm(@ModelAttribute @Valid User returningUser, Errors errors,
-                                   Model model, HttpServletRequest request, String password){
+                                   Model model, HttpServletRequest request, String password,
+                                   HttpServletResponse response){
 
         Iterable<User> users = userDao.findAll();
 
@@ -94,6 +98,7 @@ public class UserController {
                 if (user.getPwHash().equals(hashPassword(returningUser.getPassword()))) {
                     HttpSession session = request.getSession();
                     session.setAttribute("loggedInUser", user);
+                    response.encodeRedirectURL("profile/myprofile");
                     return "redirect:profile/myprofile";
 
                     //TODO: return some kind of welcome message

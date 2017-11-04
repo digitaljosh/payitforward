@@ -17,6 +17,7 @@
             <h2 th:text="${opportunity.name}" class="list-group-item-heading">User Display Name</h2>
             <p th:text="${opportunity.description}" class="list-group-item-text"></p>
             <p th:text="${opportunity.location}" class="list-group-item-text"></p>
+            <p>Created by: <span th:text="${opportunity.getOpportunityCreator() == null ? '' : opportunity.getOpportunityCreator().username}"></span></p>
         </a>
     </div>
 </div>

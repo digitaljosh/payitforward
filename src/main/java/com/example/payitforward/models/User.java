@@ -34,7 +34,7 @@ public class User {
     // TODO: add profile picture
 
     @OneToMany
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "opportunity_creator_id")
     private List<Opportunity> opportunities = new ArrayList<>();
 
 

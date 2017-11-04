@@ -37,9 +37,9 @@ public class OpportunityController {
 
 
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.GET)
-    public String displayOpportunity(Model model, @PathVariable int opportunityId) {
+    public String displayOpportunity(Model model, @PathVariable int opportunityId, HttpSession session) {
 
-
+        session.setAttribute("claimedError", false);
         Opportunity opportunityToSee = opportunityDao.findOne(opportunityId);
 
         model.addAttribute("opportunity", opportunityToSee);
@@ -49,30 +49,58 @@ public class OpportunityController {
         return "opportunity/opportunityPage";
     }
 
+
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.POST)
-    public String processClaimAndCompletion( HttpSession session,
-                               @PathVariable int opportunityId){
+    public String processClaimAndCompletion(Model model, HttpSession session,
+                                            @PathVariable int opportunityId){
 
         User currentUser = (User) session.getAttribute("loggedInUser");
+
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
-        if (opportunityToEdit.getClaimed()> 0 ) {
-            opportunityToEdit.setClaimed(opportunityToEdit.getClaimed() -1);
+        User creator = opportunityToEdit.getOpportunityCreator();
 
-            List<User> currentClaimedUsers = opportunityToEdit.getClaimingUsers();
+        List<User> currentClaimedUsers = opportunityToEdit.getClaimingUsers();
+
+        List<User> currentCompletedUsers = opportunityToEdit.getCompletingUsers();
+
+        Boolean userClaimed = false;
+        Boolean userCompleted = false;
+
+         for (int i =0; i<currentClaimedUsers.size(); i++){
+              if (currentClaimedUsers.get(i).getId() == currentUser.getId()){
+                  userClaimed = true;
+              }
+         }
+
+        for (int i =0; i<currentCompletedUsers.size(); i++){
+            if (currentCompletedUsers.get(i).getId() == currentUser.getId()){
+                userCompleted = true;
+            }
+        }
+
+        if (opportunityToEdit.getClaimed() > 0 && currentUser.getId() != creator.getId() && userClaimed==false && userCompleted==false) {
+            opportunityToEdit.setClaimed(opportunityToEdit.getClaimed() - 1);
+
             currentClaimedUsers.add(currentUser);
             opportunityToEdit.setClaimingUsers(currentClaimedUsers);
             opportunityDao.save(opportunityToEdit);
         }
-//        else {
-//            opportunityToEdit.setCompleted(true);
-//            opportunityDao.save(opportunityToEdit);
-//        }
 
-        //redirect to same page using opportunityId
-        return "redirect:/opportunity";
+        else if (currentUser.getId() != creator.getId() && userClaimed==true && userCompleted==false) {
 
+            currentCompletedUsers.add(currentUser);
+            opportunityToEdit.setCompletingUsers(currentCompletedUsers);
+            opportunityDao.save(opportunityToEdit);
+        }
 
+        else if (currentUser.getId() == creator.getId() || userCompleted==true) {
+
+            session.setAttribute("claimedError", true);
+            return "redirect:/opportunity/{opportunityId}";
+        }
+
+        return "redirect:/opportunity/{opportunityId}";
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
@@ -146,7 +174,7 @@ public class OpportunityController {
 
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.POST)
     public String processEditOpportunityForm(@RequestParam String name, @RequestParam String description, @RequestParam String location,
-                                 @RequestParam int claimed, @PathVariable int opportunityId) {
+                                  @PathVariable int opportunityId) {
 
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
@@ -154,7 +182,6 @@ public class OpportunityController {
         opportunityToEdit.setName(name);
         opportunityToEdit.setDescription(description);
         opportunityToEdit.setLocation(location);
-        opportunityToEdit.setClaimed(claimed);
 
         opportunityDao.save(opportunityToEdit);
 

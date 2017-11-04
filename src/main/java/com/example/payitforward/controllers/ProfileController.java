@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
@@ -146,7 +147,10 @@ public class ProfileController {
 
     //Posts delete account page and redirects to home page
     @RequestMapping(value="delete", method=RequestMethod.POST)
-    public String processDeleteUserAccount(@RequestParam int userId, HttpSession session){
+    public String processDeleteUserAccount(@RequestParam int userId, HttpServletRequest request){
+
+        HttpSession session = request.getSession();
+        session.removeAttribute("loggedInUser");
 
         userDao.delete(userId);
 

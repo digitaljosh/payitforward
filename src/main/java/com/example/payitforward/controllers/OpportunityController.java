@@ -86,7 +86,6 @@ public class OpportunityController {
 //            model.addAttribute("claimedError",claimedError);
             session.setAttribute("claimedError", true);
             return "redirect:/opportunity/{opportunityId}";
-//kigiyg
         }
 
         //redirect to same page using opportunityId
@@ -138,12 +137,6 @@ public class OpportunityController {
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemoveOpportunityForm(@RequestParam int[] OpportunityIds) {
-
-        // When removing a cheese from list,
-        // find all menus that the cheese is in and
-        // remove the cheese in each
-        // Them, remove the cheese from the list
-
 
         for (int  opportunityId :  OpportunityIds) {
             opportunityDao.delete(opportunityId);

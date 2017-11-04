@@ -15,7 +15,8 @@
             <p th:text="${opportunity.description}" class="list-group-item-text"></p>
             <p th:text="${opportunity.location}" class="list-group-item-text"></p>
             <p>Spots left: <span th:text="${opportunity.claimed}" class="list-group-item-text"></span></p>
-            <p>Created by: <span th:text="${opportunity.getOpportunityCreator() == null ? '' : opportunity.getOpportunityCreator().username}"></span></p>
+                <p>Created by: <span th:text="${opportunity.getOpportunityCreator() == null ? '' : opportunity.getOpportunityCreator().username}"></span></p>
+
             <!--<p th:text="${opportunity.completed}" class="list-group-item-text"></p>-->
         </a>
         <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit</a>

@@ -316,161 +316,93 @@ body {
   background: #fff url('https://subtlepatterns.com/patterns/gplaypattern.png') repeat;
 }
 
-hr {
-  border: solid;
-  border-width: 1px;
-  border-color: #0B86C3;
+
+
+
+/*  myprofile layout 3rd design  */
+
+
+
+.img-circle {
+max-width: 150px; }
+
+#profile-background {
+    background: #fff url('https://subtlepatterns.com/patterns/use_your_illusion.png') repeat;
+    color: #F9F9F8;
 }
 
-.info_icon {
-  color: #0B86C3;
-  font-size: 18px;
-  padding: 3px;
-}
-
-.user_social_icon {
-  float: right;
-  margin-right: 5px;
-  color: #fff;
-}
-
-.user_social_icon:hover {
-  color: #0B86C3;
-}
-
-#user_header {
-  width: 700px;
-  height: 370px;
-  margin: auto;
-  padding: 10px;
-  background: #222 url('https://subtlepatterns.com/patterns/use_your_illusion.png') repeat;
-  padding: 10px;
-}
-
-#user {
-  width: 700px;
-  height: 100px;
-  float: left;
-
-}
-
-
-#user_picture {
-  float: left;
-  padding-right: 20px;
-}
-
-#user_info {
-  width: 650px;
-  height: 90px;
-  padding-top: 10px;
-}
-
-.user_name {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
-  margin: 0;
-  color: #fff;
-  letter-spacing: 1.75px;
-
-}
-
-.verified {
-  color: #0B86C3;
-}
-
-#user_info ul{
-  padding: 0;
-  list-style-type: none;
-  margin: 0;
-}
-
-#user_list {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 200;
-  font-size: 14px;
-  color: #fff;
-  text-align: center;
-  float: center;
-}
-
-#user_list_div {
-  padding-top: 25px;
-  }
-
-#user_list li {
-  display: inline;
-  margin-right: 20px;
-  letter-spacing: 1px;
-}
-
-
-#scorebox {
-  background: #222 url('https://subtlepatterns.com/patterns/use_your_illusion.png') repeat;
-  width: 200px;
-  height: 65px;
-  padding: 8px;
-  box-shadow: 2px 2px 20px #222;
-  float: right;
-  margin-top: 9px;
-  margin-right: 5px;
-}
-
-#score {
-  background-color: rgba(60, 60, 60, 0.4);
-  width: 135px;
-  height: 65px;
-  float: left;
-}
-
-.score {
-  font-family: 'Exo', sans-serif;
-  font-weight: 700;
-  color: #fff;
-  font-size: 36px;
-  margin: 9px 20%;
-  display: block;
-  letter-spacing: 5px;
-  text-shadow: 3px 3px 5px #000;
-}
-
-.score:hover {
-  color: #0B86C3;
-  text-shadow: 3px 3px 20px #000;
-}
-
-#points {
-  width: 42px;
-  height: 45px;
-  padding: 10px;
-  margin-left: 3px;
-  background: #0B86C3;
-  float: right;
-  color: #fff;
-
-}
-
-#points:hover {
-  background: #005782;
-}
-
-.pts {
-  font-family: 'Exo', sans-serif;
-  font-weight: 700;
-  color: #fff;
-  font-size: 12px;
-  letter-spacing: 1px;
-  margin-top: 20px;
-  display: block;
-}
-
-h1, h2, h3, h4, h5, h6 {
-  display: inline;
-  }
-
-#second_list {
-    float: left;
-    padding-top: 10px;
-    padding-left: 7px;
-    color: white;
+.fa-check-circle {
+    color: aqua;
     }
+
+.profile
+{
+    min-height: 355px;
+    display: inline-block;
+    }
+figcaption.ratings
+{
+    margin-top:20px;
+    }
+figcaption.ratings a
+{
+    color:#f1c40f;
+    font-size:11px;
+    }
+figcaption.ratings a:hover
+{
+    color:#f39c12;
+    text-decoration:none;
+    }
+.divider
+{
+    border-top:1px solid rgba(0,0,0,0.1);
+    }
+
+.emphasis h2
+{
+    margin-bottom:0;
+    }
+span.tags
+{
+    background: #1abc9c;
+    border-radius: 2px;
+    color: #f5f5f5;
+    font-weight: bold;
+    padding: 2px 4px;
+    }
+.dropdown-menu
+{
+    background-color: #34495e;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    width: 250px;
+    margin-left: -125px;
+    left: 50%;
+    }
+.dropdown-menu .divider
+{
+    background:none;
+    }
+.dropdown-menu>li>a
+{
+    color:#f5f5f5;
+    }
+.dropup .dropdown-menu
+{
+    margin-bottom:10px;
+    }
+.dropup .dropdown-menu:before
+{
+    content: "";
+    border-top: 10px solid #34495e;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -10px;
+    z-index: 10;
+    }
+
+

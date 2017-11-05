@@ -30,7 +30,6 @@
             <p>Created by: <span th:text="${opportunity.getOpportunityCreator() == null ? '' : opportunity.getOpportunityCreator().username}"></span></p>
         </div>
         <input type="hidden" name="opportunityId" th:value="${opportunity.id}" />
-        <input type="hidden" name="claimed" th:value="${opportunity.claimed}" />
         <input type="submit" value="Edit Opportunity" />
     </form>
 </div>

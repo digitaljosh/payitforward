@@ -14,86 +14,14 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
 
 
-    <script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
-    <script>
-$(function () {
-    var url = window.location.pathname; //sets the variable "url" to the pathname of the current window
-    var activePage = url.substring(url.lastIndexOf('/') + 1); //sets the variable "activePage" as the substring after the last "/" in the "url" variable
-        $('.primary-nav li a').each(function () { //looks in each link item within the primary-nav list
-            var linkPage = this.href.substring(this.href.lastIndexOf('/') + 1); //sets the variable "linkPage" as the substring of the url path in each &lt;a&gt;
 
-            if (activePage == linkPage) { //compares the path of the current window to the path of the linked page in the nav item
-                $(this).parent().addClass('active'); //if the above is true, add the "active" class to the parent of the &lt;a&gt; which is the &lt;li&gt; in the nav list
-            }
-        });
-})
-</script>
 
-<style>
-.navbar-default {
-    background-color: transparent;
-    }
-
-.navbar-default .navbar-nav>li>a {color: black;}
-
-.navbar-default .navbar-brand { color: black; float: none; }
-
-.active a { background-color: #b2b2b2; }
-
-.navbar-toggle { background-color: #1a242f; }
-
-</style>
 
 
 </head>
 <body>
 
 
-<nav th:fragment="navigation" class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand" href="/"><img th:src="@{/image/pif-nav-logo.png}" style="display: inline-block; width:60px; height: 60px;"/></a>
-        </div>
-
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
-            <form action="/search" class="navbar-form navbar-right" role="search">
-                <div class="form-group">
-                    <input type="text" class="form-control" name="search" placeholder="Search"/>
-                </div>
-                <button type="submit" class="btn btn-default">Submit</button>
-            </form>
-
-            <ul class="nav navbar-nav navbar-right primary-nav">
-                <li><a href="/opportunity">Opportunity <span class="sr-only">(current)</span></a></li>
-                <li><a href="/profile">Neighbors</a></li>
-                <li th:if="${session.loggedInUser}"><a href="/profile/myprofile">My Profile</a></li>
-                <li th:unless="${session.loggedInUser}"><a href="/signup">Signup</a></li>
-                <li th:unless="${session.loggedInUser}"><a href="/login">Login</a></li>
-                <li th:if="${session.loggedInUser}"><a href="/logout">Logout</a></li>
-            </ul>
-
-
-
-
-
-
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav>
-
-
-
-<!--
 <nav th:fragment="navigation" class="header">
     <em><a href="/" class="logo"><img th:src="@{/image/pif-nav-logo.png}" style="height: 33%; width: 33%;"/></a></em>
 
@@ -118,11 +46,6 @@ $(function () {
         <li th:if="${session.loggedInUser}"><a href="/logout">Logout</a></li>
     </ul>
 </nav>
--->
-
-
-
-
 
 
 </body>

@@ -1,13 +1,7 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org/" xmlns="http://www.w3.org/1999/html">
-<head th:replace="fragments :: head">
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
 
-<link rel="shortcut icon" href="../../assets/ico/favicon.png"/>
-<link rel="stylesheet" href="https://daneden.me/animate/animate.css"/>
-<link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet"/>
-<link rel="stylesheet" href="https://fortawesome.github.io/Font-Awesome/assets/font-awesome/css/font-awesome.css"/>
-
-</head>
 <body>
 
 <nav th:replace="fragments :: navigation"></nav>
@@ -15,95 +9,6 @@
 <div style="height: 110px;"></div>
 
 
-
-<div id="user_header">
-
-    <div id="user_picture">
-        <div>
-            <img src="http://screenprism.com/assets/img/article/Morty.JPG" height="120px" width="100px"/>
-        </div>
-    </div>
-    <div th:object="${user}" id="user_info">
-        <h2 class="user_name" th:text="${user.username}">username</h2>
-        <h2>
-            <span class="user_social_icon"><i class="icon-google-plus-sign"></i></span>
-            <span class="user_social_icon"><i class="icon-twitter-sign"></i></span>
-            <span class="user_social_icon"><i class="icon-facebook-sign"></i></span>
-            <span class="user_social_icon"><i class="icon-linkedin-sign"></i></span>
-        </h2>
-        <h3><span class="icon-ok-sign verified"><span style="font-size: 16px;"> verified neighbor</span></span></h3>
-
-
-
-
-
-        <div id="user_list_div">
-            <ul id="user_list">
-                <li>
-                    <i class="icon-building info_icon"></i>
-                    Your mom
-                </li>
-                <li>
-                        <span class="info_icon">
-                            <i class="icon-briefcase"></i>
-                        </span>
-                    I do things and stuff
-                </li>
-                <li>
-                        <span class="info_icon">
-                            <i class="icon-book"></i>
-                        </span>
-                    School of hard rocks
-                </li>
-            </ul>
-        </div>
-
-        <hr/>
-
-        <div id="second_list">
-            <div id="about_me">
-                <i class="icon-user info_icon"></i>
-                <span>About me:</span>
-                <div>
-                    <span th:text="${user.bio}">bio</span>
-                </div>
-            </div>
-            <hr style="width: 665px; display: center"/>
-            <div id="skills">
-                <i class="icon-wrench info_icon"></i>
-                <span>Skills</span>
-                <ul>
-                    <li>Saucing things</li>
-                    <li>Skipping and not falling over</li>
-                    <li>Hammering rocks</li>
-                </ul>
-            </div>
-        </div>
-    </div>
-
-
-    <!--
-        <div id="scorebox" class="animated flipInX">
-            <div id="score">
-                <span class="score animated flipInX">3640</span>
-            </div>
-            <div id="points">
-                <img src="#" width="40px"/>
-            </div>
-        </div>
-    -->
-
-</div>
-
-<div class="container" style="float: right;">
-    <a th:href="@{edit/{id}(id=${user.id})}">Edit Profile</a>
-    <a href="/opportunity/add">Create Opportunity</a>
-    <a href="/profile/delete">Delete Profile</a>
-</div>
-
-
-
-<!--
 <div class="container">
     <div th:object="${user}" class="list-group">
         <a href="#" class="list-group-item">
@@ -118,7 +23,7 @@
         </a>
     </div>
 </div>
--->
+
 
 </body>
 </html>

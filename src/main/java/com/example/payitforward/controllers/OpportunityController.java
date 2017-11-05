@@ -23,7 +23,6 @@ public class OpportunityController {
 
     @Autowired
     OpportunityDao opportunityDao;
-//
 
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -34,21 +33,44 @@ public class OpportunityController {
         return "opportunity/index";
     }
 
-
-
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.GET)
     public String displayOpportunity(Model model, @PathVariable int opportunityId, HttpSession session) {
 
-        session.setAttribute("claimedError", false);
+        User currentUser = (User) session.getAttribute("loggedInUser");
+
         Opportunity opportunityToSee = opportunityDao.findOne(opportunityId);
 
+        List<User> currentClaimedUsers = opportunityToSee.getClaimingUsers();
+
+        List<User> currentCompletedUsers = opportunityToSee.getCompletingUsers();
+
+        Boolean userClaimed = false;
+        Boolean userCompleted = false;
+        Boolean isCreator = false;
+
+        for (int i =0; i<currentClaimedUsers.size(); i++){
+            if (currentClaimedUsers.get(i).getId() == currentUser.getId()){
+                userClaimed = true;
+            }
+        }
+
+        for (int i =0; i<currentCompletedUsers.size(); i++){
+            if (currentCompletedUsers.get(i).getId() == currentUser.getId()){
+                userCompleted = true;
+            }
+        }
+
+        if (currentUser.getUsername().equals(opportunityToSee.getOpportunityCreator().getUsername())) {
+            isCreator = true;
+        }
+
         model.addAttribute("opportunity", opportunityToSee);
-
-
+        model.addAttribute("userClaimed", userClaimed);
+        model.addAttribute("userCompleted", userCompleted);
+        model.addAttribute("isCreator", isCreator);
 
         return "opportunity/opportunityPage";
     }
-
 
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.POST)
     public String processClaimAndCompletion(Model model, HttpSession session,
@@ -115,11 +137,9 @@ public class OpportunityController {
         model.addAttribute(new Opportunity());
         //model.addAttribute("opportunities",form);
 
-
         return "opportunity/add";
     }
 
-//
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddForm(@ModelAttribute @Valid Opportunity opportunity,
                              Errors errors , Model model, HttpSession session) {
@@ -131,7 +151,6 @@ public class OpportunityController {
     }
 
     User currentUser = (User) session.getAttribute("loggedInUser");
-
 
     opportunity.setOpportunityCreator(currentUser);
     opportunityDao.save(opportunity);
@@ -148,12 +167,6 @@ public class OpportunityController {
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemoveOpportunityForm(@RequestParam int[] OpportunityIds) {
-
-        // When removing a cheese from list,
-        // find all menus that the cheese is in and
-        // remove the cheese in each
-        // Them, remove the cheese from the list
-
 
         for (int  opportunityId :  OpportunityIds) {
             opportunityDao.delete(opportunityId);

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpSession;
 
 import javax.validation.Valid;
@@ -23,7 +24,6 @@ public class OpportunityController {
 
     @Autowired
     OpportunityDao opportunityDao;
-//
 
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -39,16 +39,41 @@ public class OpportunityController {
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.GET)
     public String displayOpportunity(Model model, @PathVariable int opportunityId, HttpSession session) {
 
-        session.setAttribute("claimedError", false);
+        User currentUser = (User) session.getAttribute("loggedInUser");
+
         Opportunity opportunityToSee = opportunityDao.findOne(opportunityId);
 
+        List<User> currentClaimedUsers = opportunityToSee.getClaimingUsers();
+
+        List<User> currentCompletedUsers = opportunityToSee.getCompletingUsers();
+
+        Boolean userClaimed = false;
+        Boolean userCompleted = false;
+        Boolean isCreator = false;
+
+        for (int i =0; i<currentClaimedUsers.size(); i++){
+            if (currentClaimedUsers.get(i).getId() == currentUser.getId()){
+                userClaimed = true;
+            }
+        }
+
+        for (int i =0; i<currentCompletedUsers.size(); i++){
+            if (currentCompletedUsers.get(i).getId() == currentUser.getId()){
+                userCompleted = true;
+            }
+        }
+
+        if (currentUser.getUsername().equals(opportunityToSee.getOpportunityCreator().getUsername())) {
+            isCreator = true;
+        }
+
         model.addAttribute("opportunity", opportunityToSee);
-
-
+        model.addAttribute("userClaimed", userClaimed);
+        model.addAttribute("userCompleted", userCompleted);
+        model.addAttribute("isCreator", isCreator);
 
         return "opportunity/opportunityPage";
     }
-
 
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.POST)
     public String processClaimAndCompletion(Model model, HttpSession session,
@@ -67,11 +92,11 @@ public class OpportunityController {
         Boolean userClaimed = false;
         Boolean userCompleted = false;
 
-         for (int i =0; i<currentClaimedUsers.size(); i++){
-              if (currentClaimedUsers.get(i).getId() == currentUser.getId()){
-                  userClaimed = true;
-              }
-         }
+        for (int i =0; i<currentClaimedUsers.size(); i++){
+            if (currentClaimedUsers.get(i).getId() == currentUser.getId()){
+                userClaimed = true;
+            }
+        }
 
         for (int i =0; i<currentCompletedUsers.size(); i++){
             if (currentCompletedUsers.get(i).getId() == currentUser.getId()){
@@ -96,7 +121,6 @@ public class OpportunityController {
 
         else if (currentUser.getId() == creator.getId() || userCompleted==true) {
 
-            session.setAttribute("claimedError", true);
             return "redirect:/opportunity/{opportunityId}";
         }
 
@@ -115,11 +139,9 @@ public class OpportunityController {
         model.addAttribute(new Opportunity());
         //model.addAttribute("opportunities",form);
 
-
         return "opportunity/add";
     }
 
-//
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddForm(@ModelAttribute @Valid Opportunity opportunity,
                              Errors errors , Model model, HttpSession session) {
@@ -149,12 +171,6 @@ public class OpportunityController {
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemoveOpportunityForm(@RequestParam int[] OpportunityIds) {
 
-        // When removing a cheese from list,
-        // find all menus that the cheese is in and
-        // remove the cheese in each
-        // Them, remove the cheese from the list
-
-
         for (int  opportunityId :  OpportunityIds) {
             opportunityDao.delete(opportunityId);
         }
@@ -178,7 +194,6 @@ public class OpportunityController {
 
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
-
         opportunityToEdit.setName(name);
         opportunityToEdit.setDescription(description);
         opportunityToEdit.setLocation(location);
@@ -188,6 +203,5 @@ public class OpportunityController {
         return "redirect:/opportunity";
 
     }
-
 
 }

@@ -173,9 +173,8 @@ public class OpportunityController {
     }
 
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.POST)
-    public String processEditOpportunityForm(@ModelAttribute @Valid Opportunity opportunity,
+    public String processEditOpportunityForm(@ModelAttribute @Valid Opportunity opportunity, Errors errors, Model model,
                                   @RequestParam String name, String description, String location, int claimed,
-                                  Errors errors, Model model,
                                   @PathVariable int opportunityId) {
 
         if(errors.hasErrors()){

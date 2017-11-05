@@ -14,7 +14,15 @@ What you'll need: MAMP and IntelliJ IDEA
 
 3. In IntelliJ, open application.properties.
 
-4. On line 24, add the following: "project.base-dir=file:///[YourPathHere]" Replace [YourPathHere] with the path to your project.
+4. Add the following lines to application.properties:
+# Path to project
+project.base-dir=file:///[Your path goes here!]
+
+# Static resources reloading during development
+spring.resources.static-locations=${project.base-dir}/src/main/resources/static/
+spring.resources.cache-period=0
+
+5. In the text you just pasted, replace [Your path goes here!] with the path to your project.
 If you're unsure of the path, right-click in the navigation pane and select "Copy Path." If you use Windows, you'll need to change the back slashes to forward slashes.
 
 5. Run the application and view it at localhost:8080.

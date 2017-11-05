@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import javax.validation.Valid;
@@ -23,7 +25,6 @@ public class OpportunityController {
 
     @Autowired
     OpportunityDao opportunityDao;
-//
 
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -39,12 +40,34 @@ public class OpportunityController {
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.GET)
     public String displayOpportunity(Model model, @PathVariable int opportunityId, HttpSession session) {
 
-        session.setAttribute("claimedError", false);
+        User currentUser = (User) session.getAttribute("loggedInUser");
+
         Opportunity opportunityToSee = opportunityDao.findOne(opportunityId);
 
+        List<User> currentClaimedUsers = opportunityToSee.getClaimingUsers();
+
+        List<User> currentCompletedUsers = opportunityToSee.getCompletingUsers();
+
+        Boolean userClaimed = false;
+        Boolean userCompleted = false;
+
+        for (int i =0; i<currentClaimedUsers.size(); i++){
+            if (currentClaimedUsers.get(i).getId() == currentUser.getId()){
+                userClaimed = true;
+            }
+        }
+
+        for (int i =0; i<currentCompletedUsers.size(); i++){
+            if (currentCompletedUsers.get(i).getId() == currentUser.getId()){
+                userCompleted = true;
+            }
+        }
+
+
         model.addAttribute("opportunity", opportunityToSee);
-
-
+        model.addAttribute("userClaimed", userClaimed);
+        model.addAttribute("userCompleted", userCompleted);
+        model.addAttribute("currentUser", currentUser);
 
         return "opportunity/opportunityPage";
     }
@@ -67,11 +90,11 @@ public class OpportunityController {
         Boolean userClaimed = false;
         Boolean userCompleted = false;
 
-         for (int i =0; i<currentClaimedUsers.size(); i++){
-              if (currentClaimedUsers.get(i).getId() == currentUser.getId()){
-                  userClaimed = true;
-              }
-         }
+        for (int i =0; i<currentClaimedUsers.size(); i++){
+            if (currentClaimedUsers.get(i).getId() == currentUser.getId()){
+                userClaimed = true;
+            }
+        }
 
         for (int i =0; i<currentCompletedUsers.size(); i++){
             if (currentCompletedUsers.get(i).getId() == currentUser.getId()){
@@ -96,7 +119,6 @@ public class OpportunityController {
 
         else if (currentUser.getId() == creator.getId() || userCompleted==true) {
 
-            session.setAttribute("claimedError", true);
             return "redirect:/opportunity/{opportunityId}";
         }
 
@@ -119,7 +141,6 @@ public class OpportunityController {
         return "opportunity/add";
     }
 
-//
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddForm(@ModelAttribute @Valid Opportunity opportunity,
                              Errors errors , Model model, HttpSession session) {

@@ -31,6 +31,10 @@
         <input class="form-control" th:field="*{claimed}" />
         <span th:errors="*{claimed}" class="error"></span>
     </div>
+    <div class="form-group">
+        <p>Created by: <span th:text="${session.loggedInUser.displayname != null ? session.loggedInUser.displayname: session.loggedInUser.username}"></span></p>
+    </div>
+
 
     <input type="submit" value="Add Opportunity" />
 </form>

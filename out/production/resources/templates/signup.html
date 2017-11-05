@@ -9,11 +9,11 @@
 <div class="container">
 <h1 th:text="${title}">Default Title</h1>
 
-<form method="post" style="max-width:600px;" th:object="${user}">
+<form method="post" style="max-width:600px;" th:object="${user}" id="signupForm">
 
     <div class="form-group" id="usernameGroup">
         <label th:for="username">Username</label>
-        <input class="form-control" id="usernameField" th:field="*{username}" />
+        <input class="form-control" id="usernameField" th:field="*{username}" placeholder="Must be less than 25 characters" />
         <div th:if="${#fields.hasErrors('username')}" class="panel panel-danger" id="errorUsername">
             <div class="panel-heading">
                 <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
@@ -34,7 +34,7 @@
 
     <div class="form-group" id="passwordGroup">
         <label th:for="password">Password</label>
-        <input type="password" id="passwordField" name="password" class="form-control" th:field="*{password}"/>
+        <input type="password" id="passwordField" name="password" class="form-control" th:field="*{password}" placeholder="Must be between 3 and 15 characters"/>
         <div th:if="${#fields.hasErrors('password')}" class="panel panel-danger" id="errorPassword">
             <div class="panel-heading">
                 <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
@@ -44,7 +44,7 @@
             </div>
         </div>
     </div>
-    <input type="submit" value="Submit" />
+    <input type="submit" class="btn btn-primary" id="submitButton" value="Submit" />
 
     <br/><br/><br/><br/>
 

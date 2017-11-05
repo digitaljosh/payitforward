@@ -5,6 +5,7 @@ import com.example.payitforward.models.User;
 import javax.persistence.Entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
@@ -17,15 +18,23 @@ public class Opportunity {
     @GeneratedValue
     private int id;
 
+    @NotNull
+    @Size(min=3, message = "Please name this opportunity")
     private String name;
 
+    @NotNull
+    @Size(min=3, message = "Please describe this opportunity")
     private String description;
 
     @ManyToOne
     private User OpportunityCreator;
 
+    @NotNull
+    @Size(min=5, message = "Please give the location of this opportunity")
     private String location;
 
+    @NotNull
+    @Min(1)
     private int claimed;
 
     @ManyToMany
@@ -33,8 +42,6 @@ public class Opportunity {
 
     @ManyToMany
     private List<User> completingUsers;
-
-
 
     public Opportunity(String name, String description) {
         this.name = name;
@@ -82,6 +89,5 @@ public class Opportunity {
     public List<User> getCompletingUsers() {return completingUsers; }
 
     public void setCompletingUsers(List<User> completingUsers) { this.completingUsers = completingUsers; }
-
 
 }

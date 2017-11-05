@@ -23,8 +23,8 @@
         </div>
     </div>
 
-    <div th:if="${userClaimed and !userCompleted}"><p>You've already claimed this opportunity!</p></div>
-    <div th:if="${userCompleted}"><p>You've already completed this opportunity!</p></div>
+    <div th:if="${userClaimed and !userCompleted}"><p>You've claimed this opportunity!</p></div>
+    <div th:if="${userCompleted}"><p>You've completed this opportunity!</p></div>
     <div th:if="${!userClaimed and opportunity.claimed==0}"><p>Sorry, there are no more spots to claim!</p></div>
 
     <form method="post" style="max-width:600px;" th:object="${opportunity}">

@@ -34,7 +34,6 @@ public class Opportunity {
     private String location;
 
     @NotNull
-    @Min(1)
     private int claimed;
 
     @ManyToMany

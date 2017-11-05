@@ -138,6 +138,7 @@ public class OpportunityController {
         if (session.getAttribute("loggedInUser") == null){
             return "redirect:/opportunity";
         }
+
         model.addAttribute("title", "Add Opportunity");
         model.addAttribute(new Opportunity());
         //model.addAttribute("opportunities",form);
@@ -147,12 +148,17 @@ public class OpportunityController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddForm(@ModelAttribute @Valid Opportunity opportunity,
-                             Errors errors , Model model, HttpSession session) {
+                             Errors errors, Model model, @RequestParam int claimed, HttpSession session) {
 
     if (errors.hasErrors()) {
         model.addAttribute("title", "Add Opportunity");
-        //  model.addAttribute("user", userDao.findAll());
         return "opportunity/add";
+    }
+
+    if(claimed < 1){
+        model.addAttribute("opportunity", opportunity);
+        model.addAttribute("claimedError", "Please request at least 1 volunteer");
+        return "opportunity/edit";
     }
 
     User currentUser = (User) session.getAttribute("loggedInUser");
@@ -197,6 +203,12 @@ public class OpportunityController {
 
         if(errors.hasErrors()){
             model.addAttribute("opportunity", opportunity);
+            return "opportunity/edit";
+        }
+
+        if(claimed < 1){
+            model.addAttribute("opportunity", opportunity);
+            model.addAttribute("claimedError", "Please request at least 1 volunteer");
             return "opportunity/edit";
         }
 

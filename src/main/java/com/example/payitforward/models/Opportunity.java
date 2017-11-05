@@ -30,7 +30,7 @@ public class Opportunity {
     private User OpportunityCreator;
 
     @NotNull
-    @Size(min=5, message = "Please give the location of this opportunity")
+    @Size(min=2, message = "Please give the location of this opportunity")
     private String location;
 
     @NotNull

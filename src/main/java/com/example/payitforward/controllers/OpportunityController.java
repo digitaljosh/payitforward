@@ -24,6 +24,7 @@ public class OpportunityController {
 
     @Autowired
     OpportunityDao opportunityDao;
+//
 
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -33,8 +34,6 @@ public class OpportunityController {
 
         return "opportunity/index";
     }
-
-
 
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.GET)
     public String displayOpportunity(Model model, @PathVariable int opportunityId, HttpSession session) {
@@ -154,7 +153,6 @@ public class OpportunityController {
 
     User currentUser = (User) session.getAttribute("loggedInUser");
 
-
     opportunity.setOpportunityCreator(currentUser);
     opportunityDao.save(opportunity);
 
@@ -189,14 +187,21 @@ public class OpportunityController {
     }
 
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.POST)
-    public String processEditOpportunityForm(@RequestParam String name, @RequestParam String description, @RequestParam String location,
+    public String processEditOpportunityForm(@ModelAttribute @Valid Opportunity opportunity, Errors errors, Model model,
+                                  @RequestParam String name, String description, String location, int claimed,
                                   @PathVariable int opportunityId) {
+
+        if(errors.hasErrors()){
+            model.addAttribute("opportunity", opportunity);
+            return "opportunity/edit";
+        }
 
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
         opportunityToEdit.setName(name);
         opportunityToEdit.setDescription(description);
         opportunityToEdit.setLocation(location);
+        opportunityToEdit.setClaimed(claimed);
 
         opportunityDao.save(opportunityToEdit);
 

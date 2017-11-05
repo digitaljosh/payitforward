@@ -40,6 +40,10 @@ public class OpportunityController {
 
         User currentUser = (User) session.getAttribute("loggedInUser");
 
+        if (currentUser == null){
+            return "redirect:/login";
+        }
+
         Opportunity opportunityToSee = opportunityDao.findOne(opportunityId);
 
         List<User> currentClaimedUsers = opportunityToSee.getClaimingUsers();

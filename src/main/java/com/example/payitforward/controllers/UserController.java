@@ -12,9 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 
 @Controller
@@ -61,7 +59,7 @@ public class UserController {
             return "signup";
         }
 
-        //save user and add user to session
+        //hash password, save user, and add user to session
 
         String userPassword = newUser.getPassword();
         newUser.setPwHash(hashPassword(userPassword));
@@ -101,7 +99,6 @@ public class UserController {
                     response.encodeRedirectURL("profile/myprofile");
                     return "redirect:profile/myprofile";
 
-                    //TODO: return some kind of welcome message
                 } else {
                     //return login page with password error
                     model.addAttribute("title", "Log In");

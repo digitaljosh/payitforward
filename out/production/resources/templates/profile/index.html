@@ -32,7 +32,7 @@
                 </div>
                 <div th:id="|collapse${iterStat.index}|" class="panel-collapse collapse">
                     <ul th:each="opportunity : ${profile.opportunities}" class="list-group">
-                        <a th:href="@{opportunity/{id}(id=${opportunity.id})}">
+                        <a th:href="@{opportunity/{id}(id=${opportunity.OpportunityCreator})}">
                             <li th:text="${opportunity.name}" class="list-group-item">One</li>
                         </a>
                     </ul>

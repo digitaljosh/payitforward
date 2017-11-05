@@ -33,8 +33,6 @@ public class Opportunity {
     @Size(min=2, message = "Please give the location of this opportunity")
     private String location;
 
-    @NotNull
-    @Min(1)
     private int claimed;
 
     @ManyToMany

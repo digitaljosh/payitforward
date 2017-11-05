@@ -49,6 +49,7 @@ public class OpportunityController {
 
         Boolean userClaimed = false;
         Boolean userCompleted = false;
+        Boolean isCreator = false;
 
         for (int i =0; i<currentClaimedUsers.size(); i++){
             if (currentClaimedUsers.get(i).getId() == currentUser.getId()){
@@ -62,10 +63,14 @@ public class OpportunityController {
             }
         }
 
+        if (currentUser.getUsername().equals(opportunityToSee.getOpportunityCreator().getUsername())) {
+            isCreator = true;
+        }
+
         model.addAttribute("opportunity", opportunityToSee);
         model.addAttribute("userClaimed", userClaimed);
         model.addAttribute("userCompleted", userCompleted);
-        model.addAttribute("currentUser", currentUser);
+        model.addAttribute("isCreator", isCreator);
 
         return "opportunity/opportunityPage";
     }
@@ -198,5 +203,5 @@ public class OpportunityController {
         return "redirect:/opportunity";
 
     }
-    
+
 }

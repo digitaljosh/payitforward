@@ -17,7 +17,7 @@
             <p>Spots left: <span th:text="${opportunity.claimed}" class="list-group-item-text"></span></p>
             <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
         </div>
-        <div th:if="${currentUser.username.equals(opportunity.getOpportunityCreator().username)}">
+        <div th:if="${isCreator}">
             <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit</a>
             <a th:href="@{/opportunity/remove}">Remove</a>
         </div>
@@ -28,7 +28,7 @@
     <div th:if="${!userClaimed and opportunity.claimed==0}"><p>Sorry, there are no more spots to claim!</p></div>
 
     <form method="post" style="max-width:600px;" th:object="${opportunity}">
-        <div th:if="${#object.claimed > 0 and !userClaimed}"  class="form-group">
+        <div th:if="${#object.claimed > 0 and !userClaimed and !isCreator}"  class="form-group">
             <label th:for="claimed">Claim</label>
             <input type="submit" value="Claim this Opportunity?" class="form-control" th:field="*{claimed}" />
         </div>

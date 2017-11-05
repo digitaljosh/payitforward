@@ -13,7 +13,7 @@
 
     <div class="form-group" id="usernameGroup">
         <label th:for="username">Username</label>
-        <input class="form-control" id="usernameField" th:field="*{username}" placeholder="Must be less than 25 characters" />
+        <input class="form-control" id="usernameField" th:field="*{username}" placeholder="Must be between 3 and 15 characters" />
         <div th:if="${#fields.hasErrors('username')}" class="panel panel-danger" id="errorUsername">
             <div class="panel-heading">
                 <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>

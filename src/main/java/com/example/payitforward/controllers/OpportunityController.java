@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import javax.validation.Valid;
@@ -63,7 +62,6 @@ public class OpportunityController {
             }
         }
 
-
         model.addAttribute("opportunity", opportunityToSee);
         model.addAttribute("userClaimed", userClaimed);
         model.addAttribute("userCompleted", userCompleted);
@@ -71,7 +69,6 @@ public class OpportunityController {
 
         return "opportunity/opportunityPage";
     }
-
 
     @RequestMapping(value = "{opportunityId}",method=RequestMethod.POST)
     public String processClaimAndCompletion(Model model, HttpSession session,
@@ -137,7 +134,6 @@ public class OpportunityController {
         model.addAttribute(new Opportunity());
         //model.addAttribute("opportunities",form);
 
-
         return "opportunity/add";
     }
 
@@ -193,7 +189,6 @@ public class OpportunityController {
 
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
-
         opportunityToEdit.setName(name);
         opportunityToEdit.setDescription(description);
         opportunityToEdit.setLocation(location);
@@ -203,6 +198,5 @@ public class OpportunityController {
         return "redirect:/opportunity";
 
     }
-
-
+    
 }

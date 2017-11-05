@@ -29,7 +29,7 @@
         <div class="form-group">
             <label th:for="claimed">How many volunteers do you need?</label>
             <input class="form-control" th:field="*{claimed}" />
-            <span th:errors="*{claimed}" class="error"></span>
+            <span th:text="${claimedError}" class="error"></span>
         </div>
         <div class="form-group">
             <p>Created by: <span th:text="${opportunity.getOpportunityCreator() == null ? '' : opportunity.getOpportunityCreator().username}"></span></p>

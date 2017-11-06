@@ -15,10 +15,7 @@ What you'll need: MAMP and IntelliJ IDEA
 3. In IntelliJ, open application.properties.
 
 4. Add the following lines to application.properties:
-# Path to project
 project.base-dir=file:///[Your path goes here!]
-
-# Static resources reloading during development
 spring.resources.static-locations=${project.base-dir}/src/main/resources/static/
 spring.resources.cache-period=0
 

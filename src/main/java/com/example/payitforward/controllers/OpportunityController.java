@@ -59,7 +59,10 @@ public class OpportunityController {
 
         List<User> currentClaimedUsers = opportunityToEdit.getClaimingUsers();
 
+        List<User> currentCompletedUsers = opportunityToEdit.getCompletingUsers();
+
         Boolean userClaimed = false;
+        Boolean userCompleted = false;
 
         for (int i =0; i<currentClaimedUsers.size(); i++){
             if (currentClaimedUsers.get(i).getId() == currentUser.getId()){
@@ -67,45 +70,50 @@ public class OpportunityController {
             }
         }
 
-        if (opportunityToEdit.getClaimed()> 0 && currentUser.getId() != creator.getId() && !userClaimed){
-            opportunityToEdit.setClaimed(opportunityToEdit.getClaimed() -1);
+        for (int i =0; i<currentCompletedUsers.size(); i++){
+            if (currentCompletedUsers.get(i).getId() == currentUser.getId()){
+                userCompleted = true;
+            }
+        }
 
+        if (opportunityToEdit.getClaimed() > 0 && currentUser.getId() != creator.getId() && userClaimed==false && userCompleted==false) {
+            opportunityToEdit.setClaimed(opportunityToEdit.getClaimed() - 1);
 
             currentClaimedUsers.add(currentUser);
             opportunityToEdit.setClaimingUsers(currentClaimedUsers);
             opportunityDao.save(opportunityToEdit);
         }
-        else {
-//            Boolean claimedError = true;
-//            model.addAttribute("claimedError",claimedError);
-            session.setAttribute("claimedError", true);
-            return "redirect:/opportunity/{opportunityId}";
-//kigiyg
+
+        else if (currentUser.getId() != creator.getId() && userClaimed==true && userCompleted==false) {
+
+            currentCompletedUsers.add(currentUser);
+            opportunityToEdit.setCompletingUsers(currentCompletedUsers);
+            opportunityDao.save(opportunityToEdit);
         }
 
-        //redirect to same page using opportunityId
+        else if (currentUser.getId() == creator.getId() || userCompleted==true) {
+
+            session.setAttribute("claimedError", true);
+            return "redirect:/opportunity/{opportunityId}";
+        }
+
         return "redirect:/opportunity/{opportunityId}";
-
-
     }
 
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddForm(Model model, HttpSession session) {
 
-        //User user = opportunityDao.findOne(userId);
-       // AddOpportunityForm form = new AddOpportunityForm(userDao.findAll(), user);
+
         if (session.getAttribute("loggedInUser") == null){
             return "redirect:/opportunity";
         }
         model.addAttribute("title", "Add Opportunity");
         model.addAttribute(new Opportunity());
-        //model.addAttribute("opportunities",form);
-
 
         return "opportunity/add";
     }
 
-//
+
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddForm(@ModelAttribute @Valid Opportunity opportunity,
                              Errors errors , Model model, HttpSession session) {
@@ -126,20 +134,29 @@ public class OpportunityController {
 }
 
     @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public String displayRemoveOpportunityForm(Model model) {
+    public String displayRemoveOpportunityForm(Model model, HttpSession session) {
+
+        if (session.getAttribute("loggedInUser") == null){
+            return "redirect:/opportunity";
+        }
+        User currentUser = (User) session.getAttribute("loggedInUser");
+
+        //List<Opportunity> opportunityToRemove = opportunityDao.findAll();
+
+//        for (i=0; i<opportunityToRemove.size(); )
+//
+//        if (currentUser.getId() != creator.getId()){
+//            return "redirect:/opportunity";
+//        }
+
         model.addAttribute("opportunities", opportunityDao.findAll());
         model.addAttribute("title", "Remove Opportunity");
+
         return "opportunity/remove";
     }
 
     @RequestMapping(value = "remove", method = RequestMethod.POST)
     public String processRemoveOpportunityForm(@RequestParam int[] OpportunityIds) {
-
-        // When removing a cheese from list,
-        // find all menus that the cheese is in and
-        // remove the cheese in each
-        // Them, remove the cheese from the list
-
 
         for (int  opportunityId :  OpportunityIds) {
             opportunityDao.delete(opportunityId);
@@ -149,9 +166,20 @@ public class OpportunityController {
     }
 
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.GET)
-    public String displayEditForm(Model model, @PathVariable int opportunityId) {
+    public String displayEditForm(Model model, @PathVariable int opportunityId, HttpSession session) {
 
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
+
+        if (session.getAttribute("loggedInUser") == null){
+            return "redirect:/opportunity";
+        }
+        User currentUser = (User) session.getAttribute("loggedInUser");
+
+        User creator = opportunityToEdit.getOpportunityCreator();
+
+        if (currentUser.getId() != creator.getId()){
+            return "redirect:/opportunity";
+        }
 
         model.addAttribute("opportunity", opportunityToEdit);
         return "opportunity/edit";

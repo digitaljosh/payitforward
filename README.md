@@ -15,8 +15,11 @@ What you'll need: MAMP and IntelliJ IDEA
 3. In IntelliJ, open application.properties.
 
 4. Add the following lines to application.properties:
+
 project.base-dir=file:///[Your path goes here!]
+
 spring.resources.static-locations=${project.base-dir}/src/main/resources/static/
+
 spring.resources.cache-period=0
 
 5. In the text you just pasted, replace "[Your path goes here!]"" with the path to your project.

@@ -30,7 +30,7 @@
         <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6 text-center">
             <div class="col-xs-12 col-sm-6 col-md-6 col-lg-6">
                 <figure>
-                    <img style="margin: auto;" id="userPic" th:src="@{/upload-dir/{id}/{photoName}(id=${user.id}, photoName=${photoName})}" class="img-circle img-responsive" onerror="standby()"/>
+                    <img id="userPic" th:src="@{/upload-dir/{id}/{photoName}(id=${user.id}, photoName=${photoName})}" class="img-circle" onerror="standby()"/>
                 </figure>
             </div>
         </div>

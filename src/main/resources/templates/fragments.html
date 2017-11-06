@@ -69,7 +69,6 @@ $(function () {
                 <li><a href="/opportunity">Opportunity <span class="sr-only">(current)</span></a></li>
                 <li><a href="/profile">Neighbors</a></li>
                 <li th:if="${session.loggedInUser}"><a href="/profile/myprofile">My Profile</a></li>
-                <li th:if="${session.loggedInUser}"><a href="/category">Categories</a></li>
                 <li th:unless="${session.loggedInUser}"><a href="/signup">Signup</a></li>
                 <li th:unless="${session.loggedInUser}"><a href="/login">Login</a></li>
                 <li th:if="${session.loggedInUser}"><a href="/logout">Logout</a></li>

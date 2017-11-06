@@ -1,8 +1,11 @@
 package com.example.payitforward.models;
 
+import org.hibernate.type.descriptor.sql.VarcharTypeDescriptor;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +34,7 @@ public class User {
 
     private String bio;
 
-    // TODO: add profile picture
+    private String imageName;
 
     @OneToMany
     @JoinColumn(name = "opportunity_creator_id")
@@ -86,5 +89,13 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getImageName() {
+        return imageName;
+    }
+
+    public void setImageName(String imageName) {
+        this.imageName = imageName;
     }
 }

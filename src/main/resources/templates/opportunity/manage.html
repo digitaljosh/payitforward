@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<head th:replace="fragments :: head"></head>
+<body>
+
+
+<nav th:replace="fragments :: navigation"></nav>
+
+<div style="height: 110px;"></div>
+
+
+<div class="container">
+    <h1 th:text="${title}">Default Title</h1>
+    <p th:if="${opportunity.getClaimingUsers() = 0"}>no claimed users! :(</p>
+    <form method="post">
+        <div th:each="user : ${opportunity.getClaimingUsers()}" class="checkbox">
+            <input type="checkbox" name="userIds" th:value="${user.id}" th:id="${user.id}"/>
+            <label th:for="${user.id}" th:text="${user.username}"></label>
+            <br/>
+        </div>
+        <input type="submit" value="Set Completing Users" />
+    </form>
+</div>
+</body>
+</html>

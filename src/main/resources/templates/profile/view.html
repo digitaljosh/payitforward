@@ -13,6 +13,9 @@
         <h1 th:text="${user.username}" class="panel-title">Username</h1>
         <p th:text="${user.bio}">bio</p>
     </div>
+    <div>
+        <img th:src="@{/upload-dir/{id}/{photoName}(id=${user.id}, photoName=${photoName})}" />
+    </div>
 
     <div th:each="opportunity : ${user.opportunities}">
         <a th:href="@{/opportunity/{id}(id=${opportunity.id})}">

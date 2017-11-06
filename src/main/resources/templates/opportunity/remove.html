@@ -1,28 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body>
 
+<body onload="initialize()">
 
 <nav th:replace="fragments :: navigation"></nav>
 
 <div style="height: 110px;"></div>
-
-
+<h1 th:text="${title}">Default Title</h1>
 <div class="container">
-    <h1 th:text="${title}">Default Title</h1>
-
-
-    <form method="post">
-
-        <div th:each="opportunity : ${opportunities}" class="checkbox">
-            <input type="checkbox" name="OpportunityIds" th:value="${opportunity.id}" th:id="${opportunity.id}"/>
-            <label th:for="${opportunity.id}" th:text="${opportunity.name}"></label>
-            <br />
+    <div th:object="${opportunity}" class="list-group">
+        <div class="list-group-item">
+            <h2 th:text="${opportunity.name}" class="list-group-item-heading">Opportunity Name</h2>
+            <p th:text="${opportunity.description}" class="list-group-item-text"></p>
+            <p th:text="${opportunity.location}" class="list-group-item-text"></p>
+            <p>Spots left: <span th:text="${opportunity.claimed}" class="list-group-item-text"></span></p>
+            <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
         </div>
-
-        <input type="submit" value="Remove Opportunity" />
-    </form>
+    </div>
 </div>
+<form method="post" style="max-width:600px;" th:object="${opportunity}">
+    <label th:for="remove">Remove</label>
+    <input type="submit" value="Remove this Opportunity?" class="form-control"/>
+</form>
 </body>
 </html>

@@ -24,7 +24,7 @@ public class OpportunityController {
 
     @Autowired
     OpportunityDao opportunityDao;
-//
+
 
     @RequestMapping(value = "")
     public String index(Model model) {
@@ -115,12 +115,12 @@ public class OpportunityController {
             opportunityDao.save(opportunityToEdit);
         }
 
-        else if (currentUser.getId() != creator.getId() && userClaimed==true && userCompleted==false) {
-
-            currentCompletedUsers.add(currentUser);
-            opportunityToEdit.setCompletingUsers(currentCompletedUsers);
-            opportunityDao.save(opportunityToEdit);
-        }
+//        else if (currentUser.getId() != creator.getId() && userClaimed==true && userCompleted==false) {
+//
+//            currentCompletedUsers.add(currentUser);
+//            opportunityToEdit.setCompletingUsers(currentCompletedUsers);
+//            opportunityDao.save(opportunityToEdit);
+//        }
 
         else if (currentUser.getId() == creator.getId() || userCompleted==true) {
 
@@ -133,15 +133,13 @@ public class OpportunityController {
     @RequestMapping(value = "add", method = RequestMethod.GET)
     public String displayAddForm(Model model, HttpSession session) {
 
-        //User user = opportunityDao.findOne(userId);
-       // AddOpportunityForm form = new AddOpportunityForm(userDao.findAll(), user);
         if (session.getAttribute("loggedInUser") == null){
             return "redirect:/opportunity";
         }
 
         model.addAttribute("title", "Add Opportunity");
         model.addAttribute(new Opportunity());
-        //model.addAttribute("opportunities",form);
+
 
         return "opportunity/add";
     }
@@ -169,29 +167,96 @@ public class OpportunityController {
     return "redirect:/opportunity";
 }
 
-    @RequestMapping(value = "remove", method = RequestMethod.GET)
-    public String displayRemoveOpportunityForm(Model model) {
-        model.addAttribute("opportunities", opportunityDao.findAll());
+    @RequestMapping(value = "remove/{opportunityId}", method = RequestMethod.GET)
+    public String displayRemoveOpportunityForm(Model model, @PathVariable int opportunityId, HttpSession session) {
+
+        if (session.getAttribute("loggedInUser") == null){
+            return "redirect:/opportunity";
+        }
+
+        User currentUser = (User) session.getAttribute("loggedInUser");
+
+        Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
+
+        User creator = opportunityToEdit.getOpportunityCreator();
+
+        if (currentUser.getId() != creator.getId()){
+            return "redirect:/opportunity";
+        }
+
+        model.addAttribute("opportunity", opportunityDao.findOne(opportunityId));
         model.addAttribute("title", "Remove Opportunity");
         return "opportunity/remove";
     }
 
-    @RequestMapping(value = "remove", method = RequestMethod.POST)
-    public String processRemoveOpportunityForm(@RequestParam int[] OpportunityIds) {
+    @RequestMapping(value = "remove/{opportunityId}", method = RequestMethod.POST)
+    public String processRemoveOpportunityForm(@PathVariable int opportunityId) {
 
-        for (int  opportunityId :  OpportunityIds) {
-            opportunityDao.delete(opportunityId);
+        Opportunity opportunityToRemove = opportunityDao.findOne(opportunityId);
+
+        opportunityDao.delete(opportunityToRemove);
+
+        return "redirect:/opportunity/";
+    }
+
+    @RequestMapping(value = "manage/{opportunityId}", method = RequestMethod.GET)
+    public String displayManageOpportunityForm(Model model, HttpSession session, @PathVariable int opportunityId) {
+
+        if (session.getAttribute("loggedInUser") == null){
+            return "redirect:/opportunity";
         }
 
+        User currentUser = (User) session.getAttribute("loggedInUser");
+
+        Opportunity opportunityToManage = opportunityDao.findOne(opportunityId);
+
+        User creator = opportunityToManage.getOpportunityCreator();
+
+        if (currentUser.getId() != creator.getId()){
+            return "redirect:/opportunity";
+        }
+
+        model.addAttribute("opportunity", opportunityToManage);
+        model.addAttribute("title", "Manage Claiming Users");
+
+        return "opportunity/manage";
+    }
+
+    @RequestMapping(value = "manage/{opportunityId}", method = RequestMethod.POST)
+    public String processManage(@RequestParam int userIds[], @PathVariable int opportunityId){
+
+        Opportunity opportunityToManage = opportunityDao.findOne(opportunityId);
+
+        List<User> currentCompletedUsers = opportunityToManage.getCompletingUsers();
+
+        for (int  user :  userIds) {
+            currentCompletedUsers.add(userDao.findOne(user));
+
+        }
+        opportunityToManage.setCompletingUsers(currentCompletedUsers);
+        opportunityDao.save(opportunityToManage);
         return "redirect:/opportunity";
     }
 
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.GET)
-    public String displayEditForm(Model model, @PathVariable int opportunityId) {
+    public String displayEditForm(Model model, @PathVariable int opportunityId, HttpSession session) {
+
+        if (session.getAttribute("loggedInUser") == null){
+            return "redirect:/opportunity";
+        }
+
+        User currentUser = (User) session.getAttribute("loggedInUser");
 
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
 
+        User creator = opportunityToEdit.getOpportunityCreator();
+
+        if (currentUser.getId() != creator.getId()){
+            return "redirect:/opportunity";
+        }
+
         model.addAttribute("opportunity", opportunityToEdit);
+
         return "opportunity/edit";
 
     }
@@ -199,7 +264,7 @@ public class OpportunityController {
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.POST)
     public String processEditOpportunityForm(@ModelAttribute @Valid Opportunity opportunity, Errors errors, Model model,
                                   @RequestParam String name, String description, String location, int claimed,
-                                  @PathVariable int opportunityId) {
+                                  @PathVariable int opportunityId, @RequestParam String date) {
 
         if(errors.hasErrors()){
             model.addAttribute("opportunity", opportunity);

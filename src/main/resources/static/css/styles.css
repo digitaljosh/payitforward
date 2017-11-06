@@ -9,7 +9,9 @@
   /*-------------landing page text styling---------------*/
 
 body {
-  background: #fff url('https://subtlepatterns.com/patterns/gplaypattern.png') repeat;
+  background-image: url('https://subtlepatterns.com/patterns/gplaypattern.png');
+  background-color: #22baba;
+  background-blend-mode: multiply;
 }
 
 #body-color {
@@ -99,9 +101,9 @@ body {
 #socmedia {
   text-align: center;
   width: 100%;
-  background: -webkit-linear-gradient(left, #0000ff, #008000);
-  background: -moz-linear-gradient(left, #0000ff, #008000);
-  background: linear-gradient(left, #0000ff, #008000);
+  background: -webkit-linear-gradient(left, #0055aa, #88aa44);
+  background: -moz-linear-gradient(left, #0055aa, #88aa44);
+  background: linear-gradient(left, #0055aa, #88aa44);
 
 }
 
@@ -148,7 +150,7 @@ body {
     height: 14rem;
     width: 16rem;
     border-radius: 20px;
-    background: red;
+    background:  #bb2222;
     color: white;
     font-size: 5rem;
     font-family: Lobster;
@@ -190,7 +192,7 @@ body {
     height: 22rem;
     width: 17rem;
     border-radius: 20px;
-    background: red;
+    background:  #bb2222;
     color: white;
     font-size: 5rem;
     font-family: Lobster;
@@ -307,3 +309,4 @@ body {
 
 #userPic {
     max-width: 225px;    }
+

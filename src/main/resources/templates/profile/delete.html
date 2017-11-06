@@ -6,7 +6,7 @@
     <nav th:replace="fragments :: navigation"></nav>
     <h1 th:text="${title}">Title</h1>
 <div class="container">
-    <h1 class="text-center">Are you sure?</h1>
+    <h1 class="text-center">Are you sure you want to delete your profile?</h1>
     <form method="post" th:object="${user}" class="form-group text-center">
         <div>
             <button type="reset" class="btn btn-default" name="cancel" value="cancel">Cancel</button>

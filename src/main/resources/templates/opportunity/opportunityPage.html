@@ -19,12 +19,12 @@
         </div>
         <div th:if="${isCreator}">
             <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit</a>
-            <a th:href="@{/opportunity/remove}">Remove</a>
+            <a th:href="@{'/opportunity/remove/' + ${opportunity.id}}">Remove</a>
         </div>
     </div>
 
-    <div th:if="${userClaimed and !userCompleted}"><p>You've already claimed this opportunity!</p></div>
-    <div th:if="${userCompleted}"><p>You've already completed this opportunity!</p></div>
+    <div th:if="${userClaimed and !userCompleted}"><p>You've have claimed this opportunity!</p></div>
+    <div th:if="${userCompleted}"><p>You have completed this opportunity!</p></div>
     <div th:if="${!userClaimed and opportunity.claimed==0}"><p>Sorry, there are no more spots to claim!</p></div>
 
     <form method="post" style="max-width:600px;" th:object="${opportunity}">

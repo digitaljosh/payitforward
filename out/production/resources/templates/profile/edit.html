@@ -3,66 +3,45 @@
 <head th:replace="fragments :: head"></head>
 
 <body>
-    <nav th:replace="fragments :: navigation"></nav>
+<nav th:replace="fragments :: navigation"></nav>
 
+<div style="height: 110px;"></div>
 
 <div class="container">
     <h1 th:text="${title}">Title</h1>
 
-    <form method="post" th:object="${user}" id="editForm">
-
-        <div class="form-group" id="displayNameGroup">
-            <label for="displayNameField" class="control-label">Display Name</label>
-            <div>
-                <input th:field="*{displayname}" class="form-control" id="displayNameField" placeholder="No longer than 25 characters" type="text"/>
+    <form method="post" th:object="${user}" class="form-horizontal">
+        <fieldset>
+            <div class="form-group" id="displayNameGroup">
+                <label for="displayNameField" class="control-label">Display Name</label>
+                <div>
+                    <input th:field="*{displayname}" class="form-control" id="displayNameField" placeholder="Display Name" type="text"/>
+                    <span th:text="${error1}" class="error"></span>
+                </div>
             </div>
-        </div>
-        <div th:if="${error1}" class="panel panel-danger" id="errorDisplayName">
-            <div class="panel-heading">
-                <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
+            <div class="form-group" id="emailGroup">
+                <label for="emailField" class="control-label">Email</label>
+                <div>
+                    <input th:field="*{email}" class="form-control" id="emailField" placeholder="Email" type="text"/>
+                    <span th:text="${error2}" class="error"></span>
+                </div>
             </div>
-            <div th:text="${error1}" class="panel-body">
-                Display name must be less than 25 characters
+            <div class="form-group">
+                <label for="textArea" class="control-label">About You</label>
+                <div>
+                    <textarea th:field="*{bio}" class="form-control" rows="3" placeholder="So what makes you, you?" id="textArea"></textarea>
+                    <span th:text="${error3}" class="error"></span>
+                </div>
             </div>
-        </div>
-        <div class="form-group" id="emailGroup">
-            <label for="emailField" class="control-label">Email</label>
-            <div>
-                <input th:field="*{email}" class="form-control" id="emailField" type="text"/>
+            <div class="form-group">
+                <div>
+                    <button type="reset" class="btn btn-default">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="submit" value="Edit Profile">Submit</button>
+                </div>
             </div>
-        </div>
-        <div th:if="${error2}" class="panel panel-danger" id="errorEmail">
-            <div class="panel-heading">
-                <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
-            </div>
-            <div th:text="${error2}" class="panel-body">
-                Please enter a valid email address
-            </div>
-        </div>
-        <div class="form-group">
-            <label for="textArea" class="control-label">About You</label>
-            <div>
-                <textarea th:field="*{bio}" class="form-control" rows="3" placeholder="So what makes you, you?" id="textArea"></textarea>
-            </div>
-        </div>
-        <div th:if="${error3}" class="panel panel-danger" id="errorBio">
-            <div class="panel-heading">
-                <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
-            </div>
-            <div th:text="${error3}" class="panel-body">
-                Bio must be shorter than 500 characters
-            </div>
-        </div>
-        <div class="form-group">
-            <div>
-                <button class="btn btn-default" id="resetButton">Cancel</button>
-                <input class="btn btn-primary" type="button" id="submitButton" onclick="submitForm()" value="Edit Profile"/>
-            </div>
-        </div>
-
+        </fieldset>
     </form>
 </div>
 
 </body>
-<script type="text/javascript" th:src="@{/js/form.js}" />
 </html>

@@ -168,7 +168,21 @@ public class OpportunityController {
 }
 
     @RequestMapping(value = "remove/{opportunityId}", method = RequestMethod.GET)
-    public String displayRemoveOpportunityForm(Model model, @PathVariable int opportunityId) {
+    public String displayRemoveOpportunityForm(Model model, @PathVariable int opportunityId, HttpSession session) {
+
+        if (session.getAttribute("loggedInUser") == null){
+            return "redirect:/opportunity";
+        }
+
+        User currentUser = (User) session.getAttribute("loggedInUser");
+
+        Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
+
+        User creator = opportunityToEdit.getOpportunityCreator();
+
+        if (currentUser.getId() != creator.getId()){
+            return "redirect:/opportunity";
+        }
 
         model.addAttribute("opportunity", opportunityDao.findOne(opportunityId));
         model.addAttribute("title", "Remove Opportunity");
@@ -188,13 +202,22 @@ public class OpportunityController {
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.GET)
     public String displayEditForm(Model model, @PathVariable int opportunityId, HttpSession session) {
 
-        Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
-
         if (session.getAttribute("loggedInUser") == null){
             return "redirect:/opportunity";
         }
 
+        User currentUser = (User) session.getAttribute("loggedInUser");
+
+        Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
+
+        User creator = opportunityToEdit.getOpportunityCreator();
+
+        if (currentUser.getId() != creator.getId()){
+            return "redirect:/opportunity";
+        }
+
         model.addAttribute("opportunity", opportunityToEdit);
+
         return "opportunity/edit";
 
     }

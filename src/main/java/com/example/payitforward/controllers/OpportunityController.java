@@ -264,7 +264,7 @@ public class OpportunityController {
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.POST)
     public String processEditOpportunityForm(@ModelAttribute @Valid Opportunity opportunity, Errors errors, Model model,
                                   @RequestParam String name, String description, String location, int claimed,
-                                  @PathVariable int opportunityId) {
+                                  @PathVariable int opportunityId, @RequestParam String date) {
 
         if(errors.hasErrors()){
             model.addAttribute("opportunity", opportunity);

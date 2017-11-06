@@ -40,6 +40,35 @@ public class ProfileController {
     public String viewProfile(Model model, @PathVariable int userId){
 
         User userProfile = userDao.findOne(userId);
+
+        List<Opportunity> claimedOpportunities = new ArrayList();
+        List<Opportunity> completedOpportunities = new ArrayList();
+        Iterable<Opportunity> opportunities = opportunityDao.findAll();
+
+        for (Opportunity opp : opportunities) {
+            boolean completed = false;
+            boolean claimed = false;
+            List<User> currentCompletedUsers = opp.getCompletingUsers();
+            for (int i =0; i<currentCompletedUsers.size(); i++){
+                if (currentCompletedUsers.get(i).getId() == userId){
+                    completed = true;
+                }
+            }
+
+            List<User> currentClaimedUsers = opp.getClaimingUsers();
+            for (int i =0; i<currentClaimedUsers.size(); i++){
+                if (currentClaimedUsers.get(i).getId() == userId){
+                    claimed = true;
+                }
+            }
+
+            if (completed) {
+                completedOpportunities.add(opp);
+            } else if (claimed) {
+                claimedOpportunities.add(opp);
+            }
+        }
+
         String userPicture = userProfile.getImageName();
 
         if(userPicture != null){
@@ -47,6 +76,8 @@ public class ProfileController {
         }
 
         model.addAttribute("user", userProfile);
+        model.addAttribute("claimedOpportunities", claimedOpportunities);
+        model.addAttribute("completedOpportunities", completedOpportunities);
 
         return "profile/view";
     }

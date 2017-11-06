@@ -32,11 +32,25 @@
                 <figure>
                     <img id="userPic" th:src="@{/upload-dir/{id}/{photoName}(id=${user.id}, photoName=${photoName})}" class="img-circle" onerror="standby()"/>
                 </figure>
+                <div class="col-xs-12 col-sm-8">
+                    <h2>Claimed Opportunities</h2>
+                    <div th:each="opportunity : ${claimedOpportunities}" class="list-group">
+                        <a th:href="@{'/opportunity/' + ${opportunity.id}}" class="list-group-item">
+                            <p th:text="${opportunity.name}" class="list-group-item-heading">User Display Name</p>
+                            <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
+                        </a>
+                    </div>
+                    <h2>Completed Opportunities</h2>
+                    <div th:each="opportunity : ${completedOpportunities}" class="list-group">
+                        <a th:href="@{'/opportunity/' + ${opportunity.id}}" class="list-group-item">
+                            <p th:text="${opportunity.name}" class="list-group-item-heading">User Display Name</p>
+                            <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-
 
     <div class="row">
         <div class="col-xs-12 divider">
@@ -56,15 +70,7 @@
             </div>
         </div>
     </div>
-
 </div>
-
-
-
-
-
-
-
 
 </body>
 <script type="text/javascript" th:src="@{/js/image.js}" />

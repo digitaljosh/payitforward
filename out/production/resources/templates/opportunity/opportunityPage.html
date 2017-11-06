@@ -6,7 +6,6 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<div style="height: 110px;"></div>
 
 <div class="container">
     <div th:object="${opportunity}" class="list-group">
@@ -19,12 +18,13 @@
         </div>
         <div th:if="${isCreator}">
             <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit</a>
-            <a th:href="@{/opportunity/remove}">Remove</a>
+            <a th:href="@{'/opportunity/remove/' + ${opportunity.id}}">Remove</a>
+            <a th:href="@{'/opportunity/manage/' + ${opportunity.id}}">Manage Claimed Users</a>
         </div>
     </div>
 
-    <div th:if="${userClaimed and !userCompleted}"><p>You've already claimed this opportunity!</p></div>
-    <div th:if="${userCompleted}"><p>You've already completed this opportunity!</p></div>
+    <div th:if="${userClaimed and !userCompleted}"><p>You've have claimed this opportunity!</p></div>
+    <div th:if="${userCompleted}"><p>You have completed this opportunity!</p></div>
     <div th:if="${!userClaimed and opportunity.claimed==0}"><p>Sorry, there are no more spots to claim!</p></div>
 
     <form method="post" style="max-width:600px;" th:object="${opportunity}">
@@ -32,12 +32,10 @@
             <label th:for="claimed">Claim</label>
             <input type="submit" value="Claim this Opportunity?" class="form-control" th:field="*{claimed}" />
         </div>
-
-        <div th:if="${userClaimed and !userCompleted}"  class="form-group">
-            <label th:for="completed">Complete</label>
-            <input type="submit" value="Complete this opportunity?" class="form-control" th:field="*{completed}" />
-        </div>
-
+        <!--<div th:if="${userClaimed and !userCompleted}"  class="form-group">-->
+            <!--<label th:for="completed">Complete</label>-->
+            <!--<input type="submit" value="Complete this opportunity?" class="form-control" th:field="*{completed}" />-->
+        <!--</div>-->
     </form>
 
     <!--Panel for Google Map-->
@@ -54,7 +52,12 @@
             Panel footer
         </div>
     </div>
-
+    <h2 th:text="Attending" class="list-group-item-heading"></h2>
+    <div th:each="user : ${opportunity.getClaimingUsers()}" class="list-group-item">
+        <p th:text="${user.username}" class="list-group-item-text"></p>
+        <label th:for="${user.id}" th:text="${user.username}"></label>
+        <br/>
+    </div>
     <!--Script files for Google Maps and display-->
     <script type="text/javascript" th:src="@{/js/map.js}" />
     <script async="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC62aaJK4X6p9ZrYKrkoecZx4uUo2S8DnQ&amp;callback=initMap" />

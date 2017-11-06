@@ -3,17 +3,18 @@
 @import url('https://fonts.googleapis.com/css?family=Raleway:600i');
 
 
-html, body {
-  height: 100%;
-}
+
 
 
   /*-------------landing page text styling---------------*/
 
+body {
+  background: #fff url('https://subtlepatterns.com/patterns/gplaypattern.png') repeat;
+}
 
-  #body-color {
+#body-color {
     background-color: white;
-  }
+}
 
 
 /* ------------------- Carousel Styling ------------------- */
@@ -98,7 +99,6 @@ html, body {
 #socmedia {
   text-align: center;
   width: 100%;
-  top: 40%;
   background: -webkit-linear-gradient(left, #0000ff, #008000);
   background: -moz-linear-gradient(left, #0000ff, #008000);
   background: linear-gradient(left, #0000ff, #008000);
@@ -214,9 +214,9 @@ html, body {
 @media screen and (max-width: 1020px) {
 
   #payquestion {
-     margin-top: 200px;
+     margin-top: 300px;
      width: 100%;
-     height: 12rem;
+     height: 17rem;
      padding: 3%;
   }
 
@@ -228,31 +228,29 @@ html, body {
 
 }
 
+
+
 /*-------------- foooter ---------------*/
 
 @media screen and (max-width: 1020px) {
 
     #footer {
-        margin-top: 275px;
+        margin-top: 70rem;
     }
 }
 
 
 /*---------------- myprofile landscape ---------------*/
 
-body {
-  background: #fff url('https://subtlepatterns.com/patterns/gplaypattern.png') repeat;
-}
 
 
 
 
-/*  myprofile layout 3rd design  */
+/*-------------------- myprofile user display ------------------------*/
 
 
 
-.img-circle {
-max-width: 150px; }
+
 
 #profile-background {
     background: #fff url('https://subtlepatterns.com/patterns/use_your_illusion.png') repeat;
@@ -263,50 +261,24 @@ max-width: 150px; }
     color: aqua;
     }
 
-.profile
-{
-    min-height: 355px;
-    display: inline-block;
-    }
-figcaption.ratings
-{
-    margin-top:20px;
-    }
-figcaption.ratings a
-{
-    color:#f1c40f;
-    font-size:11px;
-    }
-figcaption.ratings a:hover
-{
-    color:#f39c12;
-    text-decoration:none;
-    }
+
+
+
+
 .divider
 {
     border-top:1px solid rgba(0,0,0,0.1);
     }
 
-.emphasis h2
-{
-    margin-bottom:0;
-    }
-span.tags
-{
-    background: #1abc9c;
-    border-radius: 2px;
-    color: #f5f5f5;
-    font-weight: bold;
-    padding: 2px 4px;
-    }
+
+
 .dropdown-menu
 {
     background-color: #34495e;
     box-shadow: none;
     -webkit-box-shadow: none;
     width: 250px;
-    margin-left: -125px;
-    left: 50%;
+    margin-left: -10px;
     }
 .dropdown-menu .divider
 {
@@ -331,4 +303,8 @@ span.tags
     left: 50%;
     margin-left: -10px;
     z-index: 10;
+    }
+
+figure {
+    max-image-width: 250px;
     }

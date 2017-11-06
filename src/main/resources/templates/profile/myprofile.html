@@ -36,7 +36,7 @@
                     </div>
                     <div class="col-xs-12 col-sm-4 text-center">
                         <figure>
-                            <img style="margin: auto;" src="https://supercharge.info/images/avatar-placeholder.png" alt="" class="img-circle img-responsive"/>
+                            <img style="margin: auto;" id="userPic" th:src="@{/upload-dir/{id}/{photoName}(id=${user.id}, photoName=${photoName})}" class="img-circle img-responsive" onerror="standby()"/>
                             <figcaption class="ratings">
                                 <p>Ratings
                                     <a href="#">
@@ -99,4 +99,5 @@
 </div>
 
 </body>
+<script type="text/javascript" th:src="@{/js/image.js}" />
 </html>

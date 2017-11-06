@@ -1,6 +1,6 @@
 # payitforward
 
-Java/Spring Boot web app that lets users create accounts and submit/view/claim/complete "opportunities". 
+Java/Spring Boot web app that lets users create accounts and submit/view/claim/complete "opportunities."
 An "opportunity" is defined as a request for volunteers to help with a task. Users can be individuals or existing community/philanthropic groups.
 
 
@@ -12,8 +12,22 @@ What you'll need: MAMP and IntelliJ IDEA
 
 2. Start MAMP and create a user account with username "payitforward" and password "forward".
 
-3. Run the application and view it at localhost:8080.
+3. In IntelliJ, open application.properties.
 
+4. Add the following lines to application.properties:
+
+project.base-dir=file:///[Your path goes here!]
+
+spring.resources.static-locations=${project.base-dir}/src/main/resources/static/
+
+spring.resources.cache-period=0
+
+5. In the text you just pasted, replace "[Your path goes here!]"" with the path to your project.
+If you're unsure of the path, check next to the project name at the top of the navigation pane. If you use Windows, you'll need to change the back slashes to forward slashes.
+
+6. In resources/static, add a directory named "upload-dir".
+
+5. Run the application and view it at localhost:8080.
 
 Test Plan:
 

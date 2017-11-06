@@ -11,6 +11,10 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Controller
 @RequestMapping("profile")
@@ -36,8 +40,14 @@ public class ProfileController {
     @RequestMapping(value="view/{userId}", method = RequestMethod.GET)
     public String viewProfile(Model model, @PathVariable int userId){
 
-        User user = userDao.findOne(userId);
-        model.addAttribute("user", user);
+        User userProfile = userDao.findOne(userId);
+        String userPicture = userProfile.getImageName();
+
+        if(userPicture != null){
+            model.addAttribute("photoName", userPicture);
+        }
+
+        model.addAttribute("user", userProfile);
 
         return "profile/view";
     }
@@ -50,11 +60,16 @@ public class ProfileController {
         if (session.getAttribute("loggedInUser") == null){
             return "redirect:/login";
         }
+
         //get the user from session
         User currentUser = (User) session.getAttribute("loggedInUser");
-
-        // get updated info from db
         User user = userDao.findOne(currentUser.getId());
+
+        String userPicture = user.getImageName();
+
+        if(userPicture != null){
+            model.addAttribute("photoName", userPicture);
+        }
 
         //add user object to model
         model.addAttribute("user", user);

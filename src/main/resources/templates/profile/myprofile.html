@@ -33,6 +33,21 @@
                             <span class="tags">Skill 4</span>
                         </p>
 
+                        <h2>Claimed Opportunities</h2>
+                        <div th:each="opportunity : ${claimedOpportunities}" class="list-group">
+                            <a th:href="@{'/opportunity/' + ${opportunity.id}}" class="list-group-item">
+                                <p th:text="${opportunity.name}" class="list-group-item-heading">User Display Name</p>
+                                <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
+                            </a>
+                        </div>
+                        <h2>Completed Opportunities</h2>
+                        <div th:each="opportunity : ${completedOpportunities}" class="list-group">
+                            <a th:href="@{'/opportunity/' + ${opportunity.id}}" class="list-group-item">
+                                <p th:text="${opportunity.name}" class="list-group-item-heading">User Display Name</p>
+                                <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
+                            </a>
+                        </div>
+
                     </div>
                     <div class="col-xs-12 col-sm-4 text-center">
                         <figure>

@@ -1,5 +1,6 @@
 package com.example.payitforward.controllers;
 
+import com.example.payitforward.models.Opportunity;
 import com.example.payitforward.models.data.OpportunityDao;
 import com.example.payitforward.models.data.UserDao;
 import com.example.payitforward.models.User;
@@ -11,10 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.util.List;
+import java.util.ArrayList;
 
 @Controller
 @RequestMapping("profile")
@@ -65,6 +64,34 @@ public class ProfileController {
         User currentUser = (User) session.getAttribute("loggedInUser");
         User user = userDao.findOne(currentUser.getId());
 
+        List<Opportunity> claimedOpportunities = new ArrayList();
+        List<Opportunity> completedOpportunities = new ArrayList();
+        Iterable<Opportunity> opportunities = opportunityDao.findAll();
+
+        for (Opportunity opp : opportunities) {
+            boolean completed = false;
+            boolean claimed = false;
+            List<User> currentCompletedUsers = opp.getCompletingUsers();
+            for (int i =0; i<currentCompletedUsers.size(); i++){
+                if (currentCompletedUsers.get(i).getId() == user.getId()){
+                    completed = true;
+                }
+            }
+
+            List<User> currentClaimedUsers = opp.getClaimingUsers();
+            for (int i =0; i<currentClaimedUsers.size(); i++){
+                if (currentClaimedUsers.get(i).getId() == user.getId()){
+                    claimed = true;
+                }
+            }
+
+            if (completed) {
+                completedOpportunities.add(opp);
+            } else if (claimed) {
+                claimedOpportunities.add(opp);
+            }
+        }
+
         String userPicture = user.getImageName();
 
         if(userPicture != null){
@@ -73,6 +100,8 @@ public class ProfileController {
 
         //add user object to model
         model.addAttribute("user", user);
+        model.addAttribute("claimedOpportunities", claimedOpportunities);
+        model.addAttribute("completedOpportunities", completedOpportunities);
 
         return "profile/myprofile";
     }

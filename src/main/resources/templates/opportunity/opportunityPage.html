@@ -21,7 +21,6 @@
         <div th:if="${isCreator}">
             <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit</a>
             <a th:href="@{'/opportunity/remove/' + ${opportunity.id}}">Remove</a>
-            <a th:href="@{'/opportunity/manage/' + ${opportunity.id}}">Manage Claimed Users</a>
         </div>
     </div>
 
@@ -34,10 +33,10 @@
             <label th:for="claimed">Claim</label>
             <input type="submit" value="Claim this Opportunity?" class="form-control" th:field="*{claimed}" />
         </div>
-        <!--<div th:if="${userClaimed and !userCompleted}"  class="form-group">-->
-            <!--<label th:for="completed">Complete</label>-->
-            <!--<input type="submit" value="Complete this opportunity?" class="form-control" th:field="*{completed}" />-->
-        <!--</div>-->
+        <div th:if="${userClaimed and !userCompleted}"  class="form-group">
+            <label th:for="completed">Complete</label>
+            <input type="submit" value="Complete this opportunity?" class="form-control" th:field="*{completed}" />
+        </div>
     </form>
 
     <!--Panel for Google Map-->
@@ -56,7 +55,6 @@
     </div>
     <h2 th:text="Attending" class="list-group-item-heading"></h2>
     <div th:each="user : ${opportunity.getClaimingUsers()}" class="list-group-item">
-        <p th:text="${user.username}" class="list-group-item-text"></p>
         <label th:for="${user.id}" th:text="${user.username}"></label>
         <br/>
     </div>

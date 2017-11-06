@@ -115,12 +115,12 @@ public class OpportunityController {
             opportunityDao.save(opportunityToEdit);
         }
 
-//        else if (currentUser.getId() != creator.getId() && userClaimed==true && userCompleted==false) {
-//
-//            currentCompletedUsers.add(currentUser);
-//            opportunityToEdit.setCompletingUsers(currentCompletedUsers);
-//            opportunityDao.save(opportunityToEdit);
-//        }
+        else if (currentUser.getId() != creator.getId() && userClaimed==true && userCompleted==false) {
+
+            currentCompletedUsers.add(currentUser);
+            opportunityToEdit.setCompletingUsers(currentCompletedUsers);
+            opportunityDao.save(opportunityToEdit);
+        }
 
         else if (currentUser.getId() == creator.getId() || userCompleted==true) {
 
@@ -134,7 +134,7 @@ public class OpportunityController {
     public String displayAddForm(Model model, HttpSession session) {
 
         if (session.getAttribute("loggedInUser") == null){
-            return "redirect:/opportunity";
+            return "redirect:/login";
         }
 
         model.addAttribute("title", "Add Opportunity");
@@ -148,24 +148,28 @@ public class OpportunityController {
     public String processAddForm(@ModelAttribute @Valid Opportunity opportunity,
                              Errors errors, Model model, @RequestParam int claimed, HttpSession session) {
 
-    if (errors.hasErrors()) {
-        model.addAttribute("title", "Add Opportunity");
-        return "opportunity/add";
+        if (session.getAttribute("loggedInUser") == null){
+            return "redirect:/opportunity";
+        }
+
+        if (errors.hasErrors()) {
+            model.addAttribute("title", "Add Opportunity");
+            return "opportunity/add";
+        }
+
+        if(claimed < 1){
+            model.addAttribute("opportunity", opportunity);
+            model.addAttribute("claimedError", "Please request at least 1 volunteer");
+            return "opportunity/edit";
+        }
+
+        User currentUser = (User) session.getAttribute("loggedInUser");
+
+        opportunity.setOpportunityCreator(currentUser);
+        opportunityDao.save(opportunity);
+
+        return "redirect:/opportunity";
     }
-
-    if(claimed < 1){
-        model.addAttribute("opportunity", opportunity);
-        model.addAttribute("claimedError", "Please request at least 1 volunteer");
-        return "opportunity/edit";
-    }
-
-    User currentUser = (User) session.getAttribute("loggedInUser");
-
-    opportunity.setOpportunityCreator(currentUser);
-    opportunityDao.save(opportunity);
-
-    return "redirect:/opportunity";
-}
 
     @RequestMapping(value = "remove/{opportunityId}", method = RequestMethod.GET)
     public String displayRemoveOpportunityForm(Model model, @PathVariable int opportunityId, HttpSession session) {
@@ -197,45 +201,6 @@ public class OpportunityController {
         opportunityDao.delete(opportunityToRemove);
 
         return "redirect:/opportunity/";
-    }
-
-    @RequestMapping(value = "manage/{opportunityId}", method = RequestMethod.GET)
-    public String displayManageOpportunityForm(Model model, HttpSession session, @PathVariable int opportunityId) {
-
-        if (session.getAttribute("loggedInUser") == null){
-            return "redirect:/opportunity";
-        }
-
-        User currentUser = (User) session.getAttribute("loggedInUser");
-
-        Opportunity opportunityToManage = opportunityDao.findOne(opportunityId);
-
-        User creator = opportunityToManage.getOpportunityCreator();
-
-        if (currentUser.getId() != creator.getId()){
-            return "redirect:/opportunity";
-        }
-
-        model.addAttribute("opportunity", opportunityToManage);
-        model.addAttribute("title", "Manage Claiming Users");
-
-        return "opportunity/manage";
-    }
-
-    @RequestMapping(value = "manage/{opportunityId}", method = RequestMethod.POST)
-    public String processManage(@RequestParam int userIds[], @PathVariable int opportunityId){
-
-        Opportunity opportunityToManage = opportunityDao.findOne(opportunityId);
-
-        List<User> currentCompletedUsers = opportunityToManage.getCompletingUsers();
-
-        for (int  user :  userIds) {
-            currentCompletedUsers.add(userDao.findOne(user));
-
-        }
-        opportunityToManage.setCompletingUsers(currentCompletedUsers);
-        opportunityDao.save(opportunityToManage);
-        return "redirect:/opportunity";
     }
 
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.GET)

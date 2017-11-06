@@ -22,8 +22,8 @@ project.base-dir=file:///[Your path goes here!]
 spring.resources.static-locations=${project.base-dir}/src/main/resources/static/
 spring.resources.cache-period=0
 
-5. In the text you just pasted, replace [Your path goes here!] with the path to your project.
-If you're unsure of the path, right-click in the navigation pane and select "Copy Path." If you use Windows, you'll need to change the back slashes to forward slashes.
+5. In the text you just pasted, replace "[Your path goes here!]"" with the path to your project.
+If you're unsure of the path, check next to the project name at the top of the navigation pane. If you use Windows, you'll need to change the back slashes to forward slashes.
 
 5. Run the application and view it at localhost:8080.
 

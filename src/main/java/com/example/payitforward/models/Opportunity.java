@@ -47,7 +47,6 @@ public class Opportunity{
 
     private String date;
 
-
     @ManyToMany
     private List<User> claimingUsers;
 

@@ -15,7 +15,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-public class Opportunity{
+public class Opportunity {
 
     @Id
     @GeneratedValue
@@ -53,17 +53,6 @@ public class Opportunity{
 
     @ManyToMany
     private List<User> completingUsers;
-
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    @ManyToOne
-    private Category category;
 
     public Opportunity(String name, String description) {
         this.name = name;

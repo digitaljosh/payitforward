@@ -17,8 +17,8 @@
             <p>Spots left: <span th:text="${opportunity.claimed}" class="list-group-item-text"></span></p>
             <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
         </div>
-        <div th:if="${isCreator}">
-            <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit</a>
+        <div id="opp-edit-remove" th:if="${isCreator}">
+            <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit |</a>
             <a th:href="@{'/opportunity/remove/' + ${opportunity.id}}">Remove</a>
         </div>
     </div>

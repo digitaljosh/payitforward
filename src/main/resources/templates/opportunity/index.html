@@ -9,7 +9,7 @@
 
 <div class="container">
     <p th:unless="${opportunities} and ${opportunities.size()}">No opportunities are available right now.</p>
-    <p>To add an opportunity, click <a href="/opportunity/add">here.</a></p>
+    <p>To add an opportunity, click <a style="color: black;" href="/opportunity/add">here.</a></p>
 
     <div th:each="opportunity : ${opportunities}" class="list-group">
         <a th:href="@{'/opportunity/' + ${opportunity.id}}" class="list-group-item">

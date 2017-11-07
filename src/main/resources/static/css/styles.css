@@ -310,3 +310,7 @@ body {
 #userPic {
     max-width: 225px;    }
 
+/*---------------- opportunity edit/remove link  ---------------*/
+
+#opp-edit-remove a {
+    color: black; }

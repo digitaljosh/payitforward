@@ -149,7 +149,7 @@ public class OpportunityController {
                              Errors errors, Model model, @RequestParam int claimed, HttpSession session) {
 
         if (session.getAttribute("loggedInUser") == null){
-            return "redirect:/opportunity";
+            return "redirect:/login";
         }
 
         if (errors.hasErrors()) {

@@ -12,6 +12,7 @@
 <div class="container">
     <h1 th:text="${title}">Default Title</h1>
     <p th:if="${opportunity.getClaimingUsers().size() == 0}"> no claimed users! :( </p>
+    <p th:if="${opportunity.getClaimingUsers().size() > 0}"> Manage claimed users. If all claimed users have completed, the list is empty :( </p>
     <form method="post">
         <div th:each="user : ${opportunity.getClaimingUsers()}" class="checkbox">
             <div th:unless="${#lists.contains(opportunity.completingUsers, user)}">
@@ -21,7 +22,7 @@
             </div>
         </div>
             <br/>
-        <input type="submit" value="Set Completing Users" />
+        <input th:if="${opportunity.getClaimingUsers().size() == 0}" type="submit" value="Set Completing Users" />
     </form>
 </div>
 </body>

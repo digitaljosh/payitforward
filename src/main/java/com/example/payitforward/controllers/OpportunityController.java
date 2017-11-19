@@ -1,9 +1,11 @@
 package com.example.payitforward.controllers;
 
+import com.example.payitforward.models.Category;
+import com.example.payitforward.models.Opportunity;
 import com.example.payitforward.models.User;
+import com.example.payitforward.models.data.CategoryDao;
 import com.example.payitforward.models.data.OpportunityDao;
 import com.example.payitforward.models.data.UserDao;
-import com.example.payitforward.models.Opportunity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,9 +13,9 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("opportunity")
@@ -24,6 +26,9 @@ public class OpportunityController {
 
     @Autowired
     OpportunityDao opportunityDao;
+
+    @Autowired
+    CategoryDao categoryDao;
 
 
     @RequestMapping(value = "")
@@ -115,12 +120,12 @@ public class OpportunityController {
             opportunityDao.save(opportunityToEdit);
         }
 
-        else if (currentUser.getId() != creator.getId() && userClaimed==true && userCompleted==false) {
-
-            currentCompletedUsers.add(currentUser);
-            opportunityToEdit.setCompletingUsers(currentCompletedUsers);
-            opportunityDao.save(opportunityToEdit);
-        }
+//        else if (currentUser.getId() != creator.getId() && userClaimed==true && userCompleted==false) {
+//
+//            currentCompletedUsers.add(currentUser);
+//            opportunityToEdit.setCompletingUsers(currentCompletedUsers);
+//            opportunityDao.save(opportunityToEdit);
+//        }
 
         else if (currentUser.getId() == creator.getId() || userCompleted==true) {
 
@@ -134,11 +139,13 @@ public class OpportunityController {
     public String displayAddForm(Model model, HttpSession session) {
 
         if (session.getAttribute("loggedInUser") == null){
-            return "redirect:/login";
+            return "redirect:/opportunity";
         }
+
 
         model.addAttribute("title", "Add Opportunity");
         model.addAttribute(new Opportunity());
+        model.addAttribute("categories", categoryDao.findAll());
 
 
         return "opportunity/add";
@@ -146,30 +153,43 @@ public class OpportunityController {
 
     @RequestMapping(value = "add", method = RequestMethod.POST)
     public String processAddForm(@ModelAttribute @Valid Opportunity opportunity,
-                             Errors errors, Model model, @RequestParam int claimed, HttpSession session) {
+                                 Errors errors, Model model, @RequestParam int claimed, @RequestParam(defaultValue = "0", required = false) Integer categoryId, HttpSession session){
 
-        if (session.getAttribute("loggedInUser") == null){
-            return "redirect:/login";
-        }
 
         if (errors.hasErrors()) {
             model.addAttribute("title", "Add Opportunity");
             return "opportunity/add";
         }
 
-        if(claimed < 1){
+        if (claimed < 1) {
             model.addAttribute("opportunity", opportunity);
             model.addAttribute("claimedError", "Please request at least 1 volunteer");
-            return "opportunity/edit";
+            return "opportunity/add";
         }
 
         User currentUser = (User) session.getAttribute("loggedInUser");
 
+
+
+        if (categoryDao.findOne(categoryId) != null){
+            Category category = categoryDao.findOne(categoryId);
+            opportunity.setCategory(category);
+        }
+        else{
+
+
+            opportunity.setCategory(null);
+
+        }
+
         opportunity.setOpportunityCreator(currentUser);
         opportunityDao.save(opportunity);
 
+
+
         return "redirect:/opportunity";
     }
+
 
     @RequestMapping(value = "remove/{opportunityId}", method = RequestMethod.GET)
     public String displayRemoveOpportunityForm(Model model, @PathVariable int opportunityId, HttpSession session) {
@@ -203,6 +223,44 @@ public class OpportunityController {
         return "redirect:/opportunity/";
     }
 
+    @RequestMapping(value = "manage/{opportunityId}", method = RequestMethod.GET)
+    public String displayManageOpportunityForm(Model model, HttpSession session, @PathVariable int opportunityId) {
+
+        if (session.getAttribute("loggedInUser") == null){
+            return "redirect:/opportunity";
+        }
+
+        User currentUser = (User) session.getAttribute("loggedInUser");
+
+        Opportunity opportunityToManage = opportunityDao.findOne(opportunityId);
+
+        User creator = opportunityToManage.getOpportunityCreator();
+
+        if (currentUser.getId() != creator.getId()){
+            return "redirect:/opportunity";
+        }
+
+        model.addAttribute("opportunity", opportunityToManage);
+        model.addAttribute("title", "Manage Claiming Users");
+
+        return "opportunity/manage";
+    }
+
+    @RequestMapping(value = "manage/{opportunityId}", method = RequestMethod.POST)
+    public String processManage(@RequestParam int userIds[], @PathVariable int opportunityId){
+
+        Opportunity opportunityToManage = opportunityDao.findOne(opportunityId);
+
+        List<User> currentCompletedUsers = opportunityToManage.getCompletingUsers();
+
+        for (int  user :  userIds) {
+            currentCompletedUsers.add(userDao.findOne(user));
+        }
+        opportunityToManage.setCompletingUsers(currentCompletedUsers);
+        opportunityDao.save(opportunityToManage);
+        return "redirect:/opportunity";
+    }
+
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.GET)
     public String displayEditForm(Model model, @PathVariable int opportunityId, HttpSession session) {
 
@@ -221,6 +279,7 @@ public class OpportunityController {
         }
 
         model.addAttribute("opportunity", opportunityToEdit);
+        model.addAttribute("categories", categoryDao.findAll());
 
         return "opportunity/edit";
 
@@ -228,8 +287,8 @@ public class OpportunityController {
 
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.POST)
     public String processEditOpportunityForm(@ModelAttribute @Valid Opportunity opportunity, Errors errors, Model model,
-                                  @RequestParam String name, String description, String location, int claimed,
-                                  @PathVariable int opportunityId, @RequestParam String date) {
+                                             @RequestParam String name, String description, String location, int claimed,
+                                             @PathVariable int opportunityId, @RequestParam String date, @RequestParam int categoryId) {
 
         if(errors.hasErrors()){
             model.addAttribute("opportunity", opportunity);
@@ -242,12 +301,17 @@ public class OpportunityController {
             return "opportunity/edit";
         }
 
+
+
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
+       // Category cat = categoryDao.findOne(categoryId);
 
         opportunityToEdit.setName(name);
         opportunityToEdit.setDescription(description);
         opportunityToEdit.setLocation(location);
         opportunityToEdit.setClaimed(claimed);
+        opportunityToEdit.setDate(date);
+        //opportunityToEdit.setCategory(cat);
 
         opportunityDao.save(opportunityToEdit);
 

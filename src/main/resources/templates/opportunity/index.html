@@ -4,12 +4,13 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
+<div style="height: 110px;"></div>
 
 <body>
 
 <div class="container">
-    <p th:unless="${opportunities} and ${opportunities.size()}">No opportunities are available right now.</p>
-    <p>To add an opportunity, click <a style="color: black;" href="/opportunity/add">here.</a></p>
+    <p th:unless="${opportunities} and ${opportunities.size()}">no opportunities :(</p>
+    <p>To add an opportunity, click <a href="/opportunity/add"> here</a></p>
 
     <div th:each="opportunity : ${opportunities}" class="list-group">
         <a th:href="@{'/opportunity/' + ${opportunity.id}}" class="list-group-item">
@@ -17,7 +18,10 @@
             <p th:text="${opportunity.description}" class="list-group-item-text"></p>
             <p th:text="${opportunity.location}" class="list-group-item-text"></p>
             <p th:text="${opportunity.date}" class="list-group-item-text"></p>
-            <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
+            <div th:unless="${opportunity.getCategory() == NULL}">
+                <p th:text="${opportunity.category.name}" class="list-group-item-text"></p>
+            </div>
+            <p>Created by: <span th:text="${opportunity.getOpportunityCreator() == null ? '' : opportunity.getOpportunityCreator().username}"></span></p>
         </a>
     </div>
 </div>

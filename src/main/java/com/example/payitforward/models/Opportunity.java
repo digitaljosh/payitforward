@@ -1,6 +1,5 @@
 package com.example.payitforward.models;
 
-import javax.persistence.Entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -27,11 +26,16 @@ public class Opportunity {
     @NotNull
     @Size(min=2, message = "Please give the location of this opportunity")
     private String location;
-
+    
     private int claimed;
 
-    @NotNull
-    @Size(min=2, message = "Please give a date for this opportunity")
+//    @Temporal(TemporalType.TIMESTAMP)
+//    private Date year;
+
+    public String getDate() { return date; }
+
+    public void setDate(String date) { this.date = date; }
+
     private String date;
 
     @ManyToMany
@@ -39,6 +43,17 @@ public class Opportunity {
 
     @ManyToMany
     private List<User> completingUsers;
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    @ManyToOne
+    private Category category;
 
     public Opportunity(String name, String description) {
         this.name = name;
@@ -86,9 +101,5 @@ public class Opportunity {
     public List<User> getCompletingUsers() {return completingUsers; }
 
     public void setCompletingUsers(List<User> completingUsers) { this.completingUsers = completingUsers; }
-
-    public String getDate() { return date; }
-
-    public void setDate(String date) { this.date = date; }
 
 }

@@ -1,18 +1,18 @@
 package com.example.payitforward.controllers;
 
 import com.example.payitforward.models.Category;
+import com.example.payitforward.models.Opportunity;
 import com.example.payitforward.models.data.CategoryDao;
+import com.example.payitforward.models.data.OpportunityDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 
 
 @Controller
@@ -21,6 +21,9 @@ public class CategoryController {
 
     @Autowired
     private CategoryDao categoryDao;
+
+    @Autowired
+    private OpportunityDao opportunityDao;
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -53,4 +56,17 @@ public class CategoryController {
         categoryDao.save(category);
         return "redirect:/category/";
     }
+
+    @RequestMapping(value = "{categoryId}", method = RequestMethod.GET)
+    public String searchByCategory(Model model, @PathVariable int categoryId){
+
+        Category correctCategory = categoryDao.findOne(categoryId);
+
+        model.addAttribute("title", "Opportunities");
+        model.addAttribute("opportunities", opportunityDao.findAll());
+
+        return "category/searchByCategory";
+    }
+
+
 }

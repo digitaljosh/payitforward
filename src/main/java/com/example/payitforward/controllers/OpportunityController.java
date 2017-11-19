@@ -256,8 +256,10 @@ public class OpportunityController {
         for (int  user :  userIds) {
             currentCompletedUsers.add(userDao.findOne(user));
         }
+
         opportunityToManage.setCompletingUsers(currentCompletedUsers);
         opportunityDao.save(opportunityToManage);
+
         return "redirect:/opportunity";
     }
 

@@ -22,7 +22,7 @@
             </div>
         </div>
             <br/>
-        <input th:if="${opportunity.getClaimingUsers().size() == 0}" type="submit" value="Set Completing Users" />
+        <input th:unless="${opportunity.getClaimingUsers().size() == 0}" type="submit" value="Set Completing Users" />
     </form>
 </div>
 </body>

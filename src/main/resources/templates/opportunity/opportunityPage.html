@@ -6,7 +6,6 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<div style="height: 110px;"></div>
 
 <div class="container">
     <div th:object="${opportunity}" class="list-group">
@@ -28,7 +27,7 @@
         </div>
     </div>
 
-    <div th:if="${userClaimed and !userCompleted}"><p>You've have claimed this opportunity!</p></div>
+    <div th:if="${userClaimed and !userCompleted}"><p>You have claimed this opportunity!</p></div>
     <div th:if="${userCompleted}"><p>You have completed this opportunity!</p></div>
     <div th:if="${!userClaimed and opportunity.claimed==0}"><p>Sorry, there are no more spots to claim!</p></div>
 

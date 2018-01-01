@@ -1,21 +1,24 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head"></head>
-<body class="container">
-<h1 th:text="${title}">Default Title</h1>
+<body>
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<p th:unless="${categories} and ${categories.size()}">No categories yet :(</p>
+<div class="container">
+    <h1 th:text="${title}">Default Title</h1>
 
-<h1 th:if="${categories} and ${categories.size()}">Community made categories! Feel free to add! :)</h1>
 
-<a th:href="@{/category/add/}">Add Categories</a>
+    <p th:unless="${categories} and ${categories.size()}">No categories yet :(</p>
 
-<ul th:each="category : ${categories}">
-    <a th:href="@{'/category/' + ${category.id}}" ><li th:text="${category.name}"></li></a>
-</ul>
+    <h1 th:if="${categories} and ${categories.size()}">Community made categories! Feel free to add! :)</h1>
 
+    <a th:href="@{/category/add/}">Add Categories</a>
+
+    <ul th:each="category : ${categories}">
+        <a th:href="@{'/category/' + ${category.id}}" ><li th:text="${category.name}"></li></a>
+    </ul>
+</div>
 
 
 </body>

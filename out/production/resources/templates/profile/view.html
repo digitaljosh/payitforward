@@ -11,9 +11,13 @@
     <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" rel="stylesheet"/>
 
 </head>
+
 <body>
 
 <nav th:replace="fragments :: navigation"></nav>
+
+
+
 
 <div th:object="${user}" style="max-width: 600px;" id="profile-background" class="container well">
     <div class="row">
@@ -48,6 +52,25 @@
                     <p th:text="${opportunity.name}" class="list-group-item-heading">User Display Name</p>
                     <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
                 </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 divider">
+            <div style="margin-top: 15px;" class="btn-group dropup btn-block">
+                <button type="button" class="btn btn-primary"><span class="fa fa-gear"></span> Options </button>
+                <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                </button>
+                <ul class="dropdown-menu text-left" role="menu">
+                    <li><a th:href="@{edit/{id}(id=${user.id})}"><span class="fa fa-pencil pull-right"></span> Edit Profile </a></li>
+                    <li><a href="/upload"><span class="fa fa-picture-o pull-right"></span> Add Picture  </a></li>
+                    <li><a href="/opportunity/add"><span class="fa fa-plus pull-right"></span>Create Opportunity</a></li>
+                    <li class="divider"></li>
+                    <li><a href="/profile/delete" class="btn" role="button"> Delete Profile </a></li>
+                </ul>
             </div>
         </div>
     </div>

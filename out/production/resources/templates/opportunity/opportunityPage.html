@@ -14,27 +14,27 @@
             <p th:text="${opportunity.description}" class="list-group-item-text"></p>
             <p th:text="${opportunity.location}" class="list-group-item-text"></p>
             <p th:text="${opportunity.date}" class="list-group-item-text"></p>
-            <div th:unless="${opportunity.getCategory() == NULL}">
-                <a th:href="@{'/category/' + ${opportunity.category.id}}"><span th:text="${opportunity.category.name}" class="list-group-item-text"></span></a>
-            </div>
             <p>Spots left: <span th:text="${opportunity.claimed}" class="list-group-item-text"></span></p>
             <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
         </div>
-        <div th:if="${isCreator}">
-            <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit</a>
+        <div id="opp-edit-remove" th:if="${isCreator}">
+            <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit |</a>
             <a th:href="@{'/opportunity/remove/' + ${opportunity.id}}">Remove</a>
-            <a th:href="@{'/opportunity/manage/' + ${opportunity.id}}">Manage Claimed Users</a>
         </div>
     </div>
 
-    <div th:if="${userClaimed and !userCompleted}"><p>You have claimed this opportunity!</p></div>
-    <div th:if="${userCompleted}"><p>You have completed this opportunity!</p></div>
+    <div th:if="${userClaimed and !userCompleted}"><p>You've claimed this opportunity!</p></div>
+    <div th:if="${userCompleted}"><p>You've completed this opportunity!</p></div>
     <div th:if="${!userClaimed and opportunity.claimed==0}"><p>Sorry, there are no more spots to claim!</p></div>
 
     <form method="post" style="max-width:600px;" th:object="${opportunity}">
         <div th:if="${#object.claimed > 0 and !userClaimed and !isCreator}"  class="form-group">
             <label th:for="claimed">Claim</label>
             <input type="submit" value="Claim this Opportunity?" class="form-control" th:field="*{claimed}" />
+        </div>
+        <div th:if="${userClaimed and !userCompleted}"  class="form-group">
+            <label th:for="completed">Complete</label>
+            <input type="submit" value="Complete this opportunity?" class="form-control" th:field="*{completed}" />
         </div>
     </form>
 
@@ -54,7 +54,6 @@
     </div>
     <h2 th:text="Attending" class="list-group-item-heading"></h2>
     <div th:each="user : ${opportunity.getClaimingUsers()}" class="list-group-item">
-        <p th:text="${user.username}" class="list-group-item-text"></p>
         <label th:for="${user.id}" th:text="${user.username}"></label>
         <br/>
     </div>

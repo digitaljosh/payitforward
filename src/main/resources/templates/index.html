@@ -18,67 +18,67 @@
 
 
 
-<div class="container">
-    <div id="myCarousel" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-            <li data-target="#myCarousel" data-slide-to="1"></li>
-            <li data-target="#myCarousel" data-slide-to="2"></li>
-            <li data-target="#myCarousel" data-slide-to="3"></li>
-            <li data-target="#myCarousel" data-slide-to="4"></li>
-            <li data-target="#myCarousel" data-slide-to="5"></li>
-            <li data-target="#myCarousel" data-slide-to="6"></li>
-            <li data-target="#myCarousel" data-slide-to="7"></li>
-        </ol>
+    <div class="tcb-bs-fullscreen">
+        <div id="myCarousel" class="my-carousel carousel slide carousel-bg" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+                <li data-target="#myCarousel" data-slide-to="1"></li>
+                <li data-target="#myCarousel" data-slide-to="2"></li>
+                <li data-target="#myCarousel" data-slide-to="3"></li>
+                <li data-target="#myCarousel" data-slide-to="4"></li>
+                <li data-target="#myCarousel" data-slide-to="5"></li>
+                <li data-target="#myCarousel" data-slide-to="6"></li>
+                <li data-target="#myCarousel" data-slide-to="7"></li>
+            </ol>
 
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner">
-            <div class="item active">
-                <img th:src="@{/image/pif-logo-edit-1.svg}" alt="logo" style="width:100%; height: 100%;"/>
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img th:src="@{/image/pif-logo-edit-1.svg}" alt="logo" style="width:100%; height: 100%; "/>
+                </div>
+
+                <div class="item">
+                    <img th:src="@{/image/pif-carousel-2.jpg}" alt="image" style="width:100%; height: 100%;"/>
+                </div>
+
+                <div class="item">
+                    <img th:src="@{/image/abigail-keenan-kids.jpg}" alt="image" style="width:100%; height: 100%;"/>
+                </div>
+
+                <div class="item">
+                    <img th:src="@{/image/pif-carousel-3.jpg}" alt="image" style="width:100%; height: 100%;"/>
+                </div>
+
+                <div class="item">
+                <img th:src="@{/image/kristina-litvjak-hand-heart.jpg}" alt="image" style="width:100%; height: 100%;"/>
+                </div>
+
+                <div class="item">
+                    <img th:src="@{/image/pif-carousel-5.jpg}" alt="image" style="width:100%; height: 100%;"/>
+                </div>
+
+                <div class="item">
+                    <img th:src="@{/image/pif-carousel-6.png}" alt="image" style="width:100%; height: 100%;"/>
+                </div>
+
+                <div class="item">
+                    <img th:src="@{/image/roman-kraft-hand-hold.jpg}" alt="image" style="width:100%; height: 100%;"/>
+                </div>
+
             </div>
 
-            <div class="item">
-                <img th:src="@{/image/pif-carousel-2.jpg}" alt="image" style="width:100%; height: 100%;"/>
-            </div>
-
-            <div class="item">
-                <img th:src="@{/image/pif-carousel-1.jpeg}" alt="image" style="width:100%; height: 100%;"/>
-            </div>
-
-            <div class="item">
-                <img th:src="@{/image/pif-carousel-3.jpg}" alt="image" style="width:100%; height: 100%;"/>
-            </div>
-
-            <div class="item">
-            <img th:src="@{/image/pif-carousel-4.jpg}" alt="image" style="width:100%; height: 100%;"/>
-            </div>
-
-            <div class="item">
-                <img th:src="@{/image/pif-carousel-5.jpg}" alt="image" style="width:100%; height: 100%;"/>
-            </div>
-
-            <div class="item">
-                <img th:src="@{/image/pif-carousel-6.png}" alt="image" style="width:100%; height: 100%;"/>
-            </div>
-
-            <div class="item">
-                <img th:src="@{/image/pif-carousel-7.jpg}" alt="image" style="width:100%; height: 100%;"/>
-            </div>
-
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-
-        <!-- Left and right controls -->
-        <a class="left carousel-control" href="#myCarousel" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#myCarousel" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right"></span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
-</div>
 
 <br/>
 <br/>
@@ -132,13 +132,6 @@
         <a class="socicon" href="#"><i class="fa fa-youtube fa-3x"></i></a>
     </div>
 </div>
-
-
-<br/>
-<br/>
-<br/>
-<br/>
-
 
 </body>
 </html>

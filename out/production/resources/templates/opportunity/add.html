@@ -32,14 +32,20 @@
     </div>
     <div class="form-group">
         <label th:for="date">When?</label>
-        <input class="form-control" th:field="*{date}" />
+        <input class="form-control" th:field="*{date}"/>
         <span th:errors="*{date}" class="error"></span>
     </div>
     <div class="form-group">
-        <p>Created by: <span th:text="${session.loggedInUser.username}"></span></p>
+        <label>Category</label>
+                <select name="categoryId">
+                    <option th:each="category : ${categories}"
+                            th:text="${category.name}"
+                            th:value="${category.id}"></option>
+                </select>
     </div>
-
-
+    <div class="form-group">
+        <p>Created by: <span th:text="${session.loggedInUser.displayname != null ? session.loggedInUser.displayname: session.loggedInUser.username}"></span></p>
+    </div>
     <input type="submit" value="Add Opportunity" />
 </form>
 </div>

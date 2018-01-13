@@ -290,7 +290,7 @@ public class OpportunityController {
     @RequestMapping(value = "edit/{opportunityId}", method=RequestMethod.POST)
     public String processEditOpportunityForm(@ModelAttribute @Valid Opportunity opportunity, Errors errors, Model model,
                                              @RequestParam String name, String description, String location, int claimed,
-                                             @PathVariable int opportunityId, @RequestParam String date, @RequestParam int categoryId) {
+                                             @PathVariable int opportunityId, @RequestParam String date, @RequestParam(defaultValue = "0", required = false) Integer categoryId) {
 
         if(errors.hasErrors()){
             model.addAttribute("opportunity", opportunity);
@@ -303,9 +303,20 @@ public class OpportunityController {
             return "opportunity/edit";
         }
 
-
-
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
+
+        if (categoryDao.findOne(categoryId) != null){
+            Category category = categoryDao.findOne(categoryId);
+            opportunityToEdit.setCategory(category);
+        }
+        else{
+
+
+            opportunityToEdit.setCategory(null);
+
+        }
+
+
        // Category cat = categoryDao.findOne(categoryId);
 
         opportunityToEdit.setName(name);

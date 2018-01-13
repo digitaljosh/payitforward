@@ -5,23 +5,22 @@
 <body onload="initialize()">
 
 <nav th:replace="fragments :: navigation"></nav>
+
+<h1 th:text="${title}">Default Title</h1>
 <div class="container">
-    <h1 th:text="${title}">Default Title</h1>
-    <div class="container">
-        <div th:object="${opportunity}" class="list-group">
-            <div class="list-group-item">
-                <h2 th:text="${opportunity.name}" class="list-group-item-heading">Opportunity Name</h2>
-                <p th:text="${opportunity.description}" class="list-group-item-text"></p>
-                <p th:text="${opportunity.location}" class="list-group-item-text"></p>
-                <p>Spots left: <span th:text="${opportunity.claimed}" class="list-group-item-text"></span></p>
-                <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
-            </div>
+    <div th:object="${opportunity}" class="list-group">
+        <div class="list-group-item">
+            <h2 th:text="${opportunity.name}" class="list-group-item-heading">Opportunity Name</h2>
+            <p th:text="${opportunity.description}" class="list-group-item-text"></p>
+            <p th:text="${opportunity.location}" class="list-group-item-text"></p>
+            <p>Spots left: <span th:text="${opportunity.claimed}" class="list-group-item-text"></span></p>
+            <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
         </div>
     </div>
-    <form method="post" style="max-width:600px;" th:object="${opportunity}">
-        <label th:for="remove">Remove</label>
-        <input type="submit" value="Remove this Opportunity?" class="form-control"/>
-    </form>
 </div>
+<form method="post" style="max-width:600px;" th:object="${opportunity}">
+    <label th:for="remove">Remove</label>
+    <input type="submit" value="Remove this Opportunity?" class="form-control"/>
+</form>
 </body>
 </html>

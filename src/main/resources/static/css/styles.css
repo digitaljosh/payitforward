@@ -10,7 +10,6 @@
 
 body {
   background-image: url('https://subtlepatterns.com/patterns/gplaypattern.png');
-  background-color: #22baba;
   background-blend-mode: multiply;
 }
 
@@ -21,8 +20,14 @@ body {
 
 /* ------------------- Carousel Styling ------------------- */
 
+.my-carousel {
+    position: absolute;
+    width: 100%;
+    top: 0;
+    }
+
 .carousel-inner {
-  border-radius: 15px;
+  border-radius: 0px;
 }
 
 .carousel-caption {
@@ -137,10 +142,13 @@ body {
 /*----------------  landing page text animations  --------------*/
 
 #divborder1 {
+    top: 550px;
     height: 14rem;
+    position: relative;
 }
 
 #divborder2 {
+    top: 550px;
     height: 22rem;
     position: relative;
 }
@@ -234,10 +242,14 @@ body {
 
 /*-------------- foooter ---------------*/
 
+#footer {
+    margin-top: 50rem;
+    }
+
 @media screen and (max-width: 1020px) {
 
     #footer {
-        margin-top: 70rem;
+        margin-top: 100rem;
     }
 }
 
@@ -314,3 +326,10 @@ body {
 
 #opp-edit-remove a {
     color: black; }
+
+.my-nav {
+    position: absolute;
+    z-index: 999;
+    width: 100%;
+    top: 5px;
+    }

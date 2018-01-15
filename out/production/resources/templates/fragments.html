@@ -43,7 +43,7 @@ $(function () {
 
 
 <nav th:fragment="navigation" class="navbar navbar-default">
-    <div class="container-fluid">
+    <div class="my-nav container-fluid">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
 
@@ -69,6 +69,7 @@ $(function () {
             <ul class="nav navbar-nav navbar-right primary-nav">
                 <li><a href="/opportunity">Opportunities <span class="sr-only">(current)</span></a></li>
                 <li><a href="/profile">Neighbors</a></li>
+                <li><a href="/category">Categories</a></li>
                 <li th:if="${session.loggedInUser}"><a href="/profile/myprofile">My Profile</a></li>
                 <li th:unless="${session.loggedInUser}"><a href="/signup">Sign Up</a></li>
                 <li th:unless="${session.loggedInUser}"><a href="/login">Log In</a></li>

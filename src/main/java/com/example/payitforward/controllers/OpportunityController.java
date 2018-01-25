@@ -325,7 +325,7 @@ public class OpportunityController {
         opportunityToEdit.setClaimed(claimed);
         opportunityToEdit.setDate(date);
         //opportunityToEdit.setCategory(cat);
-
+        //pulled origin changes
         opportunityDao.save(opportunityToEdit);
 
         return "redirect:/opportunity";

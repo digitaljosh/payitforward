@@ -2,11 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments :: head"></head>
 
-<nav th:replace="fragments :: navigation"></nav>
 
-<div style="height: 110px;"></div>
 
 <body>
+
+<nav th:replace="fragments :: navigation"></nav>
+
+
 <div class="container">
     <p th:unless="${opportunities} and ${opportunities.size()}">no opportunities :(</p>
     <p>To add an opportunity, click <a href="/opportunity/add"> here</a></p>

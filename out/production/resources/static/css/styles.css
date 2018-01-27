@@ -26,14 +26,9 @@ body {
     top: 0;
     }
 
-
-
-
 .carousel-inner {
   border-radius: 0px;
 }
-
-
 
 .carousel-caption {
   background-color: rgba(0,0,0,.5);
@@ -144,7 +139,7 @@ body {
    }
 
 
-/*---------------- landing page text --------------*/
+/*----------------  landing page text animations  --------------*/
 
 #divborder1 {
     top: 550px;
@@ -245,10 +240,11 @@ body {
 
 
 
-/*-------------- footer ---------------*/
+/*-------------- foooter ---------------*/
 
 #footer {
-    margin-top: 50rem;}
+    margin-top: 50rem;
+    }
 
 @media screen and (max-width: 1020px) {
 
@@ -330,9 +326,6 @@ body {
 
 #opp-edit-remove a {
     color: black; }
-
-
-/*--------------------- navbar --------------------------*/
 
 .my-nav {
     position: absolute;

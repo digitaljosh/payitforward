@@ -4,18 +4,21 @@
 
 
 
-
+/*-------------adds background color to mobile menu-----------------*/
+.navbar-collapse.in {
+    background: rgba(5, 5, 5, 0.5)
+}
 
   /*-------------landing page text styling---------------*/
-
-body {
-  background-image: url('https://subtlepatterns.com/patterns/gplaypattern.png');
-  background-blend-mode: multiply;
-}
 
 #body-color {
     background-color: white;
 }
+
+
+/*---------------Media Queries--------------------*/
+
+
 
 
 /* ------------------- Carousel Styling ------------------- */
@@ -333,3 +336,4 @@ body {
     width: 100%;
     top: 5px;
     }
+

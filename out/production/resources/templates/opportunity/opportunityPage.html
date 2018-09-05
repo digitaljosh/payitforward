@@ -6,7 +6,6 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<div style="height: 110px;"></div>
 
 <div class="container">
     <div th:object="${opportunity}" class="list-group">
@@ -21,9 +20,9 @@
             <p>Spots left: <span th:text="${opportunity.claimed}" class="list-group-item-text"></span></p>
             <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
         </div>
-        <div th:if="${isCreator}">
-            <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit</a>
-            <a th:href="@{'/opportunity/remove/' + ${opportunity.id}}">Remove</a>
+        <div style="margin-top: 8px;" th:if="${isCreator}">
+            <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit |</a>
+            <a th:href="@{'/opportunity/remove/' + ${opportunity.id}}">Remove |</a>
             <a th:href="@{'/opportunity/manage/' + ${opportunity.id}}">Manage Claimed Users</a>
         </div>
     </div>

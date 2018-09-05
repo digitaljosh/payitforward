@@ -6,9 +6,10 @@
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<h1 th:text="${title}">Default Title</h1>
+
 <div class="container">
-    <div th:object="${opportunity}" class="list-group">
+    <h1 style="text-align:center;" th:text="${title}">Default Title</h1>
+    <div style="margin-top: 15px;" th:object="${opportunity}" class="list-group">
         <div class="list-group-item">
             <h2 th:text="${opportunity.name}" class="list-group-item-heading">Opportunity Name</h2>
             <p th:text="${opportunity.description}" class="list-group-item-text"></p>
@@ -17,10 +18,10 @@
             <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
         </div>
     </div>
+
+    <form method="post" th:object="${opportunity}">
+        <input type="submit" value="Remove this Opportunity?" class="btn btn-primary"/>
+    </form>
 </div>
-<form method="post" style="max-width:600px;" th:object="${opportunity}">
-    <label th:for="remove">Remove</label>
-    <input type="submit" value="Remove this Opportunity?" class="form-control"/>
-</form>
 </body>
 </html>

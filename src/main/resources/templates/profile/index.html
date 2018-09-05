@@ -9,7 +9,7 @@
 
 
 <div class="container">
-    <div th:each="profile,iterStat : ${profiles}">
+    <div style="display: inline-grid; margin: 8px;" th:each="profile,iterStat : ${profiles}">
         <a th:href="@{profile/view/{id}(id=${profile.id})}">
             <div class="panel panel-primary">
                 <div class="panel-heading">
@@ -35,7 +35,7 @@
                         </a>
                     </ul>
                     <ul th:if="${profile.opportunities.size() == 0}">
-                        <h5>No Posted Opportunities</h5>
+                        <h5>None</h5>
                     </ul>
                 </div>
             </div>

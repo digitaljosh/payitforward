@@ -8,22 +8,40 @@
 
 
 <div class="container">
+    <div style="text-align: center; margin-top: 20px;">
+        <h2 th:text="${opportunity.name}" class="list-group-item-heading">Opportunity Name</h2>
+    </div>
     <div th:object="${opportunity}" class="list-group">
+        <h3 th:text="Details" class="list-group-item-heading"></h3>
         <div class="list-group-item">
-            <h2 th:text="${opportunity.name}" class="list-group-item-heading">Opportunity Name</h2>
-            <p th:text="${opportunity.description}" class="list-group-item-text"></p>
-            <p th:text="${opportunity.location}" class="list-group-item-text"></p>
-            <p th:text="${opportunity.date}" class="list-group-item-text"></p>
-            <div th:unless="${opportunity.getCategory() == NULL}">
-                <a th:href="@{'/category/' + ${opportunity.category.id}}"><span th:text="${opportunity.category.name}" class="list-group-item-text"></span></a>
-            </div>
-            <p>Spots left: <span th:text="${opportunity.claimed}" class="list-group-item-text"></span></p>
-            <p>Created by: <span th:text="${opportunity.getOpportunityCreator().username}"></span></p>
+            <p th:inline="text"><strong>Description:</strong>
+                <em><span th:text="${opportunity.description}" class="list-group-item-text"></span></em>
+            </p>
+            <p th:inline="text"><strong>Location</strong>
+                <em><span th:text="${opportunity.location}" class="list-group-item-text"></span></em>
+            </p>
+            <p th:inline="text"><strong>Date:</strong>
+                <em><span th:text="${opportunity.date}" class="list-group-item-text"></span></em>
+            </p>
+            <p th:inline="text"><strong>Category:</strong>
+                <span th:if="${opportunity.getCategory() != NULL}">
+                    <em><a th:href="@{'/category/' + ${opportunity.category.id}}"><span th:text="${opportunity.category.name}" class="list-group-item-text"></span></a></em>
+                </span>
+                <span th:if="${opportunity.getCategory() == NULL}">
+                    <em><span>No Category Selected</span></em>
+                </span>
+            </p>
+            <p th:inline="text"><strong>Volunteers Needed:</strong>
+                <em><span th:text="${opportunity.claimed}" class="list-group-item-text"></span></em>
+            </p>
+            <p th:inline="text"><strong>Created by:</strong>
+                <em><span th:text="${opportunity.getOpportunityCreator().username}"></span></em>
+            </p>
         </div>
-        <div style="margin-top: 8px;" th:if="${isCreator}">
+        <div style="margin-top: 8px; float: right;" th:if="${isCreator}">
             <a th:href="@{'/opportunity/edit/' + ${opportunity.id}}">Edit |</a>
             <a th:href="@{'/opportunity/remove/' + ${opportunity.id}}">Remove |</a>
-            <a th:href="@{'/opportunity/manage/' + ${opportunity.id}}">Manage Claimed Users</a>
+            <a th:href="@{'/opportunity/manage/' + ${opportunity.id}}">Manage Volunteers</a>
         </div>
     </div>
 
@@ -38,26 +56,45 @@
         </div>
     </form>
 
-    <!--Panel for Google Map-->
-    <div class="panel panel-primary">
-        <div class="panel-heading">
-            <h3 th:text="${opportunity.name}" class="panel-title">Panel primary</h3>
-        </div>
-        <div class="panel-body">
-            <div id="map">
-                <option th:value="${opportunity.location}" id="address" class="hidden"/>
+
+    <!--div for attending people associated with opportunity-->
+    <div class="attending-wrapper">
+        <h3 th:text="Attending" class="list-group-item-heading"></h3>
+        <div th:if="${opportunity.getClaimingUsers()} != NULL">
+            <div th:each="user : ${opportunity.getClaimingUsers()}" class="list-group-item">
+                <p th:text="${user.username}" class="list-group-item-text"></p>
+                <!--<label th:for="${user.id}" th:text="${user.username}"></label>-->
+                <br/>
             </div>
         </div>
-        <div th:text="${opportunity.location}" class="panel-footer">
-            Panel footer
+        <div th:if="${opportunity.getClaimingUsers().isEmpty()}">
+            <div class="list-group-item">
+                <p class="list-group-item-text">No volunteers yet. Claim this opportunity today!</p>
+            </div>
         </div>
     </div>
-    <h2 th:text="Attending" class="list-group-item-heading"></h2>
-    <div th:each="user : ${opportunity.getClaimingUsers()}" class="list-group-item">
-        <p th:text="${user.username}" class="list-group-item-text"></p>
-        <!--<label th:for="${user.id}" th:text="${user.username}"></label>-->
-        <br/>
+
+
+    <!--Panel for Google Map-->
+    <div class="maps-wrapper">
+        <h3 th:text="Location" class="list-group-item-heading"></h3>
+        <div class="panel panel-primary" style="margin-top: 5px;">
+            <div class="panel-heading">
+                <h3 th:text="${opportunity.location}" class="panel-title">Panel primary</h3>
+            </div>
+            <div class="panel-body">
+                <div id="map">
+                    <option th:value="${opportunity.location}" id="address" class="hidden"/>
+                </div>
+            </div>
+            <div th:text="${opportunity.location}" class="panel-footer">
+                Panel footer
+            </div>
+        </div>
     </div>
+
+
+
     <!--Script files for Google Maps and display-->
     <script type="text/javascript" th:src="@{/js/map.js}" />
     <script async="defer" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC62aaJK4X6p9ZrYKrkoecZx4uUo2S8DnQ&amp;callback=initMap" />

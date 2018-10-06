@@ -9,34 +9,36 @@
 
 
 <div class="container">
-    <div style="display: inline-grid; margin: 8px;" th:each="profile,iterStat : ${profiles}">
-        <a th:href="@{profile/view/{id}(id=${profile.id})}">
-            <div class="panel panel-primary">
-                <div class="panel-heading">
-                    <h2 th:text="${profile.username}" class="text-center">User Display Name</h2>
+    <div class="profile-wrapper">
+        <div class="neighbor-panel" th:each="profile,iterStat : ${profiles}">
+            <a th:href="@{profile/view/{id}(id=${profile.id})}">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h2 th:text="${profile.username}" class="text-center">User Display Name</h2>
+                    </div>
+                    <div class="panel-body">
+                        <p th:text="${profile.bio}">Bio</p>
+                    </div>
                 </div>
-                <div class="panel-body">
-                    <p th:text="${profile.bio}">Bio</p>
-                </div>
-            </div>
-        </a>
-        <div class="panel-group">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <h4 class="panel-title text-center">
-                        <a data-toggle="collapse" th:href="|#collapse${iterStat.index}|">
-                            Opportunities</a>
-                    </h4>
-                </div>
-                <div th:id="|collapse${iterStat.index}|" class="panel-collapse collapse">
-                    <ul th:each="opportunity : ${profile.opportunities}" class="list-group">
-                        <a th:href="@{opportunity/{id}(id=${opportunity.id})}">
-                            <li th:text="${opportunity.name}" class="list-group-item">One</li>
-                        </a>
-                    </ul>
-                    <ul th:if="${profile.opportunities.size() == 0}">
-                        <h5>None</h5>
-                    </ul>
+            </a>
+            <div class="panel-group">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h4 class="panel-title text-center">
+                            <a data-toggle="collapse" th:href="|#collapse${iterStat.index}|">
+                                Opportunities</a>
+                        </h4>
+                    </div>
+                    <div th:id="|collapse${iterStat.index}|" class="panel-collapse collapse">
+                        <ul th:each="opportunity : ${profile.opportunities}" class="list-group">
+                            <a th:href="@{opportunity/{id}(id=${opportunity.id})}">
+                                <li th:text="${opportunity.name}" class="list-group-item">One</li>
+                            </a>
+                        </ul>
+                        <ul th:if="${profile.opportunities.size() == 0}">
+                            <h5>None</h5>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>

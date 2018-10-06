@@ -76,6 +76,12 @@ body {
   background-image: none;
 }
 
+.tcb-bs-fullscreen {
+    width: 75%;
+    margin: auto;
+    margin-top: 20px;
+}
+
 
 /* ------------------- Section Styling - Not needed for carousel styling ------------------- */
 
@@ -335,4 +341,42 @@ body {
     }
 
 
+/*---------------- My Neighbors  ---------------*/
 
+.panel {
+    margin-bottom: 0px;
+}
+.neighbor-panel {
+    display: inline-grid;
+    margin: 8px;
+    width: 20%;
+}
+.panel-body {
+    height: 150px;
+    overflow: auto;
+    color: #BC1A1A;
+}
+.profile-wrapper {
+    text-align: center;
+    margin-top: 20px;
+}
+.panel-primary>.panel-heading {
+    background-color: #0958A8;
+    border-color: #0958A8;
+}
+.panel-info>.panel-heading {
+    background-color: #8eb23d;
+
+}
+.panel-info {
+    border-color: #8eb23d;
+}
+
+/*---------------- Opportunities  ---------------*/
+
+.attending-wrapper {
+    margin-top: 40px;
+}
+.maps-wrapper {
+    margin-top: 40px;
+}

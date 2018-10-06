@@ -2,25 +2,22 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org/">
 <head th:replace="fragments :: head">
 
-    <style>
-        div {
-            background-color: white;
-        }
 
-    </style>
 
 </head>
 <body>
 
 <nav th:replace="fragments :: navigation"></nav>
 
-<h1>Upload a Profile Picture</h1>
+<div class="input-style">
+    <h1 style="text-align: center;">Upload a Profile Picture</h1>
 
-<form method="POST" enctype="multipart/form-data">
-    <input type="file" name="file" />
-    <input type="submit" value="Submit" />
-    <span th:text="${error}" class="error"></span>
-</form>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" />
+        <input style="margin-top: 8px;" class="btn btn-primary" type="submit" value="Submit" />
+        <span th:text="${error}" class="error"></span>
+    </form>
+</div>
 
 </body>
 </html>

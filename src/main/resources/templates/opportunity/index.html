@@ -18,7 +18,8 @@
             <div th:unless="${opportunity.getCategory() == NULL}">
                 <p th:text="${opportunity.category.name}" class="list-group-item-text"></p>
             </div>
-            <p>Created by: <span th:text="${opportunity.getOpportunityCreator() == null ? '' : opportunity.getOpportunityCreator().username}"></span></p>
+            <p>Created by: <span style="color: #bb2222;" th:text="${opportunity.getOpportunityCreator() == null ? '' : opportunity.getOpportunityCreator().username}"></span>
+            </p>
         </a>
     </div>
 </div>

@@ -6,47 +6,45 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 
-<div class="container">
+<div class="input-style">
 
-<h1 th:text="${title}">Default Title</h1>
+    <h1 th:text="${title}">Default Title</h1>
 
-<form method="post" style="max-width:600px;" th:object="${user}">
+    <form method="post" style="max-width:600px;" th:object="${user}">
 
-    <div class="form-group">
-        <label th:for="username">Username</label>
-        <input class="form-control" th:field="*{username}" />
-        <div th:if="${usernameMessage}" class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
-            </div>
-            <div th:text="${usernameMessage}" class="panel-body">
-                Error message
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group">
-        <label th:for="password">Password</label>
-        <input type="password" class="form-control" th:field="*{password}" />
-        <div th:if="${passwordMessage}" class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
-            </div>
-            <div th:text="${passwordMessage}" class="panel-body">
-                Error message
+        <div class="form-group">
+            <label th:for="username">Username</label>
+            <input class="form-control" th:field="*{username}" />
+            <div th:if="${usernameMessage}" class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
+                </div>
+                <div th:text="${usernameMessage}" class="panel-body">
+                    Error message
+                </div>
             </div>
         </div>
-    </div>
 
-    <input type="submit" class="btn btn-primary" value="Submit" />
+        <div class="form-group">
+            <label th:for="password">Password</label>
+            <input type="password" class="form-control" th:field="*{password}" />
+            <div th:if="${passwordMessage}" class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
+                </div>
+                <div th:text="${passwordMessage}" class="panel-body">
+                    Error message
+                </div>
+            </div>
+        </div>
 
-    <br/><br/>
+        <input type="submit" class="btn btn-primary" value="Submit" />
 
-    <div>
-        <p>Don't have an account? Sign up for one <a style="color: black;" href="/signup"><strong>here.</strong></a></p>
-    </div>
+        <div style="margin-top: 10px;">
+            <p>Don't have an account? Sign up for one <a style="color: black;" href="/signup"><strong>here.</strong></a></p>
+        </div>
 
-</form>
+    </form>
 </div>
 
 </body>

@@ -156,6 +156,7 @@ public class ProfileController {
 
         User user = userDao.findOne(userId);
         model.addAttribute("user", user);
+        model.addAttribute("title", "Edit Profile");
 
         return "profile/edit";
     }

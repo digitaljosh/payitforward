@@ -6,53 +6,52 @@
 
 
 
-<div class="container">
-<h1 th:text="${title}">Default Title</h1>
+<div class="input-style">
+    <h1 th:text="${title}">Default Title</h1>
 
-<form method="post" style="max-width:600px;" th:object="${user}" id="signupForm">
+    <form method="post" style="max-width:600px;" th:object="${user}" id="signupForm">
 
-    <div class="form-group" id="usernameGroup">
-        <label th:for="username">Username</label>
-        <input class="form-control" id="usernameField" th:field="*{username}" placeholder="Must be between 3 and 15 characters" />
-        <div th:if="${#fields.hasErrors('username')}" class="panel panel-danger" id="errorUsername">
-            <div class="panel-heading">
-                <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
+        <div class="form-group" id="usernameGroup">
+            <label th:for="username">Username</label>
+            <input class="form-control" id="usernameField" th:field="*{username}" placeholder="Must be between 3 and 15 characters" />
+            <div th:if="${#fields.hasErrors('username')}" class="panel panel-danger" id="errorUsername">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
+                </div>
+                <div th:errors="*{username}" class="panel-body">
+                    Error message
+                </div>
             </div>
-            <div th:errors="*{username}" class="panel-body">
-                Error message
-            </div>
-        </div>
-        <div th:if="${message}" class="panel panel-danger">
-            <div class="panel-heading">
-                <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
-            </div>
-            <div th:text="${message}" class="panel-body">
-                Error message
-            </div>
-        </div>
-    </div>
-
-    <div class="form-group" id="passwordGroup">
-        <label th:for="password">Password</label>
-        <input type="password" id="passwordField" name="password" class="form-control" th:field="*{password}" placeholder="Must be between 3 and 15 characters"/>
-        <div th:if="${#fields.hasErrors('password')}" class="panel panel-danger" id="errorPassword">
-            <div class="panel-heading">
-                <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
-            </div>
-            <div th:errors="*{password}" class="panel-body">
-                Error message
+            <div th:if="${message}" class="panel panel-danger">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
+                </div>
+                <div th:text="${message}" class="panel-body">
+                    Error message
+                </div>
             </div>
         </div>
-    </div>
-    <input type="submit" class="btn btn-primary" id="submitButton" value="Submit" />
 
-    <br/><br/>
+        <div class="form-group" id="passwordGroup">
+            <label th:for="password">Password</label>
+            <input type="password" id="passwordField" name="password" class="form-control" th:field="*{password}" placeholder="Must be between 3 and 15 characters"/>
+            <div th:if="${#fields.hasErrors('password')}" class="panel panel-danger" id="errorPassword">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><strong>Oh snap!</strong> Something went terribly wrong...</h3>
+                </div>
+                <div th:errors="*{password}" class="panel-body">
+                    Error message
+                </div>
+            </div>
+        </div>
+        <div style="margin-top: 8px;">
+            <input type="submit" class="btn btn-primary" id="submitButton" value="Submit" />
+        </div>
+        <div style="margin-top: 10px;">
+            <p>Already have an account? Log in <a style="color: black;" href="/login">here.</a></p>
+        </div>
 
-    <div>
-        <p>Already have an account? Log in <a href="/login">here.</a></p>
-    </div>
-
-</form>
+    </form>
 </div>
 </body>
 <script type="text/javascript" th:src="@{/js/signup.js}" />

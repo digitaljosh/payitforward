@@ -241,7 +241,7 @@ public class OpportunityController {
         }
 
         model.addAttribute("opportunity", opportunityToManage);
-        model.addAttribute("title", "Manage Claiming Users");
+        model.addAttribute("title", "Manage Volunteers");
 
         return "opportunity/manage";
     }
@@ -273,14 +273,13 @@ public class OpportunityController {
         User currentUser = (User) session.getAttribute("loggedInUser");
 
         Opportunity opportunityToEdit = opportunityDao.findOne(opportunityId);
-
         User creator = opportunityToEdit.getOpportunityCreator();
 
         if (currentUser.getId() != creator.getId()){
             return "redirect:/opportunity";
         }
 
-        model.addAttribute("opportunity", opportunityToEdit);
+        model.addAttribute("opportunity", opportunityToEdit );
         model.addAttribute("categories", categoryDao.findAll());
 
         return "opportunity/edit";

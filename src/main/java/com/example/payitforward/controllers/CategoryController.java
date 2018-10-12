@@ -37,7 +37,7 @@ public class CategoryController {
     public String add(Model model, HttpSession session) {
 
         if (session.getAttribute("loggedInUser") == null){
-            return "redirect:/category";
+            return "redirect:/login";
         }
         model.addAttribute(new Category());
         model.addAttribute("title", "Add Category");

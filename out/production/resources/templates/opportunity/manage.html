@@ -7,20 +7,23 @@
 <nav th:replace="fragments :: navigation"></nav>
 
 
-<div class="container">
-    <h1 th:text="${title}">Default Title</h1>
-    <p th:if="${opportunity.getClaimingUsers().size() == 0}"> no claimed users! :( </p>
-    <p th:if="${opportunity.getClaimingUsers().size() > 0}"> Manage claimed users. If all claimed users have completed, the list is empty :( </p>
+<div class="input-style">
+    <div style="text-align: center;">
+        <h1 style="margin-bottom: 20px;" th:text="${title}">Default Title</h1>
+        <p th:if="${opportunity.getClaimingUsers().size() == 0}"> No volunteers.</p>
+        <p th:if="${opportunity.getClaimingUsers().size() > 0}"> Select volunteers that helped with your opportunity!</p>
+    </div>
     <form method="post">
-        <div th:each="user : ${opportunity.getClaimingUsers()}" class="checkbox">
+        <div style="text-align: center;" th:each="user : ${opportunity.getClaimingUsers()}" class="checkbox">
             <div th:unless="${#lists.contains(opportunity.completingUsers, user)}">
 
-            <input type="checkbox" name="userIds" th:value="${user.id}" th:id="${user.id}"/>
-            <label th:for="${user.id}" th:text="${user.username}"></label>
+                <input type="checkbox" name="userIds" th:value="${user.id}" th:id="${user.id}"/>
+                <label th:for="${user.id}" th:text="${user.username}"></label>
             </div>
         </div>
-            <br/>
-        <input th:unless="${opportunity.getClaimingUsers().size() == 0}" type="submit" value="Set Completing Users" />
+        <div style="float: right; margin-right: 50px;">
+            <input th:unless="${opportunity.getClaimingUsers().size() == 0}" class="btn btn-primary" type="submit" value="Submit" />
+        </div>
     </form>
 </div>
 </body>

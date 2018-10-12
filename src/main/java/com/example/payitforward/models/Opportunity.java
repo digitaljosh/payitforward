@@ -14,7 +14,7 @@ public class Opportunity {
 
     @NotNull
     @Size(min=3, message = "Please name this opportunity")
-    private String name;
+    public String name;
 
     @NotNull
     @Size(min=3, message = "Please describe this opportunity")

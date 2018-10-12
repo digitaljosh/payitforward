@@ -21,6 +21,7 @@
 
     <form method="post" th:object="${opportunity}">
         <input type="submit" value="Remove this Opportunity?" class="btn btn-primary"/>
+        <a th:href="@{'/opportunity/' + ${opportunity.id}}" class="btn btn-primary">Cancel</a>
     </form>
 </div>
 </body>

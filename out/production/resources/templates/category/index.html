@@ -12,7 +12,11 @@
 
     <p th:unless="${categories} and ${categories.size()}">No categories yet :(</p>
 
-    <a th:href="@{/category/add/}">Add Categories</a>
+    <!--<a th:href="@{/category/add/}">Add Categories</a>-->
+
+    <ul th:each="enuCat : ${enumCats}">
+        <a href="@{'/category/' + ${category.id}}" ><li th:text="${enuCat.name}"></li></a>
+    </ul>
 
     <ul th:each="category : ${categories}">
         <a th:href="@{'/category/' + ${category.id}}" ><li th:text="${category.name}"></li></a>

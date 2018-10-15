@@ -1,6 +1,7 @@
 package com.example.payitforward.controllers;
 
 import com.example.payitforward.models.Category;
+import com.example.payitforward.models.CategoryName;
 import com.example.payitforward.models.Opportunity;
 import com.example.payitforward.models.User;
 import com.example.payitforward.models.data.CategoryDao;
@@ -142,10 +143,12 @@ public class OpportunityController {
             return "redirect:/opportunity";
         }
 
+        // This might need to be accessed through Category Class so it carries the id with it?
+        CategoryName[] categories = CategoryName.values();
 
         model.addAttribute("title", "Add Opportunity");
         model.addAttribute(new Opportunity());
-        model.addAttribute("categories", categoryDao.findAll());
+        model.addAttribute("categories", categories);
 
 
         return "opportunity/add";

@@ -1,6 +1,7 @@
 package com.example.payitforward.controllers;
 
 import com.example.payitforward.models.Category;
+import com.example.payitforward.models.CategoryName;
 import com.example.payitforward.models.Opportunity;
 import com.example.payitforward.models.data.CategoryDao;
 import com.example.payitforward.models.data.OpportunityDao;
@@ -26,10 +27,18 @@ public class CategoryController {
     private OpportunityDao opportunityDao;
 
 
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String index(Model model, @RequestParam(defaultValue = "0") int id) {
+
+        CategoryName[] categories = CategoryName.values();
+        //Category[] categories = Category.values();
+
+        model.addAttribute("enumCats", categories );
         model.addAttribute("title", "Categories");
-        model.addAttribute("categories", categoryDao.findAll());
+       // model.addAttribute("categories", categoryDao.findAll());
+
+
         return "category/index";
     }
 
@@ -39,7 +48,7 @@ public class CategoryController {
         if (session.getAttribute("loggedInUser") == null){
             return "redirect:/login";
         }
-        model.addAttribute(new Category());
+        //model.addAttribute(new Category());
         model.addAttribute("title", "Add Category");
         return "category/add";
     }

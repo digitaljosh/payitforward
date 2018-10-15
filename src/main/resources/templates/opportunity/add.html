@@ -39,8 +39,8 @@
             <label>Category</label>
                     <select name="categoryId">
                         <option th:each="category : ${categories}"
-                                th:text="${category.name}"
-                                th:value="${category.id}"></option>
+                                th:text="${category.name}">
+                                <!--th:value="${category.id}">--></option>
                     </select>
         </div>
         <div class="form-group">

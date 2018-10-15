@@ -21,7 +21,7 @@
                 <label th:for="${user.id}" th:text="${user.username}"></label>
             </div>
         </div>
-        <div style="float: right; margin-right: 50px;">
+        <div style="text-align: center;">
             <input th:unless="${opportunity.getClaimingUsers().size() == 0}" class="btn btn-primary" type="submit" value="Submit" />
         </div>
     </form>
